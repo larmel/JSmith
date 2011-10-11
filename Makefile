@@ -7,8 +7,15 @@
 
 COMPILER = g++
 
-jsgen: src/jsgen/jsgen.cpp
-	$(COMPILER) src/jsgen/jsgen.cpp -o bin/jsgen
+default: generate run
 
+generate: src/generate/jsgen.cpp
+	$(COMPILER) src/generate/jsgen.cpp -o bin/generate
+	
+run: src/run/run.cpp
+	$(COMPILER) src/run/run.cpp -o bin/run
 
+clean:
+	rm bin/run
+	rm bin/generate
 
