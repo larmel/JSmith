@@ -25,6 +25,15 @@ bool invokeSpiderMonkey(const char* file) {
     return retcode == 0;
 }
 
+bool invokeRhino(const char* file) {
+    
+    string command = "/usr/bin/rhino -f " + string(file) + " > test/output";
+    cout << command << endl;
+    
+    int retcode = system(command.c_str());
+    return retcode == 0;
+}
+
 
 int main(int argc, char* argv[]) {
     
@@ -36,10 +45,14 @@ int main(int argc, char* argv[]) {
     char* filename = argv[1];
     
     invokeSpiderMonkey(filename);
-    string s = getOutput();
+    string spiderMonkey = getOutput();
+    
+    invokeRhino(filename);
+    string rhino = getOutput();
     
     cout << "Test Summary" << endl;
-    cout << "SpiderMonkey: \t" << s << endl;
+    cout << "SpiderMonkey: \t" << spiderMonkey << endl;
+    cout << "Rhino: \t\t" << rhino << endl;
     
     return 0;
 }
