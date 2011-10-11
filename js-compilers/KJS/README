@@ -1,0 +1,4 @@
+
+sudo apt-get install kdelibs-bin
+/usr/bin/kjs
+
