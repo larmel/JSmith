@@ -1,0 +1,39 @@
+
+> ./js script.js
+
+To get output, invoke 'write' inside the javascript code
+
+
+
+
+Usage: ./js [options] [[script] scriptArgs*]
+
+  The SpiderMonkey shell provides a command line interface to the 
+  JavaScript engine. Code and file options provided via the command 
+  line are run left to right. If provided, the optional script argument 
+  is run after all options have been processed. Just-In-Time 
+  compilation modes may be enabled via command line options.
+
+Version: JavaScript-C 1.8.5+ 2011-04-16
+
+Arguments:
+  script      A script to execute (after all options)
+  scriptArgs  String arguments to bind as |arguments| in the shell's global
+
+Options:
+  -f --file=PATH     File path to run
+  -e --execute=CODE  Inline code to run
+  -i --shell         Enter prompt after running code
+  -m --methodjit     Enable the JaegerMonkey method JIT
+  -j --tracejit      Enable the JaegerMonkey trace JIT
+  -p --profiling     Enable runtime profiling select JIT mode
+  -n --typeinfer     Enable type inference
+  -d --debugjit      Enable runtime debug mode for method JIT code
+  -a --always-mjit   Do not try to run in the interpreter before method 
+                     jitting. Note that this has no particular effect on the 
+                     tracer; it still kicks in if enabled.
+  -D --dump-bytecode Dump bytecode with exec count for all scripts
+  -b --print-timing  Print sub-ms runtime for each file that's run
+  -U --utf8          C strings passed to the JSAPI are UTF-8 encoded
+  
+  
