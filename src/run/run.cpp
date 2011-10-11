@@ -53,6 +53,15 @@ bool invokeKjs(const char* file)
     return retcode == 0;
 }
 
+bool invokeNarcissus(const char* file)
+{
+    string command = "js-compilers/Narcissus/njs -f " + string(file) + " > test/output";
+    cout << command << endl;
+    
+    int retcode = system(command.c_str());
+    return retcode == 0;
+}
+
 int main(int argc, char* argv[]) 
 {
     char* filename = argv[1];
@@ -69,11 +78,15 @@ int main(int argc, char* argv[])
     invokeKjs(filename);
     string kjs = getOutput();
     
+    invokeNarcissus(filename);
+    string narcissus = getOutput();
+    
     cout << "Test Summary" << endl;
     cout << "SpiderMonkey: \t" << spiderMonkey << endl;
     cout << "Rhino: \t\t" << rhino << endl;
     cout << "V8: \t\t" << v8 << endl;
-    cout << "KJS: \t\t" << v8 << endl;
+    cout << "KJS: \t\t" << kjs << endl;
+    cout << "Narcissus: \t" << narcissus << endl;
     
     return 0;
 }
