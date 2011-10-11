@@ -7,7 +7,8 @@ using namespace std;
 
 const static char* output_file = "test/output";
 
-string getOutput() {
+string getOutput() 
+{
     ifstream file(output_file);
     string s;
     getline(file, s);
@@ -16,8 +17,8 @@ string getOutput() {
 }
 
 
-bool invokeSpiderMonkey(const char* file) {
-    
+bool invokeSpiderMonkey(const char* file) 
+{
     string command = "js-compilers/SpiderMonkey/js " + string(file) + " > test/output";
     cout << command << endl;
     
@@ -25,8 +26,8 @@ bool invokeSpiderMonkey(const char* file) {
     return retcode == 0;
 }
 
-bool invokeRhino(const char* file) {
-    
+bool invokeRhino(const char* file) 
+{
     string command = "/usr/bin/rhino -f " + string(file) + " > test/output";
     cout << command << endl;
     
@@ -34,8 +35,8 @@ bool invokeRhino(const char* file) {
     return retcode == 0;
 }
 
-bool invokeV8(const char* file) {
-    
+bool invokeV8(const char* file) 
+{
     string command = "js-compilers/V8/v8 " + string(file) + " > test/output";
     cout << command << endl;
     
@@ -43,14 +44,17 @@ bool invokeV8(const char* file) {
     return retcode == 0;
 }
 
+bool invokeKjs(const char* file)
+{
+    string command = "/usr/bin/kjs " + string(file) + " > test/output";
+    cout << command << endl;
+    
+    int retcode = system(command.c_str());
+    return retcode == 0;
+}
 
-int main(int argc, char* argv[]) {
-    
-    // Reading a single javascript program from file
-    //  1) Feeding to multiple compilers
-    //  2) Gathering output and comparing
-    //     Report differences. Need to store intermediate results
-    
+int main(int argc, char* argv[]) 
+{
     char* filename = argv[1];
     
     invokeSpiderMonkey(filename);
@@ -62,10 +66,14 @@ int main(int argc, char* argv[]) {
     invokeV8(filename);
     string v8 = getOutput();
     
+    invokeKjs(filename);
+    string kjs = getOutput();
+    
     cout << "Test Summary" << endl;
     cout << "SpiderMonkey: \t" << spiderMonkey << endl;
     cout << "Rhino: \t\t" << rhino << endl;
     cout << "V8: \t\t" << v8 << endl;
+    cout << "KJS: \t\t" << v8 << endl;
     
     return 0;
 }

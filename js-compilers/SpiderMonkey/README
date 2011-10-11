@@ -5,6 +5,7 @@ To get output, invoke print() inside the javascript code
 
 Might be able to install directly from repository
 http://p0l0.binware.org/index.php/2010/05/24/spidermonkey-execute-javascript-from-console/
+http://stackoverflow.com/questions/2807524/building-mozilla-spider-monkey-on-ubuntu
 
 
 
