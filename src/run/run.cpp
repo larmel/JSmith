@@ -81,12 +81,25 @@ int main(int argc, char* argv[])
     invokeNarcissus(filename);
     string narcissus = getOutput();
     
-    cout << "Test Summary" << endl;
-    cout << "SpiderMonkey: \t" << spiderMonkey << endl;
-    cout << "Rhino: \t\t" << rhino << endl;
-    cout << "V8: \t\t" << v8 << endl;
-    cout << "KJS: \t\t" << kjs << endl;
-    cout << "Narcissus: \t" << narcissus << endl;
+    ifstream source(filename);
+    ofstream report("test/report");
+    
+    report << "Test Summary" << endl;
+    report << "SpiderMonkey: \t" << spiderMonkey << endl;
+    report << "Rhino: \t\t" << rhino << endl;
+    report << "V8: \t\t" << v8 << endl;
+    report << "KJS: \t\t" << kjs << endl;
+    
+    report << "Narcissus: \t" << narcissus << endl << endl;
+    
+    string s;
+    while (getline(source, s))
+    {
+        report << s << endl;
+    }
+    
+    report.close();
+    source.close();
     
     return 0;
 }
