@@ -1,0 +1,14 @@
+
+https://help.ubuntu.com/community/WebKit
+
+
+Some of the packages needed
+* libgail-3-dev
+* libsoup2.4-dev
+* libsqlite3-dev
+* libxslt1-dev
+
+problems with libgstreamer. Broken package -.-
+
+
+
