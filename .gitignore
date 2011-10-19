@@ -1,4 +1,5 @@
 bin/
+test/
 js-compilers/SpiderMonkey/js
 test/generated.js
 test/output

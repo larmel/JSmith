@@ -1,0 +1,5 @@
+
+sudo apt-get install rhino
+
+Assuming it is in usr/bin/rhino
+
