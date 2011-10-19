@@ -3,12 +3,18 @@
 
 #include <string>
 #include <cstdlib>
-#include "function.cpp"
+#include <map>
+class Function;
+
+
 
 class Statement {
+
 private:	
 	Function *parent;
     int type;
+    
+    std::string printout;
 	
 public:
 	
@@ -18,8 +24,10 @@ public:
         this->parent = parent;
         int type = rand() % 2;
         
+        //std::map available_variables=parent->get_local_identifiers();
+        
         switch (type) {
-            case 0: 
+            case 0:
                 // Assign something to one of the available variables
                 
                 
