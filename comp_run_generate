@@ -1,0 +1,5 @@
+make generate
+
+./bin/generate > test/generated.js
+
+./bin/run ./test/generated.js
