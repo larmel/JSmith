@@ -10,7 +10,7 @@ COMPILER = g++
 default: generate run
 
 generate: src/generate/jsgen.cpp
-	$(COMPILER) src/generate/jsgen.cpp -o bin/generate
+	$(COMPILER) src/generate/*.cpp -o bin/generate
 	
 run: src/run/run.cpp
 	$(COMPILER) src/run/run.cpp -o bin/run

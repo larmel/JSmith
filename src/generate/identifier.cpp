@@ -1,12 +1,3 @@
-#ifndef IDENTIFIER_CPP
-#define IDENTIFIER_CPP
+#include "identifier.h"
 
-#include <string>
 
-class Identifier {
-public:
-    std::string type;
-    std::string name;
-}; 
-
-#endif
