@@ -1,30 +1,47 @@
+#ifndef PROGRAM_CPP
+#define PROGRAM_CPP
+
 #include "function.cpp"
+#include <map>
+#include "identifier.cpp"
 
 class Program {
 	
 private:
-	vector<Identifier> global_identifiers;
+	std::map<std::string, Identifier> *global_identifiers;
 	
 public:
 	
+	Program(){
+		global_identifiers = new std::map<std::string, Identifier>();
+	}
+	
+	~Program(){
+		delete global_identifiers;
+	}
+	
     void print(std::ostream& out) {
-        out << "var x = 1260" << std::endl;
 		
-		Function f;
+		Function f(NULL, this, 0);
 		f.print(out);
         
     }
 	
-	void main(std::ostream& out) {
+	void main(std::ostream& out)
+	{
 		out << "(function main(){ hash = foo(); print(hash); return 0; })();";
 	}	
 	
-	void get_global_identifiers(){
-		return this.global_identifiers;
+	std::map<std::string, Identifier>::iterator get_global_identifiers()
+	{
+		return this->global_identifiers->begin();
 	}
 	
-	void add_global_identifier(Identifier id){
-		this.global_identifiers.push_back(id);
+	void add_global_identifier(Identifier id)
+	{
+		(*this->global_identifiers)[id.name] = id;
 	}
 	
 }; 
+
+#endif

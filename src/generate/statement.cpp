@@ -6,4 +6,4 @@ public:
 		out << "x = 1;" << std::endl;
 	}
 	
-} ;
+};
