@@ -1,3 +1,4 @@
 bin/
 js-compilers/SpiderMonkey/js
+js-compilers/V8/v8
 
