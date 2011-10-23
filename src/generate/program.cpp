@@ -1,4 +1,6 @@
 #include "program.h"
+#include "Context.h"
+#include "Variable.h"
 
 // CLASS PROGRAM
 	

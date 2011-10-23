@@ -9,10 +9,14 @@ enum Type {
 
 class Variable {
 public:
-    Variable(string s, Type t = Type::NUMBER_T) : type(t), name(s) { };
-
     Type type;
     std::string name;
+    
+    Variable(std::string s, Type t) {
+        this->name = s;
+        this->type = t;
+    };
+
 };
 
 #endif
