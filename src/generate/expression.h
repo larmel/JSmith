@@ -4,12 +4,12 @@
 #include <string>
 #include <cstdlib>
 #include <iostream>
+#include "Variable.h"
 
 
 class Expression {
 private:	
     std::string printout;
-	
 	
 public:
 
