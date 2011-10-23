@@ -3,7 +3,7 @@
  
 #include <iostream>
 #include "Variable.h"
-#include "function.h"
+#include "Function.h"
 #include "expression.h"
 #include <cstdlib>
  

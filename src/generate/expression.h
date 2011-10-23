@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <iostream>
 #include "Variable.h"
-#include "function.h"
+#include "Function.h"
 class Function;
 
 
