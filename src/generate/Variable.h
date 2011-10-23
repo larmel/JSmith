@@ -12,12 +12,6 @@ enum Type {
 
 class Variable {
 public:
-<<<<<<< HEAD
-    Variable(Type t);
-//    Variable(string s, Type t = Type::NUMBER_T) : type(t), name(s) { };
-
-=======
->>>>>>> 76b0da15e256ff1e5f1cc56916af5c4bdb1edc4d
     Type type;
     std::string name;
     
@@ -53,3 +47,4 @@ public:
 };
 
 #endif
+
