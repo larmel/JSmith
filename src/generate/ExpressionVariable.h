@@ -10,8 +10,8 @@
 class ExpressionVariable : public Expression {
 
 private:
-    // TODO: Interface variable class (does not compile)
-    Variable variable;
+    // TODO: Something else than NUMBER_T
+    Variable *variable;
     Function *parent;
 public:
     ExpressionVariable(Function *parent);

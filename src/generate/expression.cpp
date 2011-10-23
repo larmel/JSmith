@@ -3,9 +3,11 @@
 // CLASS EXPRESSION
 
 
-Expression::Expression(Context c) 
+Expression::Expression(Function *function) 
 {
-    gen_type = rand() % 8;
+    this->function = function;
+    
+    int gen_type = rand() % 8;
     
     switch (gen_type) {
     case 0:
@@ -24,14 +26,8 @@ Expression::Expression(Context c)
 void Expression::print(std::ostream &out)
 {
 
-    // TODO: Logic for inserting a decent expression 
-
-    print op1;
-    print operand;
-    print op2;
+    // TODO:
     
     out << "1 < 2";
-
-
 }
 

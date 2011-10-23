@@ -6,7 +6,8 @@
 ExpressionVariable::ExpressionVariable(Function *parent) {
     this->parent = parent;
     
-    this->variable = Variable.getRandomLocal(NUMBER_T);
+    this->variable = new Variable(NUMBER_T);
+//    this->variable = Variable.getRandomLocal(NUMBER_T);
     
     if (this->variable==NULL) {
         // Die if there is no variable returned
@@ -18,6 +19,6 @@ ExpressionVariable::ExpressionVariable(Function *parent) {
     
 void ExpressionVariable::print(std::iostream& out) {
     
-    this->variable.print(out);
+//    this->variable.print(out);
 
 }
