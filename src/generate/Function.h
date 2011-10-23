@@ -1,13 +1,14 @@
 #ifndef FUNCTION_H
 #define FUNCTION_H
 
-#include "statement.h"
-#include "identifier.h"
-#include "program.h"
-#include <map>
+#include <vector>
 #include <cstdlib>
 #include <cassert>
 #include <iostream>
+#include "statement.h"
+#include "identifier.h"
+#include "Program.h"
+#include "Variable.h"
 
 class Program;
 
@@ -22,27 +23,21 @@ static const int number_of_valid_identifier_characters = 40;
 
 class Function {
 private:
+	
 	Function *parent;
 	Program *prog;
-	std::map<std::string, Identifier> local_identifiers;
 	int depth;
 	int remaining_subfunctions;
 	int remaining_statements;
 
 public:
+	std::vector<Variable*> context;
 	
 	Function(Function *parent, Program *prog, int depth);
 	
 	void print(std::ostream& out);
 	
 	void contents(std::ostream& out);
-	
-	std::map<std::string, Identifier>* get_local_identifiers();
-	
-	void add_local_identifier(Identifier x);
-	
-	// Has to check that this identifier is unique...
-	Identifier* new_random_identifier();
 	
 	void print_tabs(std::ostream& out, int extra);
 	
