@@ -5,11 +5,8 @@
 #include <cstdlib>
 #include <cassert>
 #include <iostream>
-#include "statement.h"
-#include "identifier.h"
-#include "Program.h"
-#include "Variable.h"
 
+class Variable;
 class Program;
 
 

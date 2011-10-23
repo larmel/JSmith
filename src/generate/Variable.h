@@ -3,8 +3,8 @@
 
 #include <string>
 #include <vector>
-#include "Program.h"
-#include "Function.h"
+
+class Function;
 
 enum Type {
     UNDEFINED_T, NULL_T, BOOLEAN_T, NUMBER_T, STRING_T, OBJECT_T

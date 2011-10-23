@@ -2,9 +2,9 @@
 #define PROGRAM_H
 
 #include <vector>
-#include "Function.h"
-#include "Variable.h"
-#include "identifier.h"
+#include <iostream>
+
+class Variable;
 
 class Program {
 public:
