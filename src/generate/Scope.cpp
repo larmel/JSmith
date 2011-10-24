@@ -6,14 +6,23 @@
 #include <iostream>
 
 Scope::Scope(Scope* p) : parent(p) {
-    this->variables = new std::vector<Variable*>();
+
+    // Copy all variables from parent scope to this scope
+    if (parent != NULL) {
+        this->variables = new std::vector<Variable*>( *(parent->variables) );
+    } else {
+        this->variables = new std::vector<Variable*>();
+    }
 }
 
 Variable* Scope::getRandomVariable(Type t) {
     // TODO: Recur on parent to get all visible variables
     
-    if (this->variables->size() == 0) return NULL;
+    if (this->variables->size() == 0) {
+        return NULL;
+    }
     int pos = rand() % this->variables->size();
+    
     return this->variables->at(pos);
 }
 
