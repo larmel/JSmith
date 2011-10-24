@@ -3,12 +3,17 @@
 
 #include "Statement.h"
 
+class Expression;
+class Statement;
+
 class IfStatement : public Statement {
-	
+private:
+    Expression* expression;
+    Statement* statement;
+
 public:
-	IfStatement(Scope* x) : Statement(x) {}
+	IfStatement(Scope* s);
 	void print(std::ostream& out, unsigned int depth);
-	
 };
 
 #endif
