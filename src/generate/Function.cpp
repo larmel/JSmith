@@ -1,6 +1,6 @@
 #include "Function.h"
 #include "Variable.h"
-#include "statement.h"
+#include "Statement.h"
 
 Function::Function(Function *parent, Program *prog, int depth)
 {

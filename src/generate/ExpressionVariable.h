@@ -4,7 +4,7 @@
 #include <iostream>
 #include "Variable.h"
 #include "Function.h"
-#include "expression.h"
+#include "Expression.h"
 #include <cstdlib>
  
 class ExpressionVariable : public Expression {
