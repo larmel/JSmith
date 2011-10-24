@@ -20,7 +20,13 @@ Variable* Scope::getRandomVariable(Type t) {
 Variable* Scope::generateNewVariable(Type t) {
     std::string identifier = this->getNewRandomIdentifier();
     Variable* var = new Variable(identifier, t);
-    this->variables->push_back( var );
+    
+    // Functions have their own scope, but are visible in parent scope
+    if (t == OBJECT_T) {
+        this->parent->variables->push_back( var );
+    } else {
+        this->variables->push_back( var );
+    }
     return var;
 }
 
