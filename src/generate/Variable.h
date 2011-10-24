@@ -15,35 +15,15 @@ public:
     Type type;
     std::string name;
     
-    Variable(Type t = NUMBER_T) {
-        this->name =  Variable::getNewRandomIdentifier();
-        this->type = t;
-    }
+    Variable(Type t = NUMBER_T);
     
-    Variable(std::string s, Type t) {
-        this->name = s;
-        this->type = t;
-    };
-    /*
-    static Variable* getRandomLocal(Function* f, Type t) {
-        // TODO: Recur on parent functions
-        
-        if (f->context.size() == 0) return NULL;
-        int pos = rand() % f->context.size();
-        return f->context[pos];
-    };
+    Variable(std::string s, Type t);
     
-    static Variable* getRandomGlobal() {
-        
-        if (Program::context.size() == 0) return NULL;
-        int pos = rand() % Program::context.size();
-        return Program::context[pos];
-    };*/
+    static Variable* getRandomLocal(Function* f, Type t);
     
-    static std::string getNewRandomIdentifier(Function* f = NULL) {
-        return "abc";
-    }
-
+    static Variable* getRandomGlobal();
+    
+    static std::string getNewRandomIdentifier(Function* f = NULL);
 };
 
 #endif
