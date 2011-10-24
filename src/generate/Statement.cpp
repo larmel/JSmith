@@ -6,12 +6,12 @@
 
 
 Statement* Statement::newRandomStatement(Scope* x){
-	int r = rand() % 3;
-	if(r == 0){
+	int r = rand() % 10;
+	if(r > 1){
 		return new VariableStatement(x);
-	}else if(r == 1){
+	}else if (r == 1) {
 		return new IfStatement(x);
-	}else if(r == 2){
+	}else if (r == 0) {
 		return new WhileStatement(x);
 	}
 }
