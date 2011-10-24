@@ -10,6 +10,8 @@ class Scope
 {
 private:
     Scope* parent;
+
+protected:
     std::vector<Variable*>* variables;
     
 public:
