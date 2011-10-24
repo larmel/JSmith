@@ -7,6 +7,8 @@ Program::Program(){
 	//global_identifiers = new std::map<std::string, Identifier>();
 }
 
+std::vector<Variable*> Program::context = std::vector<Variable*>();
+
 Program::~Program(){
 	//delete global_identifiers;
 }

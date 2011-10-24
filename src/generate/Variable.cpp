@@ -22,10 +22,9 @@ Variable* Variable::getRandomLocal(Function* f, Type t) {
 }
 
 Variable* Variable::getRandomGlobal() {
-    return NULL;
-    //if (Program::context.size() == 0) return NULL;
-    //int pos = rand() % Program::context.size();
-    //return Program::context[pos];
+    if (Program::context.size() == 0) return NULL;
+    int pos = rand() % Program::context.size();
+    return Program::context[pos];
 }
 
 std::string Variable::getNewRandomIdentifier(Function* f) {
