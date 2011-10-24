@@ -1,5 +1,5 @@
-#ifndef EXPRESSION_VARIABLE_H
-#define EXPRESSION_VARIABLE_H 
+#ifndef PRIMARYEXPRESSION_H
+#define PRIMARYEXPRESSION_H 
  
 #include <iostream>
 #include <cstdlib>
@@ -9,13 +9,13 @@
 class Variable;
 class Scope;
  
-class ExpressionVariable : public Expression {
+class PrimaryExpression : public Expression {
 
 private:
     Variable *variable;
     
 public:
-    ExpressionVariable(Scope* parent_scope);
+    PrimaryExpression(Scope* parent_scope);
     
     void print(std::ostream& out, unsigned int depth);
 };
