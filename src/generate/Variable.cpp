@@ -28,5 +28,16 @@ Variable* Variable::getRandomGlobal() {
 }
 
 std::string Variable::getNewRandomIdentifier(Function* f) {
-    return "abc";
+    // TODO: Need to check that it is unique
+    char navn[5];
+	while (true) {
+		for (int i = 0; i < 4; i++) {
+			int j = rand() % number_of_valid_identifier_characters;
+			navn[i] = valid_identifier_characters[j];
+		}
+		navn[4] = '\0';
+		break;
+	}
+	
+	return navn;
 }

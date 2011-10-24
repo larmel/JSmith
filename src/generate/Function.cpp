@@ -1,7 +1,7 @@
 #include "Function.h"
 #include "Variable.h"
 #include "statement.h"
-	
+
 Function::Function(Function *parent, Program *prog, int depth)
 {
 	remaining_subfunctions = 3;
@@ -44,7 +44,7 @@ void Function::contents(std::ostream& out){
 				remaining_statements--;
 			}
 		}
-	}else{
+	} else {
 
 		print_tabs(out, 1);
 		out << "// Recursion Max Depth" << std::endl;	
@@ -56,37 +56,6 @@ void Function::contents(std::ostream& out){
 	Statement s(this);
 	s.print(out);
 }
-/*
-std::map<std::string, Identifier>* Function::get_local_identifiers()
-{
-	return &this->local_identifiers;
-}
-
-void Function::add_local_identifier(Identifier x){
-	this->local_identifiers[x.name] = x;
-}
-/*
-// Has to check that this identifier is unique...
-Identifier* Function::new_random_identifier(){
-	char navn[5];
-	while(true){
-		for(int i = 0; i < 4; i++){
-			int j = rand() % number_of_valid_identifier_characters;
-			navn[i] = valid_identifier_characters[j];
-		}
-		navn[4] = '\0';
-		break;
-	}
-	
-	Identifier i;
-	i.type = "function";
-	i.name = navn;
-	this->add_local_identifier(i);
-	
-	return &this->local_identifiers[i.name];
-	
-}
-*/
 
 void Function::print_tabs(std::ostream& out, int extra){
 	for(int i = 0; i < this->depth + extra; i++){

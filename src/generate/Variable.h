@@ -4,6 +4,13 @@
 #include <string>
 #include <vector>
 
+static const char valid_identifier_characters[] = {
+    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
+    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T'};
+
+static const int number_of_valid_identifier_characters = 40;
+
+
 class Function;
 
 enum Type {
