@@ -10,6 +10,7 @@
 #include "Variable.h"
 
 class Program;
+class Statement;
 
 /*
  * Program
@@ -21,21 +22,22 @@ class Program;
 class Function {
 private:
 	std::vector<Variable*> context;
-	
 	Function *parent;
-	Program *prog; // Needed?
+	
+	std::string identifier;
+	std::vector<Statement*> statement_list;
+	std::vector<Function*> function_list;
+	
 	int depth;
 	int remaining_subfunctions;
 	int remaining_statements;
 
 public:
-	Function(Function *parent, Program *prog, int depth);
+	Function(Function *parent, int depth);
+	void generate();
+	void print(std::ostream& out, unsigned int indentation);
 	
-	void print(std::ostream& out);
-	
-	void contents(std::ostream& out);
-	
-	void print_tabs(std::ostream& out, int extra);
+	//void print_tabs(std::ostream& out, int extra);
 	
     Variable* getRandomVariable(Type t);
     

@@ -2,66 +2,83 @@
 #include "Variable.h"
 #include "Statement.h"
 
-Function::Function(Function *parent, Program *prog, int depth)
+Function::Function(Function *parent, int depth)
 {
 	remaining_subfunctions = 3;
 	remaining_statements = 3;
+	
 	this->parent = parent;
-	this->prog = prog;
 	this->depth = depth;
-}
-
-void Function::print(std::ostream& out){
-	print_tabs(out, 0);
 	
-	out << "function ";
-	std::string s = this->getNewRandomIdentifier();
-	out << s << " () {\n"; 
-	this->contents(out);
-	print_tabs(out, 1);
-	out << "return x++;\n";
-	print_tabs(out, 0);
-	out << "}\n" << std::endl;
+	generate();
 }
 
-void Function::contents(std::ostream& out){
-	
-	if(depth <= 1){
-		/*
-		 * Generate a new subfunction or statement as long as we haven"t reached
-		 * the recursion depth.
-		 */
-		while(remaining_subfunctions > 0 && remaining_statements > 0){
-			// TODO mix these better
-			if(remaining_subfunctions > 0){
-				Function sub(this, prog, depth + 1);
-				sub.print(out);
-				remaining_subfunctions--;
-			}else{
-				Statement sub(this);
-				sub.print(out);
-				remaining_statements--;
-			}
-		}
-	} else {
-
-		print_tabs(out, 1);
-		out << "// Recursion Max Depth" << std::endl;	
-	}
-	
-	assert(remaining_subfunctions>=0);
-	assert(remaining_statements>=0);
-
-	Statement s(this);
-	s.print(out);
+void Function::generate() {
+    this->identifier = this->getNewRandomIdentifier();
+    
+    // The root function is special
+    if (this->depth == 0) 
+    {
+        for (int i = 0; i < 10; ++i) {
+            this->statement_list.push_back(new Statement(this));
+        }
+        
+        for (int i = 0; i < 3; ++i) {
+            this->function_list.push_back(new Function(this, depth + 1));
+        }
+    }
+    
+    // Function at first level
+    else if (depth == 1) {
+	    /*
+	     * Generate a new subfunction or statement as long as we haven"t reached
+	     * the recursion depth.
+	     */
+	    while(remaining_subfunctions > 0 && remaining_statements > 0){
+		    // TODO mix these better
+		    if (remaining_subfunctions > 0) {
+			    this->function_list.push_back(new Function(this, depth + 1));
+			    remaining_subfunctions--;
+		    } else {
+                this->statement_list.push_back(new Statement(this));
+			    remaining_statements--;
+		    }
+	    }
+    }
 }
 
-void Function::print_tabs(std::ostream& out, int extra){
-	for(int i = 0; i < this->depth + extra; i++){
-		out << "\t";		
-	}
+void Function::print(std::ostream& out, unsigned int indentation){
+    
+    // Special printing for outer function
+    if (depth == 0) {
+        for (int i = 0; i < statement_list.size(); ++i) {
+            statement_list[i]->print(out, indentation);
+        }
+        for (int i = 0; i < function_list.size(); ++i) {
+            function_list[i]->print(out, indentation);
+        }
+        
+        // Print main function?
+    }
+    else
+    {
+        for (int t = 0; t < indentation; ++t) out << "   ";
+        out << "function " << this->identifier << "() {" << std::endl;
+        
+        for (int i = 0; i < statement_list.size(); ++i) {
+            statement_list[i]->print(out, indentation + 1);
+        }
+        for (int i = 0; i < function_list.size(); ++i) {
+            function_list[i]->print(out, indentation + 1);
+        }
+        
+        for (int t = 0; t < indentation; ++t) out << "   ";
+        out << "   " << "return 0;" << std::endl;
+        
+        for (int t = 0; t < indentation; ++t) out << "   ";
+        out << "}" << std::endl;
+    }
 }
-
 
 Variable* Function::getRandomVariable(Type t) {
     // TODO: Recur on parent functions to get whole scope

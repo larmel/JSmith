@@ -19,7 +19,7 @@ public:
 
     Statement(Function *parent);
 	
-	void print(std::ostream& out);
+	void print(std::ostream& out, unsigned int indentation);
 };
 
 #endif
