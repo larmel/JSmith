@@ -10,6 +10,7 @@ class IfStatement : public Statement {
 private:
     Expression* expression;
     Statement* statement;
+    bool is_block;
 
 public:
 	IfStatement(Scope* s);
