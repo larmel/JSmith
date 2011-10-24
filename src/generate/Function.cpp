@@ -15,8 +15,7 @@ void Function::print(std::ostream& out){
 	print_tabs(out, 0);
 	
 	out << "function ";
-	//std::string s(this->new_random_identifier()->name);
-	std::string s(Variable::getNewRandomIdentifier(this));
+	std::string s = this->getNewRandomIdentifier();
 	out << s << " () {\n"; 
 	this->contents(out);
 	print_tabs(out, 1);
@@ -61,5 +60,29 @@ void Function::print_tabs(std::ostream& out, int extra){
 	for(int i = 0; i < this->depth + extra; i++){
 		out << "\t";		
 	}
+}
+
+
+Variable* Function::getRandomVariable(Type t) {
+    // TODO: Recur on parent functions to get whole scope
+    
+    if (this->context.size() == 0) return NULL;
+    int pos = rand() % this->context.size();
+    return this->context[pos];
+}
+
+std::string Function::getNewRandomIdentifier() {
+    // TODO: Recur on parent to check that it is unique
+    char name[5];
+	while (true) {
+		for (int i = 0; i < 4; i++) {
+			int j = rand() % number_of_valid_identifier_characters;
+			name[i] = valid_identifier_characters[j];
+		}
+		name[4] = '\0';
+		break;
+	}
+	
+	return name;
 }
 

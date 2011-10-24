@@ -11,11 +11,12 @@ static const char valid_identifier_characters[] = {
 static const int number_of_valid_identifier_characters = 40;
 
 
-class Function;
-
 enum Type {
     UNDEFINED_T, NULL_T, BOOLEAN_T, NUMBER_T, STRING_T, OBJECT_T
 };
+
+class Function;
+
 
 class Variable {
 public:
@@ -25,12 +26,6 @@ public:
     Variable(Type t = NUMBER_T);
     
     Variable(std::string s, Type t);
-    
-    static Variable* getRandomLocal(Function* f, Type t);
-    
-    static Variable* getRandomGlobal();
-    
-    static std::string getNewRandomIdentifier(Function* f = NULL);
 };
 
 #endif

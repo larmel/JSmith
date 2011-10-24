@@ -1,23 +1,16 @@
 #include "Program.h"
 #include "Function.h"
 
-// CLASS PROGRAM
-	
-Program::Program(){
-	//global_identifiers = new std::map<std::string, Identifier>();
+Program::Program() {
+	this->function = new Function(NULL, this, 0); 
 }
 
-std::vector<Variable*> Program::context = std::vector<Variable*>();
-
-Program::~Program(){
-	//delete global_identifiers;
+Program::~Program() {
+    delete this->function;
 }
 
 void Program::print(std::ostream& out) {
-	
-	Function f(NULL, this, 0);
-	f.print(out);
-    
+	function->print(out);
 }
 
 void Program::main(std::ostream& out)

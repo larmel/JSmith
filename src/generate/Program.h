@@ -5,11 +5,20 @@
 #include <iostream>
 
 class Variable;
+class Function;
+
+//
+// Program
+//  SourceElement
+//   Statement
+//   FunctionDeclaration
+//    SourceElement
+
 
 class Program {
+private:
+    Function* function;
 public:
-	static std::vector<Variable*> context;
-	
 	Program();
 	
 	~Program();

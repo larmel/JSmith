@@ -1,10 +1,8 @@
 
-#include "Program.h"
 #include "Variable.h"
-#include "Function.h"
 
 Variable::Variable(Type t) {
-    this->name =  Variable::getNewRandomIdentifier();
+    this->name = "default_var"; // Variable::getNewRandomIdentifier();
     this->type = t;
 }
 
@@ -12,7 +10,7 @@ Variable::Variable(std::string s, Type t) {
     this->name = s;
     this->type = t;
 }
-
+/*
 Variable* Variable::getRandomLocal(Function* f, Type t) {
     // TODO: Recur on parent functions
     
@@ -40,4 +38,4 @@ std::string Variable::getNewRandomIdentifier(Function* f) {
 	}
 	
 	return navn;
-}
+}*/

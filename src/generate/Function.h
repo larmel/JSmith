@@ -5,22 +5,30 @@
 #include <cstdlib>
 #include <cassert>
 #include <iostream>
+#include <string>
 
-class Variable;
+#include "Variable.h"
+
 class Program;
+
+/*
+ * Program
+ *  Function <- global scope, not printed as function
+ *   Function
+ *   Function
+ */
 
 class Function {
 private:
+	std::vector<Variable*> context;
 	
 	Function *parent;
-	Program *prog;
+	Program *prog; // Needed?
 	int depth;
 	int remaining_subfunctions;
 	int remaining_statements;
 
 public:
-	std::vector<Variable*> context;
-	
 	Function(Function *parent, Program *prog, int depth);
 	
 	void print(std::ostream& out);
@@ -28,6 +36,10 @@ public:
 	void contents(std::ostream& out);
 	
 	void print_tabs(std::ostream& out, int extra);
+	
+    Variable* getRandomVariable(Type t);
+    
+    std::string getNewRandomIdentifier();
 };
 
 #endif
