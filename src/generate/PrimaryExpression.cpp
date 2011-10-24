@@ -1,6 +1,7 @@
 #include "PrimaryExpression.h"
 #include "Variable.h"
 #include "Scope.h"
+#include <climits>
 
 // PrimaryExpression, terminal node in the expression tree
 
@@ -13,7 +14,7 @@ PrimaryExpression::PrimaryExpression(Scope* parent_scope, int depth) : Expressio
      
         // TODO: Need better random immediates!
         this->imm = true;
-        this->imm_val = rand();
+        this->imm_val = rand() % INT_MAX;
     }
     
     else if (gen_type<100) // Get an already existing variable
