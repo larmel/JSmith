@@ -15,6 +15,7 @@ private:
 protected:
     Scope* scope;
     int depth;
+    bool parenthesis;
 	
 public:
     Expression(Scope *parent_scope, int depth);
