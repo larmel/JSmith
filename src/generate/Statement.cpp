@@ -38,8 +38,10 @@ void Statement::print(std::ostream &out, unsigned int indentation)
 */
 
 Statement* Statement::newRandomStatement(Scope* x){
-	
-	return new VariableStatement(x);
+	int r = rand() % 2;
+	if(r == 0){
+		return new VariableStatement(x);
+	}
 	return new IfStatement(x);
 	
 }
