@@ -3,12 +3,18 @@
 
 #include "Statement.h"
 
+class Variable;
+class Expression;
+
 class VariableStatement : public Statement {
-	
+private:
+    Variable* var;
+    Expression* expression;
+    std::string line_end;
+    
 public:
-	VariableStatement(Scope* x) : Statement(x) {}
+	VariableStatement(Scope* s);
 	void print(std::ostream& out, unsigned int depth);
-	
 };
 
 #endif
