@@ -4,21 +4,19 @@
 #include <string>
 #include <cstdlib>
 #include <iostream>
-#include "Variable.h"
-#include "Function.h"
-class Function;
 
+class Scope;
 
 class Expression {
 private:	
-    Function *function;
-    std::string printout;
+    Scope* scope;
 	
 public:
-    Expression() {};
-    Expression(Function *function);
-	void print(std::ostream& out);
-	
+    Expression() { };
+    Expression(Scope *parent_scope) : scope(parent_scope) { };
+    
+	// Pure virtual, abstract class
+	virtual void print(std::ostream& out, unsigned int depth) = 0;
 };
 
 #endif

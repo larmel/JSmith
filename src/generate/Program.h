@@ -4,28 +4,27 @@
 #include <vector>
 #include <iostream>
 
-class Variable;
-class Function;
+#include "Scope.h"
 
-//
-// Program
-//  SourceElement
-//   Statement
-//   FunctionDeclaration
-//    SourceElement
+class SourceElement;
 
-
-class Program {
+/*
+ * Program
+ *  SourceElement (Statement)
+ *  SourceElement (FunctionDeclaration)
+ *  ...
+ */
+class Program : public Scope 
+{
 private:
-    Function* function;
+    std::vector<SourceElement*> source_elements;
+    
 public:
 	Program();
 	
-	~Program();
-	
     void print(std::ostream& out);
 	
-	void main(std::ostream& out);
-}; 
+	void printMain(std::ostream& out);
+};
 
 #endif

@@ -8,7 +8,6 @@ int main(int argc, char* argv[]) {
 	Program c;
 	
 	c.print(std::cout);
-	c.main(std::cout);
 	
     return 0;
 

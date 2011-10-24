@@ -1,10 +1,7 @@
 #include "ExpressionVariable.h"
- 
-// CLASS EXPRESSIONVARIABLE
+#include "Variable.h"
 
-
-ExpressionVariable::ExpressionVariable(Function *parent) {
-    this->parent = parent;
+ExpressionVariable::ExpressionVariable(Scope* parent_scope) : Expression(parent_scope) {
     
     this->variable = new Variable(NUMBER_T);
 //    this->variable = Variable.getRandomLocal(NUMBER_T);
@@ -14,11 +11,10 @@ ExpressionVariable::ExpressionVariable(Function *parent) {
         std::cerr << "ExpressionVariable.cpp did not get a variable";
         std::exit(1);
     }
-
 }
-    
-void ExpressionVariable::print(std::iostream& out) {
-    
+
+void ExpressionVariable::print(std::ostream& out, unsigned int depth) {
+    out << "Expression var" << std::endl;
 //    this->variable.print(out);
 
 }

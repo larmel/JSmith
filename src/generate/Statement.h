@@ -4,22 +4,20 @@
 #include <string>
 #include <cstdlib>
 #include <iostream>
-#include "Expression.h"
 
-class Function;
+#include "SourceElement.h"
 
+class Scope;
 
-class Statement {
+class Statement : public SourceElement 
+{
 private:	
-	Function *parent;
     int type;
 	
 public:
+    Statement(Scope* context) : SourceElement(context) { type = rand() % 2; };
 	
-
-    Statement(Function *parent);
-	
-	void print(std::ostream& out, unsigned int indentation);
+	void print(std::ostream& out, unsigned int depth);
 };
 
 #endif

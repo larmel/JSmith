@@ -1,8 +1,5 @@
 #include "Expression.h"
-
-// CLASS EXPRESSION
-
-
+/* TODO: Create subclasses to instantiate instead
 Expression::Expression(Function *function) 
 {
     this->function = function;
@@ -21,8 +18,8 @@ Expression::Expression(Function *function)
     }
 
 }
-
-
+*/
+/*
 void Expression::print(std::ostream &out)
 {
 
@@ -30,4 +27,4 @@ void Expression::print(std::ostream &out)
     
     out << "1 < 2";
 }
-
+*/

@@ -1,23 +1,24 @@
-#ifndef EXPRESSIONVARIABLE_H
-#define EXPRESSIONVARIABLE_H 
+#ifndef EXPRESSION_VARIABLE_H
+#define EXPRESSION_VARIABLE_H 
  
 #include <iostream>
-#include "Variable.h"
-#include "Function.h"
-#include "Expression.h"
 #include <cstdlib>
+
+#include "Expression.h"
+
+class Variable;
+class Scope;
  
 class ExpressionVariable : public Expression {
 
 private:
-    // TODO: Something else than NUMBER_T
+    // TODO: Something other than NUMBER_T
     Variable *variable;
-    Function *parent;
-public:
-    ExpressionVariable(Function *parent);
     
-    void print(std::iostream& out);
-
+public:
+    ExpressionVariable(Scope* parent_scope);
+    
+    void print(std::ostream& out, unsigned int depth);
 };
  
  
