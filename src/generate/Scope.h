@@ -16,10 +16,16 @@ protected:
     
 public:
     Scope(Scope* p) : parent(p) { };
+    
     Variable* getRandomVariable(Type t);
+    
+    // TODO: Make this private
     std::string getNewRandomIdentifier();
     
-    // TODO: Create and add new variables in scope
+    /*
+     * Generate and return a new variable for this scope
+     */
+    Variable* generateNewVariable(Type t);
 };
 
 

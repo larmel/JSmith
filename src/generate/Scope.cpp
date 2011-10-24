@@ -1,4 +1,5 @@
 #include "Scope.h"
+#include "Variable.h"
 #include <cstdlib>
 
 Variable* Scope::getRandomVariable(Type t) {
@@ -7,6 +8,13 @@ Variable* Scope::getRandomVariable(Type t) {
     if (this->variables->size() == 0) return NULL;
     int pos = rand() % this->variables->size();
     return this->variables->at(pos);
+}
+
+Variable* Scope::generateNewVariable(Type t) {
+    std::string identifier = this->getNewRandomIdentifier();
+    Variable* var = new Variable(identifier, t);
+    this->variables->push_back( var );
+    return var;
 }
 
 std::string Scope::getNewRandomIdentifier() {
