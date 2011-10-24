@@ -7,11 +7,12 @@
 
 #include "Scope.h"
 #include "SourceElement.h"
+#include "Variable.h"
 
 class FunctionDeclaration : public SourceElement, public Scope 
 {
 private:
-    std::string identifier;
+    Variable* identifier;
     
     std::vector<SourceElement*> source_elements;
     

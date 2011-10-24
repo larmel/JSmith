@@ -3,7 +3,7 @@
 #include "SourceElement.h"
 
 void FunctionDeclaration::generate() {
-    this->identifier = this->getNewRandomIdentifier();
+    this->identifier = generateNewVariable( OBJECT_T );
     
     // TODO: Argument list
     
@@ -19,7 +19,7 @@ void FunctionDeclaration::print(std::ostream& out, unsigned int depth)
     std::string indent;
     for (int t = 0; t < depth; ++t) indent += "   ";
     
-    out << indent << "function " << this->identifier << "() {" << std::endl;
+    out << indent << "function " << this->identifier->name << "() {" << std::endl;
     
     for (int i = 0; i < source_elements.size(); ++i) {
         source_elements[i]->print(out, depth + 1);
