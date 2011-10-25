@@ -1,28 +1,26 @@
 /*	JSmith	*/
-var x = 20
+var ErSeP = default_var;
 if (default_var) {
 }
 if (default_var) {
 }
-function mjBc() {
-   var x = 20
-   if (default_var) {
+function mjBcH() {
+   function tdgAG() {
+      function qlihJ() {
+         var lAQNC = default_var;
+         if (default_var) {
+         }
+         if (default_var) {
+         }
+         var Ffehq = default_var;
+      }
+      var gjNre = default_var;
+      if (default_var) {
+      }
+      var FohOe = default_var;
    }
-   function AGmq() {
-      var x = 20
-      if (default_var) {
-      }
-      function kCdH() {
-         if (default_var) {
-         }
-         var x = 20
-         if (default_var) {
-         }
-         if (default_var) {
-         }
-      }
-      if (default_var) {
-      }
+   var KhiQs = default_var;
+   if (default_var) {
    }
    if (default_var) {
    }
