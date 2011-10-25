@@ -1,28 +1,25 @@
 /*	JSmith	*/
-var ErSeP = default_var;
-if (default_var) {
-}
-if (default_var) {
-}
-function mjBcH() {
-   function tdgAG() {
-      function qlihJ() {
-         var lAQNC = default_var;
-         if (default_var) {
-         }
-         if (default_var) {
-         }
-         var Ffehq = default_var;
+function OOJRg() {
+   if (1.78017e+09) {
+   }
+   var CtBGE = 8.41492e+08/1.61842e+09;
+   if (1.04502e+09) {
+   }
+   function dbGmf() {
+      if (1.63639e+09) {
       }
-      var gjNre = default_var;
-      if (default_var) {
+      if (1.03326e+09) {
       }
-      var FohOe = default_var;
-   }
-   var KhiQs = default_var;
-   if (default_var) {
-   }
-   if (default_var) {
+      var lskpE = 1.89932e+08/1.9701e+09;
+      if (lskpE) {
+      }
    }
 }
-(function main(){ hash = foo(); print(hash); return 0; })();
+if (2.00329e+08) {
+}
+var MtTJt = 1.71425e+09;
+if (MtTJt+MtTJt) {
+}
+(function () {
+   print(MtTJt); 
+})();
