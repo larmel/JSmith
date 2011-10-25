@@ -9,14 +9,17 @@
 class Scope;
 
 class Expression {
-private:	
-    Scope* scope; 
+private: 
     std::vector<Expression*> expressions;
+    
+protected:
+    Scope* scope;
+    int depth;
 	
 public:
-    Expression(Scope *parent_scope);
+    Expression(Scope *parent_scope, int depth = 0);
     
-    static Expression *generate_expression(Scope *scope);
+    static Expression *generate_expression(Scope *scope, int depth = 0);
     
 	virtual void print(std::ostream& out, unsigned int depth);
 	
