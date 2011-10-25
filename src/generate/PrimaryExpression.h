@@ -16,7 +16,7 @@ class PrimaryExpression : public Expression {
 private:
     Variable *variable;
     bool imm;
-    double imm_val;
+    int imm_val;
     
 public:
     PrimaryExpression(Scope* parent_scope, int depth);
