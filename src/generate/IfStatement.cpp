@@ -4,11 +4,7 @@
 
 void IfStatement::print(std::ostream& out, unsigned int depth){
 	
-	
-	int indentation = 3;
-	
-	
-	for (int t = 0; t < indentation; ++t) out << "   ";
+	for (int t = 0; t < depth; ++t) out << "   ";
 	std::cout << "if (";
 
 	// Generate expression
@@ -23,6 +19,6 @@ void IfStatement::print(std::ostream& out, unsigned int depth){
 	//s.print(out, indentation + 1);
 	
 	// End block
-	for (int t = 0; t < indentation; ++t) out << "   ";
+	for (int t = 0; t < depth; ++t) out << "   ";
 	std::cout << "}" << std::endl;
 }
