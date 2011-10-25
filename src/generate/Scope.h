@@ -10,16 +10,22 @@ class Scope
 {
 private:
     Scope* parent;
-    
-protected:
     std::vector<Variable*>* variables;
     
 public:
-    Scope(Scope* p) : parent(p) { };
+    Scope(Scope* p);
+    
     Variable* getRandomVariable(Type t);
+    
+    // TODO: Make this private
     std::string getNewRandomIdentifier();
     
-    // TODO: Create and add new variables in scope
+    bool isUnique(std::string identifier);
+    
+    /*
+     * Generate and return a new variable for this scope
+     */
+    Variable* generateNewVariable(Type t);
 };
 
 
