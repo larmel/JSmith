@@ -1,6 +1,8 @@
 #include "Statement.h"
 #include "Expression.h"
-
+#include "VariableStatement.h"
+#include "IfStatement.h"
+/*
 void Statement::print(std::ostream &out, unsigned int indentation)
 {
     switch (type) {
@@ -33,5 +35,11 @@ void Statement::print(std::ostream &out, unsigned int indentation)
         break;
     }
 }
+*/
 
-
+Statement* Statement::newRandomStatement(Scope* x){
+	
+	return new VariableStatement(x);
+	return new IfStatement(x);
+	
+}

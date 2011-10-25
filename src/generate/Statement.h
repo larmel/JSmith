@@ -12,12 +12,14 @@ class Scope;
 class Statement : public SourceElement 
 {
 private:	
-    int type;
+    //int type;
 	
 public:
-    Statement(Scope* context) : SourceElement(context) { type = rand() % 2; };
+    Statement(Scope* context) : SourceElement(context) { };
 	
-	void print(std::ostream& out, unsigned int depth);
+	virtual void print(std::ostream&, unsigned int) = 0;
+	static Statement* newRandomStatement(Scope*);
+	
 };
 
 #endif
