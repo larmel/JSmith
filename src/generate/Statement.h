@@ -17,7 +17,7 @@ private:
 public:
     Statement(Scope* context) : SourceElement(context) { };
 	
-	virtual void print(std::ostream&, unsigned int) = 0;
+	//virtual void print(std::ostream&, unsigned int) = 0;
 	static Statement* newRandomStatement(Scope*);
 	
 };
