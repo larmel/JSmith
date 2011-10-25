@@ -19,7 +19,7 @@ private:
     double imm_val;
     
 public:
-    PrimaryExpression(Scope* parent_scope);
+    PrimaryExpression(Scope* parent_scope, int depth);
     
     void print(std::ostream& out, unsigned int depth);
 };

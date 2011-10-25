@@ -4,7 +4,7 @@
 
 // PrimaryExpression, terminal node in the expression tree
 
-PrimaryExpression::PrimaryExpression(Scope* parent_scope) : Expression(parent_scope) {
+PrimaryExpression::PrimaryExpression(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
     this->imm = false;
     
 
@@ -33,5 +33,4 @@ void PrimaryExpression::print(std::ostream& out, unsigned int depth) {
     } else {
         out << variable->name;
     }
-    out << "|" << this->depth << "|";
 }

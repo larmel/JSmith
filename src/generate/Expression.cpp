@@ -29,7 +29,7 @@ Expression *Expression::generate_expression(Scope *scope, int depth) {
     if (gen_type < p_terminal) // Generate a terminal node (PrimaryExpression)
     {
         // PrimaryExpression (actual variables)
-        Expression *subexpr = new PrimaryExpression(scope);
+        Expression *subexpr = new PrimaryExpression(scope, depth);
         if (subexpr==NULL) {
             std::cerr << "No expressionvariable returned";
             exit(1);
@@ -45,7 +45,7 @@ Expression *Expression::generate_expression(Scope *scope, int depth) {
         
         if (gen_type<100) // Generate a AddMulExpression
         {
-            Expression *subexpr = new AddMulExpression(scope);
+            Expression *subexpr = new AddMulExpression(scope, depth);
             if (subexpr==NULL) {
                 std::cerr << "No AddMulExpression returned";
                 exit(1);

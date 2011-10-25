@@ -17,7 +17,7 @@ protected:
     int depth;
 	
 public:
-    Expression(Scope *parent_scope, int depth = 0);
+    Expression(Scope *parent_scope, int depth);
     
     static Expression *generate_expression(Scope *scope, int depth = 0);
     
