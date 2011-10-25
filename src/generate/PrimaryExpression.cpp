@@ -1,7 +1,7 @@
-#include "ExpressionVariable.h"
+#include "PrimaryExpression.h"
 #include "Variable.h"
 
-ExpressionVariable::ExpressionVariable(Scope* parent_scope) : Expression(parent_scope) {
+PrimaryExpression::PrimaryExpression(Scope* parent_scope) : Expression(parent_scope) {
     
     // Create a new NUMBER variable
     this->variable = new Variable(NUMBER_T);
@@ -13,7 +13,7 @@ ExpressionVariable::ExpressionVariable(Scope* parent_scope) : Expression(parent_
     }
 }
 
-void ExpressionVariable::print(std::ostream& out, unsigned int depth) {
+void PrimaryExpression::print(std::ostream& out, unsigned int depth) {
     // Print variable
     out << variable->name;
 }

@@ -1,6 +1,6 @@
 #include "Expression.h"
 
-#include "ExpressionVariable.h"
+#include "PrimaryExpression.h"
 //TODO: Create subclasses to instantiate instead
 
 Expression::Expression(Scope *scope) 
@@ -23,8 +23,8 @@ Expression *Expression::generate_expression(Scope *scope) {
     switch (gen_type) {
     case 0:
     {
-        // EqualityExpression
-        Expression *subexpr = new ExpressionVariable(scope);
+        // PrimaryExpression (actual variables)
+        Expression *subexpr = new PrimaryExpression(scope);
         if (subexpr==NULL) {
             std::cerr << "No expressionvariable returned";
             exit(1);
