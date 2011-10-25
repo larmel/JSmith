@@ -12,7 +12,6 @@ class Scope;
 class ExpressionVariable : public Expression {
 
 private:
-    // TODO: Something other than NUMBER_T
     Variable *variable;
     
 public:

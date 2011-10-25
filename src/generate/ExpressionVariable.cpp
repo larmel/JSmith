@@ -3,8 +3,8 @@
 
 ExpressionVariable::ExpressionVariable(Scope* parent_scope) : Expression(parent_scope) {
     
+    // Create a new NUMBER variable
     this->variable = new Variable(NUMBER_T);
-//    this->variable = Variable.getRandomLocal(NUMBER_T);
     
     if (this->variable==NULL) {
         // Die if there is no variable returned
@@ -14,7 +14,6 @@ ExpressionVariable::ExpressionVariable(Scope* parent_scope) : Expression(parent_
 }
 
 void ExpressionVariable::print(std::ostream& out, unsigned int depth) {
-    out << "Expression var" << std::endl;
-//    this->variable.print(out);
-
+    // Print variable
+    out << variable->name;
 }

@@ -16,10 +16,8 @@ void Statement::print(std::ostream &out, unsigned int indentation)
         std::cout << "if (";
 
         // Generate expression
-        // TODO: Instantiate ConditionalExpression
-        //Expression expr;
-        //expr.print(out);
-        out << "x < 2";
+        Expression *e = Expression::generate_expression(this->scope);
+        e->print(out, 1);
         
         // End if-statement
         std::cout << ") {" << std::endl;

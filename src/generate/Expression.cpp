@@ -1,30 +1,53 @@
 #include "Expression.h"
-/* TODO: Create subclasses to instantiate instead
-Expression::Expression(Function *function) 
+
+#include "ExpressionVariable.h"
+//TODO: Create subclasses to instantiate instead
+
+Expression::Expression(Scope *scope) 
 {
-    this->function = function;
+    if (scope==NULL) {
+        std::cerr << "No scope provided to Expression node";
+        exit(1);
+    }
     
-    int gen_type = rand() % 8;
+    this->scope = scope;
+}
+
+Expression *Expression::generate_expression(Scope *scope) {
+        
+    int gen_type = rand() % 1;
+    
+    Expression *expression = new Expression(scope);
+
     
     switch (gen_type) {
     case 0:
-        // Expression
-    break;
+    {
+        // EqualityExpression
+        Expression *subexpr = new ExpressionVariable(scope);
+        if (subexpr==NULL) {
+            std::cerr << "No expressionvariable returned";
+            exit(1);
+        }
+        expression->expressions.push_back(subexpr);
         
-    
-    case 1:
     break;
-    
     }
-
-}
-*/
-/*
-void Expression::print(std::ostream &out)
-{
-
-    // TODO:
+    }
     
-    out << "1 < 2";
+    
+    return expression;
 }
-*/
+    
+
+void Expression::print(std::ostream &out, unsigned int depth)
+{
+    // TODO: 
+    for (int i = 0; i<this->expressions.size(); i++) {
+        this->expressions[i]->print(out, 1);
+        if (i<this->expressions.size()-1) {
+            out << ",";        
+        }
+    }
+}
+
