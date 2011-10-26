@@ -11,7 +11,7 @@
 
 Statement* Statement::newRandomStatement(Scope* x){
 
-	RandomDiscreteDistribution d = RandomDiscreteDistribution(5, 80, 30, 30, x->getParent() == NULL ? 0 : 6, 40);
+	RandomDiscreteDistribution d = RandomDiscreteDistribution(5, 80, 30, 30, x->getParent() == NULL ? 0 : 4, 40);
 	
 	switch(d.getChosenIndex()){
 	    case 0:
