@@ -7,7 +7,7 @@
 Program::Program() : Scope(NULL) {
 
     // Generate some number of SourceElements
-    for (int i = 0; i < 4; ++i) {
+    for (int i = 0; i < 5; ++i) {
 	    this->source_elements.push_back( SourceElement::createRandom(this) );
 	}
 	
@@ -24,7 +24,7 @@ void Program::print(std::ostream& out)
 
 void Program::printMain(std::ostream& out)
 {
-    out << "(function () {" << std::endl;
+    out << "//" << std::endl << "(function () {" << std::endl;
     
     std::vector<Variable*>::iterator it;
     
@@ -39,11 +39,13 @@ void Program::printMain(std::ostream& out)
     }
     
     // Print all variables in global scope
+    int line = 0;
     for (it = this->variables->begin(); it != this->variables->end(); ++it) {
         Variable* var = *it;
         if (var->type == NUMBER_T || var->type == STRING_T) 
         {
-            out << "   " << "print(" << var->name << "); print(\" \");" << std::endl;
+            line++;
+            out << "   " << "print(" << var->name << "); print(\" (" << line << ") \");" << std::endl;
         }
     }
     

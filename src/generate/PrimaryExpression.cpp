@@ -2,28 +2,56 @@
 #include "Variable.h"
 #include "Scope.h"
 #include <climits>
+#include "RandomDiscreteDistribution.h"
+#include <sstream>
+#include <cstdio>
 
 // PrimaryExpression, terminal node in the expression tree
 
 PrimaryExpression::PrimaryExpression(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
     this->imm = false;
-    
-
-    int gen_type = rand() % 100;    
-    if (gen_type<50) { // Create a immediate
+   
+    RandomDiscreteDistribution r (4, 1, 1, 1, 1);
      
-        // TODO: Need better random immediates!
+    // Create a immediate
+    if (r.getChosenIndex() == 0 || this->scope->getRandomVariable(NUMBER_T) == NULL) 
+    {
         this->imm = true;
-        this->imm_val = rand() % INT_MAX;
+        std::stringstream sst;
+        RandomDiscreteDistribution type_of_immediate (4, 1, 1, 1, 1);
+        
+        switch(type_of_immediate.getChosenIndex())
+        {
+            // Int
+            case 0:
+                sst << rand() % INT_MAX;
+                break;
+            // Decimal
+            case 1:
+                sst << rand() % INT_MAX << "." << rand() % INT_MAX;
+                break;
+            // Hex
+            case 2:
+            {
+                char buffer[30];
+                sprintf(buffer, "0x%x", rand() % INT_MAX);
+                sst << buffer;
+                break;
+            }
+           // Compex normal form decimal
+           case 3:
+            {
+                sst << rand() % 10 << "." << rand() % INT_MAX << rand() % INT_MAX << "E" << rand() % 309;
+                break;
+            }    
+        }
+
+        this->imm_val = sst.str();
     }
-    
-    else if (gen_type<100) // Get an already existing variable
+    // Get an already existing variable
+    else 
     {
         this->variable = this->scope->getRandomVariable(NUMBER_T);
-        if (this->variable==NULL) { // No variable available (generate immediate instead)
-            this->imm = true;
-            this->imm_val = rand();
-        }
     }
 }
 

@@ -3,7 +3,7 @@
  
 #include <iostream>
 #include <cstdlib>
-
+#include <string>
 #include "Expression.h"
 
 // PrimaryExpression, terminal node in the expression tree
@@ -16,11 +16,10 @@ class PrimaryExpression : public Expression {
 private:
     Variable *variable;
     bool imm;
-    int imm_val;
+    std::string imm_val;
     
 public:
     PrimaryExpression(Scope* parent_scope, int depth);
-    
     void print(std::ostream& out, unsigned int depth);
 };
  
