@@ -5,83 +5,95 @@
 
 using namespace std;
 
+const static char* input_file = "test/generated.js";
 const static char* output_file = "test/output";
 
 string getOutput() 
 {
     ifstream file(output_file);
+    string concatinated = "";
     string s;
-    getline(file, s);
+    while (getline(file, s)) {
+        concatinated += s;
+    }
     file.close();
-    return s;
+    return concatinated;
 }
 
-
-bool invokeSpiderMonkey(const char* file) 
+bool invokeSpiderMonkey() 
 {
-    string command = "js-compilers/SpiderMonkey/js " + string(file) + " > test/output";
+    string command = "js-compilers/SpiderMonkey/js " + string(input_file) + " > test/output";
     cout << command << endl;
     
     int retcode = system(command.c_str());
     return retcode == 0;
 }
 
-bool invokeRhino(const char* file) 
+bool invokeRhino() 
 {
-    string command = "/usr/bin/rhino -f " + string(file) + " > test/output";
+    string command = "/usr/bin/rhino -f " + string(input_file) + " > test/output";
     cout << command << endl;
     
     int retcode = system(command.c_str());
     return retcode == 0;
 }
 
-bool invokeV8(const char* file) 
+bool invokeV8() 
 {
-    string command = "js-compilers/V8/v8 " + string(file) + " > test/output";
+    string command = "js-compilers/V8/v8 " + string(input_file) + " > test/output";
     cout << command << endl;
     
     int retcode = system(command.c_str());
     return retcode == 0;
 }
 
-bool invokeKjs(const char* file)
+bool invokeKjs()
 {
-    string command = "/usr/bin/kjs " + string(file) + " > test/output";
+    string command = "/usr/bin/kjs " + string(input_file) + " > test/output";
     cout << command << endl;
     
     int retcode = system(command.c_str());
     return retcode == 0;
 }
 
-bool invokeNarcissus(const char* file)
+bool invokeNarcissus()
 {
-    string command = "js-compilers/Narcissus/njs -f " + string(file) + " > test/output";
+    string command = "js-compilers/Narcissus/njs -f " + string(input_file) + " > test/output";
     cout << command << endl;
     
     int retcode = system(command.c_str());
     return retcode == 0;
 }
 
-int main(int argc, char* argv[]) 
-{
-    char* filename = argv[1];
-    
-    invokeSpiderMonkey(filename);
+/*
+ * Invoke generate, create a new program at test/generated.js
+ */
+void generateSource() {
+    string command = "bin/generate > test/generated.js";
+    cout << command << endl;
+    system(command.c_str());
+}
+
+/*
+ * Feed generated.js to all available compilers
+ */
+bool runAllTests() {
+    invokeSpiderMonkey();
     string spiderMonkey = getOutput();
     
-    invokeRhino(filename);
+    invokeRhino();
     string rhino = getOutput();
     
-    invokeV8(filename);
+    invokeV8();
     string v8 = getOutput();
     
-    invokeKjs(filename);
+    invokeKjs();
     string kjs = getOutput();
     
-    invokeNarcissus(filename);
+    invokeNarcissus();
     string narcissus = getOutput();
     
-    ifstream source(filename);
+    ifstream source(input_file);
     ofstream report("test/report");
     
     report << "Test Summary" << endl;
@@ -101,6 +113,30 @@ int main(int argc, char* argv[])
     report.close();
     source.close();
     
+    return spiderMonkey == rhino && rhino == v8 && v8 == kjs && kjs == narcissus;
+}
+
+/*
+ * To run 100 tests
+ * > jsmith 100
+ */ 
+int main(int argc, char* argv[]) 
+{
+    // First argument: how many tests to run
+    unsigned int tests = 1;
+    if (argc > 1) {
+        tests = atoi(argv[1]);
+    }
+    
+    while (tests--)
+    {
+        generateSource();
+        
+        if (!runAllTests()) {
+            std::cout << "** !!! Error detected !!! **" << std::endl;
+            return 1;
+        }
+    }
     return 0;
 }
 
