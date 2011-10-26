@@ -15,6 +15,10 @@ CallExpression::CallExpression(Scope* parent_scope, int depth) : Expression(pare
 }
 
 void CallExpression::print(std::ostream& out, unsigned int depth) {
+    for (int t = 0; t < depth; ++t){ 
+	    out << "   ";
+    }
+	
     if (this->function==NULL) 
     {
         out << ";"; // No functions available, what to do?
@@ -24,4 +28,5 @@ void CallExpression::print(std::ostream& out, unsigned int depth) {
     {
         out << this->function->name << "()";
     }
+    out << std::endl;
 }
