@@ -1,10 +1,13 @@
 #include <iostream>
 #include <cstdlib>
 #include <time.h>
-#include "Program.h"
 
+#include "Program.h"
+#include "random.h"
 
 int main(int argc, char* argv[]) {
+    
+    Random::seed(0x876544L);
     
     std::cout << "/*\tJSmith\t*/" << std::endl;
     
