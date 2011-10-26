@@ -24,6 +24,7 @@ public:
     };
     
     void generateSource();
+    void setSource(string file);
     bool runAllTests();
 };
 

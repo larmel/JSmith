@@ -11,9 +11,13 @@ void TestSuite::generateSource() {
     system("bin/generate > test/generated.js");
 }
 
+void TestSuite::setSource(string file) {
+    input_file = file;
+}
+
 pair<bool, string> TestSuite::invoke(string path) {
     string command = path + " " + input_file + " > " + output_file;
-    cout << command << endl;
+    //cout << command << endl;
     
     int success = system(command.c_str()) == 0;
     string result = getOutput();
