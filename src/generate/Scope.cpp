@@ -20,8 +20,6 @@ Variable* Scope::getRandomLocalVariable(Type t) {
 
     // Get all the variables of a type
     std::vector<Variable*> vars_of_type;
-    
-    std::cout << "\n\n start_depth: " << this->start_depth << "\n\n";
 
     // Limit the search range to [start_depth : size()], and
     // also eliminate any functions that have been used.
