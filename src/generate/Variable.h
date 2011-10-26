@@ -22,9 +22,6 @@ public:
     
     bool funcBeenUsed;
     
-    // TODO: Remove this. Should only create new varibles from Scope anyway
-    Variable(Type t = NUMBER_T);
-    
     Variable(std::string s, Type t);
 };
 
