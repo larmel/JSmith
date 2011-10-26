@@ -3,6 +3,7 @@
 #include "VariableStatement.h"
 #include "IfStatement.h"
 #include "WhileStatement.h"
+#include "ForStatement.h"
 #include "ExpressionStatement.h"
 #include "ReturnStatement.h"
 #include "Scope.h"
@@ -11,7 +12,7 @@
 
 Statement* Statement::newRandomStatement(Scope* x){
 
-	RandomDiscreteDistribution d = RandomDiscreteDistribution(5, 80, 30, 30, x->getParent() == NULL ? 0 : 4, 40);
+	RandomDiscreteDistribution d = RandomDiscreteDistribution(6, 200, 50, 50, x->getParent() == NULL ? 0 : 10, 50, 50);
 	
 	switch(d.getChosenIndex()){
 	    case 0:
@@ -24,6 +25,8 @@ Statement* Statement::newRandomStatement(Scope* x){
 	        return new ReturnStatement(x);
 	    case 4:
 	        return new ExpressionStatement(x);
+        case 5:
+	        return new ForStatement(x);
 	    default:
 	        exit(2);
 	
