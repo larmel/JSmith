@@ -23,6 +23,8 @@ public:
     bool funcBeenUsed;
     
     Variable(std::string s, Type t);
+    
+    static std::string generateRandomIdentifier();
 };
 
 #endif
