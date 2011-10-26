@@ -4,12 +4,11 @@
 
 #include "TestSuite.h"
 
-using std::cout;
-using std::endl;
+using namespace std;
 
 /*
  * Usage:
- * > jsmith <number>
+ * > jsmith <number> <file>
  */ 
 int main(int argc, char* argv[]) 
 {
@@ -19,12 +18,23 @@ int main(int argc, char* argv[])
         tests = atoi(argv[1]);
     }
     
+    // Test a specific file
+    string input_file = "";
+    if (argc > 2) {
+        input_file = argv[2];
+    }
+    
     TestSuite testSuite;
     
     while (tests--)
     {
         cout << "Remaining: " << tests + 1 << endl;
-        testSuite.generateSource();
+        
+        if (input_file == "") {
+            testSuite.generateSource();
+        } else {
+            testSuite.setSource(input_file);
+        }
         
         if (!testSuite.runAllTests()) {
             cout << "Error detected !!!" << endl;
