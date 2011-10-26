@@ -11,22 +11,17 @@ CallExpression::CallExpression(Scope* parent_scope, int depth) : Expression(pare
     if (this->function!=NULL) {
         this->function->funcBeenUsed = true;
     } // No functions available, what to do?
-    
 }
 
 void CallExpression::print(std::ostream& out, unsigned int depth) {
-    for (int t = 0; t < depth; ++t){ 
-	    out << "   ";
-    }
-	
+    for (int t = 0; t < depth; ++t) out << "   ";
     if (this->function==NULL) 
     {
-        out << ";"; // No functions available, what to do?
+        // No functions available, what to do?
     } 
     
     else
     {
         out << this->function->name << "()";
     }
-    out << std::endl;
 }

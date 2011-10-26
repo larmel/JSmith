@@ -3,7 +3,7 @@
 #include "SourceElement.h"
 
 void FunctionDeclaration::generate() {
-    this->identifier = generateNewVariable( OBJECT_T );
+    this->identifier = generateNewVariable( FUNCTION_T );
     
     // TODO: Argument list
     
