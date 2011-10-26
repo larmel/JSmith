@@ -12,8 +12,9 @@ VariableStatement::VariableStatement(Scope* s) : Statement(s) {
     this->expression = Expression::generate_expression( scope );
     this->var = scope->generateNewVariable(NUMBER_T);
     
-    int endline = rand() % 2;
-    line_end = (endline == 0) ? ";" : "";
+    //int endline = rand() % 2;
+    //line_end = (endline == 0) ? ";" : "";
+    line_end = ";";
         
 }
 

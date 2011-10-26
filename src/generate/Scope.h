@@ -18,7 +18,7 @@ public:
     Scope(Scope* p);
     
     Variable* getRandomVariable(Type t);
-    
+
     // TODO: Make this private
     std::string getNewRandomIdentifier();
     

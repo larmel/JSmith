@@ -16,14 +16,23 @@ Scope::Scope(Scope* p) : parent(p) {
 }
 
 Variable* Scope::getRandomVariable(Type t) {
-    // TODO: Recur on parent to get all visible variables
+
     
-    if (this->variables->size() == 0) {
+    // Get all the variables of a type
+    std::vector<Variable*> vars_of_type;
+    
+    for (int i = 0; i<this->variables->size(); i++) {
+        if (this->variables->at(i)->type == t) {
+            vars_of_type.push_back(this->variables->at(i));
+        }
+    }
+    
+    if (vars_of_type.size() == 0) {
         return NULL;
     }
-    int pos = rand() % this->variables->size();
     
-    return this->variables->at(pos);
+    int pos = rand() % vars_of_type.size();
+    return vars_of_type[pos];
 }
 
 Variable* Scope::generateNewVariable(Type t) {
