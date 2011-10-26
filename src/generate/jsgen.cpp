@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
     // Can give a seed as parameter to reconstruct some program
     // TODO: Error checking etc
     if (argc > 1) {
-        unsigned long s = atol(argv[1]);
+        s = atol(argv[1]);
     }
     
     // This decides the whole generated source
