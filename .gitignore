@@ -1,5 +1,3 @@
-bin/
+bin/*
 test/*
 !test/bugs/
-js-compilers/SpiderMonkey/js
-

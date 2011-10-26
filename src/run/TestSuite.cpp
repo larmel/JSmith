@@ -53,12 +53,15 @@ bool TestSuite::runAllTests()
     
     ofstream report(report_file.c_str());
     
-    report << "*** Test Summary ***" << endl;
-    report << "SpiderMonkey: \t (" << spiderMonkey.first << ", " << spiderMonkey.second << ")" << endl;
-    report << "Rhino: \t\t (" << rhino.first << ", " << rhino.second << ")" << endl;
-    report << "V8: \t\t (" << v8.first << ", " << v8.second << ")" << endl;
-    report << "KJS: \t\t (" << kjs.first << ", " << kjs.second << ")" << endl;
-    report << "Narcissus: \t (" << narcissus.first << ", " << narcissus.second << ")" << endl;
+    report << "/*" << endl;
+    report << " * ### Test Summary ###" << endl;
+    report << " *" << endl;
+    report << " * SpiderMonkey: (" << spiderMonkey.first << ", " << spiderMonkey.second << ")" << endl;
+    report << " * Rhino:\t (" << rhino.first << ", " << rhino.second << ")" << endl;
+    report << " * V8:\t\t (" << v8.first << ", " << v8.second << ")" << endl;
+    report << " * KJS:\t\t (" << kjs.first << ", " << kjs.second << ")" << endl;
+    report << " * Narcissus:\t (" << narcissus.first << ", " << narcissus.second << ")" << endl;
+    report << " */" << endl;
     
     ifstream source(input_file.c_str());
     
