@@ -8,7 +8,7 @@ class ExpressionStatement : public Statement {
 private:
  	Expression* expression;
 public:
-	ExpressionStatement(Scope*);
+	ExpressionStatement(Scope*, unsigned int depth);
 	void print(std::ostream&, unsigned int);
 };
  #endif

@@ -13,7 +13,7 @@ private:
     std::string line_end;
     
 public:
-	VariableStatement(Scope* s);
+	VariableStatement(Scope* s, unsigned int depth);
 	void print(std::ostream& out, unsigned int depth);
 };
 

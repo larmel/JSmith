@@ -6,7 +6,7 @@
 #include "Random.h"
 #include <iostream>
 
-WhileStatement::WhileStatement(Scope* scope) : Statement(scope) {
+WhileStatement::WhileStatement(Scope* scope, unsigned int depth) : Statement(scope, depth) {
 
     // TODO: Generate some complicated loop expression
 	//Expression *e = Expression::generate_expression(this->scope);
@@ -15,10 +15,10 @@ WhileStatement::WhileStatement(Scope* scope) : Statement(scope) {
     is_block = false;
     
 	if (Random::flip_coin()) {
-		statement = new BlockStatement(scope);
+		statement = new BlockStatement(scope, depth + 1);
 		is_block = true;
 	} else {
-		statement = Statement::newRandomStatement(scope); 
+		statement = Statement::newRandomStatement(scope, depth + 1); 
 	}
 }
 

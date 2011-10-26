@@ -7,9 +7,9 @@
 #include "RandomDiscreteDistribution.h"
 
 
-IfStatement::IfStatement(Scope* s) : Statement(s) {
+IfStatement::IfStatement(Scope* s, unsigned int depth) : Statement(s, depth) {
 
-	expression = Expression::generateExpressionForConditional(this->scope);
+	expression = Expression::generateExpressionForConditional(this->scope, depth + 1);
     false_statement = NULL;
     true_is_block = false_is_block = false;
 	
@@ -17,10 +17,10 @@ IfStatement::IfStatement(Scope* s) : Statement(s) {
 	RandomDiscreteDistribution rt(2,4,1);
 	
 	if(rt.getChosenIndex() == 0) {
-		true_statement = new BlockStatement(scope);
+		true_statement = new BlockStatement(scope, depth + 1);
 		true_is_block = true;
 	} else {
-		true_statement = Statement::newRandomStatement(scope);
+		true_statement = Statement::newRandomStatement(scope, depth + 1);
 	}
 	
 	RandomDiscreteDistribution rf(2,1,1);
@@ -29,10 +29,10 @@ IfStatement::IfStatement(Scope* s) : Statement(s) {
 	{
 	    RandomDiscreteDistribution r (2,3,1);
 	    if(r.getChosenIndex() == 0) {
-		    false_statement = new BlockStatement(scope);
+		    false_statement = new BlockStatement(scope, depth + 1);
 		    false_is_block = true;
 	    } else {
-		    false_statement = Statement::newRandomStatement(scope);
+		    false_statement = Statement::newRandomStatement(scope, depth + 1);
 	    }
 
 	}

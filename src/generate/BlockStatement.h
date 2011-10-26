@@ -9,7 +9,7 @@ private:
     std::vector<Statement*> statements;
 
 public:
-    BlockStatement(Scope* s);
+    BlockStatement(Scope* s, unsigned int depth);
     void print(std::ostream& out, unsigned int depth);
 };
 

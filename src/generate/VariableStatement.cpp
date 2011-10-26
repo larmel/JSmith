@@ -6,7 +6,7 @@
 #include "Expression.h"
 
 
-VariableStatement::VariableStatement(Scope* s) : Statement(s) {
+VariableStatement::VariableStatement(Scope* s, unsigned int depth) : Statement(s, depth) {
     
     // Generate expression first to avoid circle dependency
     this->expression = Expression::generateExpression( scope );

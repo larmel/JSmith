@@ -8,25 +8,32 @@
 #include "ReturnStatement.h"
 #include "Scope.h"
 #include "RandomDiscreteDistribution.h"
+#include <iostream>
+using namespace std;
 
-
-Statement* Statement::newRandomStatement(Scope* x){
-
-	RandomDiscreteDistribution d = RandomDiscreteDistribution(6, 200, 50, 50, x->getParent() == NULL ? 0 : 10, 50, 50);
+Statement* Statement::newRandomStatement(Scope* x, unsigned int depth){
+    cout << "Creating statement on depth " << depth <<  endl;
+	RandomDiscreteDistribution d = RandomDiscreteDistribution(6, 
+	    200, 
+	    50, 
+	    depth < 3 ? 50 : 0, 
+	    x->getParent() == NULL ? 0 : 10, 
+	    50, 
+	    depth < 3 ? 50 : 0);
 	
 	switch(d.getChosenIndex()){
 	    case 0:
-	        return new VariableStatement(x);
+	        return new VariableStatement(x, depth);
 	    case 1:
-	        return new IfStatement(x);
+	        return new IfStatement(x, depth);
 	    case 2:
-	        return new WhileStatement(x);
+	        return new WhileStatement(x, depth);
 	    case 3:
-	        return new ReturnStatement(x);
+	        return new ReturnStatement(x, depth);
 	    case 4:
-	        return new ExpressionStatement(x);
+	        return new ExpressionStatement(x, depth);
         case 5:
-	        return new ForStatement(x);
+	        return new ForStatement(x, depth);
 	    default:
 	        exit(2);
 	

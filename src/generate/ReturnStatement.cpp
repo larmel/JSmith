@@ -3,7 +3,7 @@
 #include <vector>
 #include "Expression.h"
 
-ReturnStatement::ReturnStatement(Scope* s) : Statement(s) {
+ReturnStatement::ReturnStatement(Scope* s, unsigned int depth) : Statement(s, depth) {
 	expression = Expression::generateExpression(s);
 }
 

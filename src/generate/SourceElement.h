@@ -15,11 +15,13 @@ protected:
     // Will either be Program or a FunctionDeclaration
     Scope* scope;
     
+    unsigned int depth;
+    
 public:
-    SourceElement(Scope* context) : scope(context) { };
+    SourceElement(Scope* context, unsigned int parent_depth) : scope(context), depth(parent_depth + 1) { };
 
     // This class knows about it's subclasses, perhaps not so elegant?
-    static SourceElement* createRandom(Scope* parent_scope);
+    static SourceElement* createRandom(Scope* parent_scope, unsigned int depth);
     
     // Pure virtual, abstract class
     virtual void print(std::ostream &out, unsigned int depth) = 0;

@@ -3,7 +3,7 @@
 #include "RandomDiscreteDistribution.h"
 #include "Expression.h"
 
-ExpressionStatement::ExpressionStatement(Scope* s) : Statement(s){
+ExpressionStatement::ExpressionStatement(Scope* s, unsigned int depth) : Statement(s, depth){
     // Todo alternate between function call and other expressions
     RandomDiscreteDistribution d = RandomDiscreteDistribution(3, 3, 0, 8 );
     

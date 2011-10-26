@@ -10,7 +10,7 @@ private:
     Expression* expression;
 
 public:
-    ReturnStatement(Scope* s);
+    ReturnStatement(Scope* s, unsigned int depth);
     void print(std::ostream& out, unsigned int depth);
 };
 

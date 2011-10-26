@@ -6,20 +6,20 @@
 #include "Random.h"
 #include <iostream>
 
-ForStatement::ForStatement(Scope* scope) : Statement(scope) 
+ForStatement::ForStatement(Scope* scope, unsigned int parent_depth) : Statement(scope, parent_depth) 
 {
     this->loop_guard = scope->generateNewVariable( NUMBER_T );
     loop_guard->lock();
     
-    this->expr_b = Expression::generateExpression(scope, 5);
-    this->expr_c = Expression::generateExpression(scope, 5);
+    this->expr_b = Expression::generateExpression(scope);
+    this->expr_c = Expression::generateExpression(scope);
     
     is_block = false;
 	if (Random::flip_coin()) {
-		statement = new BlockStatement(scope);
+		statement = new BlockStatement(scope, depth);
 		is_block = true;
 	} else {
-		statement = Statement::newRandomStatement(scope); 
+		statement = Statement::newRandomStatement(scope, depth); 
 	}
 	
 	loop_guard->unlock();
@@ -35,9 +35,6 @@ void ForStatement::print(std::ostream& out, unsigned int depth){
 	
 	for (int t = 0; t < depth; ++t) out << "   ";
 	out << "   " << "if (" << loop_guard->name << "++ > 42) break;" << std::endl;
-	
-	// Don't increase print depth for block
-	if (is_block) depth--;
 	
 	statement->print(out, depth + 1);
 	

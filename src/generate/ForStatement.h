@@ -16,7 +16,7 @@ private:
     bool is_block;
     
 public:
-	ForStatement(Scope* s);
+	ForStatement(Scope* s, unsigned int depth);
 	void print(std::ostream& out, unsigned int depth);
 };
 

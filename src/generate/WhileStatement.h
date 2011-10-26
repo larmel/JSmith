@@ -13,7 +13,7 @@ private:
     bool is_block;
     
 public:
-	WhileStatement(Scope* s);
+	WhileStatement(Scope* s, unsigned int depth);
 	void print(std::ostream& out, unsigned int depth);
 };
 

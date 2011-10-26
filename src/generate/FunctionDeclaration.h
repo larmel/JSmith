@@ -17,7 +17,7 @@ private:
     std::vector<SourceElement*> source_elements;
     
 public:
-    FunctionDeclaration(Scope* parent) : SourceElement(parent), Scope(parent) { generate(); };
+    FunctionDeclaration(Scope* parent, unsigned int depth) : SourceElement(parent, depth), Scope(parent) { generate(); };
 	
     void generate();
 	

@@ -12,13 +12,13 @@ void FunctionDeclaration::generate() {
     // Create some number of SourceElements
     // Might want to enforce some return type
     for (int i = 0; i < 5; ++i) {
-        this->source_elements.push_back( SourceElement::createRandom(this) );
+        this->source_elements.push_back( SourceElement::createRandom(this, depth + 1) );
     }
     
     RandomDiscreteDistribution return_or_not (2, 4, 1);
     
     if(return_or_not.getChosenIndex() == 0){
-        this->source_elements.push_back(new ReturnStatement(this));
+        this->source_elements.push_back(new ReturnStatement(this, depth + 1));
     }
 }
 

@@ -15,10 +15,10 @@ private:
     //int type;
 	
 public:
-    Statement(Scope* context) : SourceElement(context) { };
+    Statement(Scope* context, unsigned int depth) : SourceElement(context, depth) { };
 	
 	//virtual void print(std::ostream&, unsigned int) = 0;
-	static Statement* newRandomStatement(Scope*);
+	static Statement* newRandomStatement(Scope*, unsigned int depth);
 	
 };
 
