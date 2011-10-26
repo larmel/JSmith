@@ -8,8 +8,11 @@
 
 ForStatement::ForStatement(Scope* scope) : Statement(scope) 
 {
-    this->loop_var = scope->generateNewVariable( NUMBER_T );
-    loop_var->lock();
+    this->loop_guard = scope->generateNewVariable( NUMBER_T );
+    loop_guard->lock();
+    
+    this->expr_b = Expression::generateExpression(scope, 5);
+    this->expr_c = Expression::generateExpression(scope, 5);
     
     is_block = false;
 	if (Random::flip_coin()) {
@@ -19,18 +22,25 @@ ForStatement::ForStatement(Scope* scope) : Statement(scope)
 		statement = Statement::newRandomStatement(scope); 
 	}
 	
-	loop_var->unlock();
+	loop_guard->unlock();
 }
 
 void ForStatement::print(std::ostream& out, unsigned int depth){
 	
-	for (int t = 0; t < depth; ++t){
-		out << "   ";
-	}
-	out << "for (var " << loop_var->name << " = 0; " << loop_var->name << " < 10; " << loop_var->name << "++)" << std::endl;
+	for (int t = 0; t < depth; ++t) out << "   ";
+	out << "for (var " << loop_guard->name << " = 0; "; 
+	
+	expr_b->print(out, depth); out << "; ";	
+	expr_c->print(out, depth); out << ") {" << std::endl;
+	
+	for (int t = 0; t < depth; ++t) out << "   ";
+	out << "   " << "if (" << loop_guard->name << "++ > 42) break;" << std::endl;
 	
 	// Don't increase print depth for block
 	if (is_block) depth--;
 	
 	statement->print(out, depth + 1);
+	
+	for (int t = 0; t < depth; ++t) out << "   ";
+	out << "}" << std::endl;
 }

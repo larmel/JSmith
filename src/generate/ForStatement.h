@@ -9,7 +9,10 @@ class Variable;
 
 class ForStatement : public Statement {
 private:
-    Variable* loop_var;
+    Variable* loop_guard;
+    Expression* expr_a;
+    Expression* expr_b;
+    Expression* expr_c;
     Statement* statement;
     bool is_block;
     
