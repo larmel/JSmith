@@ -13,6 +13,6 @@ void ReturnStatement::print(std::ostream& out)
 		out << "   ";
 	}
 	out << "return ";
-	expression->print(out, depth);
+	expression->print(out);
 	out << ";" << std::endl;
 }

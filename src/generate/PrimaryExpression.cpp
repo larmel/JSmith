@@ -55,7 +55,7 @@ PrimaryExpression::PrimaryExpression(Scope* parent_scope, int depth) : Expressio
     }
 }
 
-void PrimaryExpression::print(std::ostream& out, unsigned int depth) {
+void PrimaryExpression::print(std::ostream& out) {
     // Print variable or immediate
     if (this->imm) {
         out << imm_val;

@@ -46,7 +46,7 @@ void IfStatement::print(std::ostream& out){
 	}
 	out << prefix << "if (";
 
-	expression->print(out, depth);
+	expression->print(out);
 	
 	out << ")" << std::endl;
 	

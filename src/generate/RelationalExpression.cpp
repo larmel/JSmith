@@ -19,8 +19,8 @@ RelationalExpression::RelationalExpression(Scope* parent_scope, int depth) : Exp
     
 }
 
-void RelationalExpression::print(std::ostream& out, unsigned int depth) {
-    op1->print(out, depth);
+void RelationalExpression::print(std::ostream& out) {
+    op1->print(out);
     out << this->op;
-    op2->print(out, depth);
+    op2->print(out);
 }

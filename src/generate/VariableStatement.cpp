@@ -22,6 +22,6 @@ void VariableStatement::print(std::ostream& out){
 	
 	for (int t = 0; t < depth; ++t) out << "   ";
 	out << "var " << var->name << " = ";
-	expression->print(out, depth);
+	expression->print(out);
 	out << line_end << std::endl;
 }

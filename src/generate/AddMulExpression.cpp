@@ -23,9 +23,9 @@ AddMulExpression::AddMulExpression(Scope* parent_scope, int depth) : Expression(
     }
 }
 
-void AddMulExpression::print(std::ostream& out, unsigned int depth) {
+void AddMulExpression::print(std::ostream& out) {
     // Print variable
-    op1->print(out, depth);
+    op1->print(out);
     out << this->op;
-    op2->print(out, depth);
+    op2->print(out);
 }

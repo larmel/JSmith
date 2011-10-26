@@ -1,5 +1,4 @@
 #include "Expression.h"
-
 #include "PrimaryExpression.h"
 #include "AddMulExpression.h"
 #include "RelationalExpression.h"
@@ -12,7 +11,6 @@ Expression::Expression(Scope *scope, int depth)
         std::cerr << "No scope provided to Expression node";
         exit(1);
     }
-    
     this->scope = scope;
     this->depth = depth;
     this->parenthesis = false;
@@ -36,12 +34,9 @@ Expression *Expression::generateExpression(Scope *scope, int depth) {
         Expression *subexpr = new PrimaryExpression(scope, depth);
         expression->expressions.push_back(subexpr);
         
-    } 
-    
-    
+    }
     else  // Generate some sort of non-terminal node:
     {
-
 		RandomDiscreteDistribution r (3, 40, 10, 1);
 		Expression *subexpr;
 		
@@ -60,41 +55,30 @@ Expression *Expression::generateExpression(Scope *scope, int depth) {
 				subexpr = new RelationalExpression(scope, depth);
 				expression->expressions.push_back(subexpr);
 				break;
-			
 		}
-
     }
-    
     return expression;
 }
-    
 
 Expression *Expression::generateExpressionForConditional(Scope *scope, int depth) {
 	RandomDiscreteDistribution r (2, 90, 10);
-	if(r.getChosenIndex() == 0){
+	if(r.getChosenIndex() == 0) {
 	    return new RelationalExpression(scope, depth);
-	}else{
+	} else {
 	    return Expression::generateExpression(scope, depth);
 	}
-
 }
-    
-    
-    
-    
-// Print function
-void Expression::print(std::ostream &out, unsigned int depth)
+
+void Expression::print(std::ostream &out)
 {
     if (this->parenthesis) out << "(";
     
     for (int i = 0; i<this->expressions.size(); i++) {
-        this->expressions[i]->print(out, 1);
-        if (i<this->expressions.size()-1) {
+        this->expressions[i]->print(out);
+        if (i < this->expressions.size()-1) {
             out << ",";        
         }
     }
-    
     if (this->parenthesis) out << ")";
-    
 }
 

@@ -16,7 +16,7 @@ AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth) : Exp
     this->right_side = Expression::generateExpression(parent_scope);
 }
 
-void AssignmentExpression::print(std::ostream& out, unsigned int depth) {
+void AssignmentExpression::print(std::ostream& out) {
     if (this->left_side==NULL) 
     {
         // No variables available, what to do?
@@ -25,6 +25,6 @@ void AssignmentExpression::print(std::ostream& out, unsigned int depth) {
     else
     {
         out << left_side->name << " = ";
-        right_side->print(out, depth);
+        right_side->print(out);
     }
 }

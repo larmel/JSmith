@@ -21,7 +21,7 @@ public:
     Expression(Scope *parent_scope, int depth);
     static Expression *generateExpression(Scope *scope, int depth = 0);
     static Expression *generateExpressionForConditional(Scope *scope, int depth = 0);
-	virtual void print(std::ostream& out, unsigned int depth);
+	virtual void print(std::ostream& out);
 };
 
 #endif

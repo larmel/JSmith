@@ -13,7 +13,7 @@ CallExpression::CallExpression(Scope* parent_scope, int depth) : Expression(pare
     } // No functions available, what to do?
 }
 
-void CallExpression::print(std::ostream& out, unsigned int depth) {
+void CallExpression::print(std::ostream& out) {
     if (this->function==NULL) 
     {
         // No functions available, what to do?
