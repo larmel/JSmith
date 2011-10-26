@@ -7,4 +7,5 @@ ExpressionStatement::ExpressionStatement(Scope* s) : Statement(s){
 void ExpressionStatement::print(std::ostream& out, unsigned int depth)
 {
 	expression->print(out, depth);
+	out << ";" << std::endl;
 }

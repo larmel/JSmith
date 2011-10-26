@@ -20,10 +20,12 @@ Variable* Scope::getRandomLocalVariable(Type t) {
 
     // Get all the variables of a type
     std::vector<Variable*> vars_of_type;
+    
+    std::cout << "\n\n start_depth: " << this->start_depth << "\n\n";
 
     // Limit the search range to [start_depth : size()], and
     // also eliminate any functions that have been used.
-    for (int i = this->start_depth; i<this->variables->size()-start_depth; i++) {
+    for (int i = this->start_depth; i<this->variables->size() - this->start_depth; i++) {
         if (this->variables->at(i)->type == t && !this->variables->at(i)->funcBeenUsed) {
             vars_of_type.push_back(this->variables->at(i));
         }
@@ -62,7 +64,7 @@ Variable* Scope::generateNewVariable(Type t) {
     Variable* var = new Variable(identifier, t);
     
     // Functions have their own scope, but are visible in parent scope
-    if (t == OBJECT_T) {
+    if (t == FUNCTION_T) {
         this->parent->variables->push_back( var );
     } else {
         this->variables->push_back( var );

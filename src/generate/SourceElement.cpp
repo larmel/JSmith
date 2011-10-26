@@ -11,7 +11,9 @@ SourceElement* SourceElement::createRandom(Scope* parent_scope)
 {
     int flip = rand() % 2;
     if (flip == 0 && function_count-- > 0) 
+    {
         return new FunctionDeclaration(parent_scope);
+    }
     
 	return Statement::newRandomStatement(parent_scope);
 }
