@@ -16,7 +16,7 @@ Statement* Statement::newRandomStatement(Scope* x, unsigned int depth){
 	RandomDiscreteDistribution d = RandomDiscreteDistribution(6, 
 	    200, 
 	    50, 
-	    depth < 3 ? 50 : 0, 
+	    0, // while is bugged
 	    x->getParent() == NULL ? 0 : 10, 
 	    50, 
 	    depth < 3 ? 50 : 0);
