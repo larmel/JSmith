@@ -23,6 +23,10 @@ public:
     void lock();
     void unlock();
     
+    bool is_locked() {
+        return locked;
+    };
+    
     static std::string generateRandomIdentifier();
     
     static int reserved_word_count;
