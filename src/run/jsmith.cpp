@@ -1,123 +1,15 @@
 #include <iostream>
-#include <fstream>
 #include <string>
 #include <cstdlib>
 
-using namespace std;
+#include "TestSuite.h"
 
-const static char* input_file = "test/generated.js";
-const static char* output_file = "test/output";
-
-// Forward declaration
-string getOutput();
-
-bool invokeSpiderMonkey() 
-{
-    string command = "js-compilers/SpiderMonkey/js " + string(input_file) + " > test/output";
-    
-    int retcode = system(command.c_str());
-    return retcode == 0;
-}
-
-bool invokeRhino() 
-{
-    string command = "/usr/bin/rhino -f " + string(input_file) + " > test/output";
-    
-    int retcode = system(command.c_str());
-    return retcode == 0;
-}
-
-bool invokeV8() 
-{
-    string command = "js-compilers/V8/v8 " + string(input_file) + " > test/output";
-    
-    int retcode = system(command.c_str());
-    return retcode == 0;
-}
-
-bool invokeKjs()
-{
-    string command = "/usr/bin/kjs " + string(input_file) + " > test/output";
-    
-    int retcode = system(command.c_str());
-    return retcode == 0;
-}
-
-bool invokeNarcissus()
-{
-    string command = "js-compilers/Narcissus/njs -f " + string(input_file) + " > test/output";
-    
-    int retcode = system(command.c_str());
-    return retcode == 0;
-}
+using std::cout;
+using std::endl;
 
 /*
- * Invoke generate, create a new program at test/generated.js
- */
-void generateSource() {
-    string command = "bin/generate > test/generated.js";
-    system(command.c_str());
-}
-
-/*
- * Feed generated.js to all available compilers
- */
-bool runAllTests() {
-    invokeSpiderMonkey();
-    string spiderMonkey = getOutput();
-    
-    invokeRhino();
-    string rhino = getOutput();
-    
-    invokeV8();
-    string v8 = getOutput();
-    
-    invokeKjs();
-    string kjs = getOutput();
-    
-    invokeNarcissus();
-    string narcissus = getOutput();
-    
-    ifstream source(input_file);
-    ofstream report("test/report");
-    
-    report << "*** Test Summary ***" << endl;
-    report << "SpiderMonkey: \t" << spiderMonkey << endl;
-    report << "Rhino: \t\t" << rhino << endl;
-    report << "V8: \t\t" << v8 << endl;
-    report << "KJS: \t\t" << kjs << endl;
-    report << "Narcissus: \t" << narcissus << endl << endl;
-    
-    string s;
-    while (getline(source, s))
-    {
-        report << s << endl;
-    }
-    
-    report.close();
-    source.close();
-    
-    return spiderMonkey == rhino && rhino == v8 && v8 == kjs && kjs == narcissus;
-}
-
-/*
- * Read output file generated for each test
- */
-string getOutput() 
-{
-    ifstream file(output_file);
-    string concatinated = "";
-    string s;
-    while (getline(file, s)) {
-        concatinated += s;
-    }
-    file.close();
-    return concatinated;
-}
-
-/*
- * To run 100 tests
- * > jsmith 100
+ * Usage:
+ * > jsmith <number>
  */ 
 int main(int argc, char* argv[]) 
 {
@@ -127,21 +19,20 @@ int main(int argc, char* argv[])
         tests = atoi(argv[1]);
     }
     
+    TestSuite testSuite;
+    
     while (tests--)
     {
         cout << "Remaining: " << tests + 1 << endl;
-        generateSource();
+        testSuite.generateSource();
         
-        if (!runAllTests()) {
-            std::cout << "** !!! Error detected !!! **" << std::endl;
+        if (!testSuite.runAllTests()) {
+            cout << "Error detected !!!" << endl;
             return 1;
         }
     }
     
-    cout << "All tests ran with no error detected :(" << endl;
-    
+    cout << "All tests ran with no error detected" << endl;
     return 0;
 }
-
-
 
