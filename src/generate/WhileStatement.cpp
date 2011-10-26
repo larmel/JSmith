@@ -1,9 +1,10 @@
 #include "WhileStatement.h"
-#include <iostream>
 #include "Expression.h"
 #include "Variable.h"
 #include "Scope.h"
 #include "BlockStatement.h"
+#include "Random.h"
+#include <iostream>
 
 WhileStatement::WhileStatement(Scope* scope) : Statement(scope) {
 
@@ -13,14 +14,12 @@ WhileStatement::WhileStatement(Scope* scope) : Statement(scope) {
     
     is_block = false;
     
-	int r = rand() % 100;
-	if (r < 50) {
+	if (Random::flip_coin()) {
 		statement = new BlockStatement(scope);
 		is_block = true;
 	} else {
 		statement = Statement::newRandomStatement(scope); 
 	}
-    
 }
 
 
