@@ -7,15 +7,15 @@
 
 COMPILER = g++
 
-default: generate run
+default: generate csmith
 
 generate: src/generate/jsgen.cpp
 	$(COMPILER) src/generate/*.cpp -o bin/generate
 	
-run: src/run/run.cpp
-	$(COMPILER) src/run/run.cpp -o bin/run
+csmith: src/run/csmith.cpp
+	$(COMPILER) src/run/*.cpp -o bin/csmith
 
 clean:
-	rm bin/run
+	rm bin/csmith
 	rm bin/generate
 
