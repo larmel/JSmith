@@ -42,7 +42,7 @@ std::string Variable::generateRandomIdentifier()
     std::string identifier;
     bool is_reserved;
     do {
-        identifier = "";
+        identifier = "_";
         do {
             char nextchar = identifier_character[ rand() % identifier_character_count ];
             identifier += nextchar;
