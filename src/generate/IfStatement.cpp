@@ -8,7 +8,7 @@
 
 IfStatement::IfStatement(Scope* s) : Statement(s) {
 
-	expression = Expression::generate_expression(this->scope);
+	expression = Expression::generateExpression(this->scope);
     
     is_block = false;
 	

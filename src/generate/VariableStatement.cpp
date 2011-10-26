@@ -9,7 +9,7 @@
 VariableStatement::VariableStatement(Scope* s) : Statement(s) {
     
     // Generate expression first to avoid circle dependency
-    this->expression = Expression::generate_expression( scope );
+    this->expression = Expression::generateExpression( scope );
     this->var = scope->generateNewVariable(NUMBER_T);
     
     //int endline = rand() % 2;
