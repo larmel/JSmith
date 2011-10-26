@@ -9,9 +9,10 @@
 class Scope 
 {
 private:
+    
     Scope* parent;
-
 protected:
+
     std::vector<Variable*>* variables;
     int start_depth; // Index to the first vector element in this scope    
     
@@ -25,6 +26,7 @@ public:
     std::string getNewRandomIdentifier();
     
     bool isUnique(std::string identifier);
+    Scope* getParent();
     
     /*
      * Generate and return a new variable for this scope
