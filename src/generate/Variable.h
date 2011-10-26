@@ -4,12 +4,25 @@
 #include <string>
 #include <vector>
 
-static const char valid_identifier_characters[] = {
+static const int reserved_words = 29;
+static const std::string reserverd_word[] = {
+    "break̈́",  "do", "instanceof", "typeof",
+    "case", "else", "new", "var",
+    "catch", "finally", "return", "void",
+    "continue", "for", "switch", "while",
+    "debugger", "function", "this", "with",
+    "default", "if", "throw",
+    "delete", "in", "try",
+    "null",
+    "true", "false"
+};
+
+static const int identifier_characters = 42;
+static const char identifier_character[] = {
+    '$', '_',
     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
-    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T'};
-
-static const int number_of_valid_identifier_characters = 40;
-
+    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T'
+};
 
 enum Type {
     UNDEFINED_T, NULL_T, BOOLEAN_T, NUMBER_T, STRING_T, OBJECT_T, FUNCTION_T
