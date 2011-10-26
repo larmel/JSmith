@@ -8,9 +8,9 @@ AddMulExpression::AddMulExpression(Scope* parent_scope, int depth) : Expression(
 
     this->op1 = Expression::generateExpression(this->scope, this->depth+1);
     this->op2 = Expression::generateExpression(this->scope, this->depth+1);
-    if (this->op1==NULL) 
+    if (this->op1 == NULL) 
         std::cerr << "No operator 1\n";   
-    if (this->op1==NULL) 
+    if (this->op1 == NULL) 
         std::cerr << "No operator 2\n";
     
     // Pick the operator 

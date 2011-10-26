@@ -6,7 +6,7 @@
  
 class ExpressionStatement : public Statement {
 private:
- 	CallExpression* expression;
+ 	Expression* expression;
 public:
 	ExpressionStatement(Scope*);
 	void print(std::ostream&, unsigned int);
