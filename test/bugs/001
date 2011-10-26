@@ -1,0 +1,72 @@
+*** Test Summary ***
+SpiderMonkey: 	38034894311790930005.458913070090713e+273803489431179093000
+Rhino: 		38034894311790930005.458913070090713e+273803489431179093000
+V8: 		38034894311790930005.458913070090714e+273803489431179093000
+KJS: 		38034894311790930005.458913070090714e+273803489431179093000
+Narcissus: 	38034894311790930005.458913070090713e+273803489431179093000
+
+/**********************************************/
+/*  Automatically generated script by JSmith    
+/*  Seed: 1319594182
+/**********************************************/
+function NsAfT() {
+   function dEiOC() {
+      function LtnKI() {
+         while (false)
+         {
+            if (224169450)
+            {
+               var mtlKT = 1560500506;
+               var pIfoT = mtlKT/866083632/(mtlKT*((1080105052))/mtlKT*746511327*69631018-mtlKT/mtlKT-1078935662);
+               var clkOf = 816992643;
+
+            }
+            var FQAqe = 1852188921*520645281<=(clkOf);
+            var dcBiL = FQAqe;
+
+         }
+         var RCaCo = 1258623809+(pIfoT)*mtlKT;
+         if (dcBiL)
+         {
+            var paoEp = 228662881;
+            var apHPB = 452112024*1416178895-dcBiL;
+            var ijgKq = RCaCo*1676795399+RCaCo;
+
+         }
+         var LOlTT = RCaCo+((1345555378-(1298866293)+339573410)/(1074654919))-1754259074+1766219049*clkOf;
+      }
+      var LTIRS = 1318542682;
+      var Cnlaj = 1350978646/1956237767;
+      var AoBOH = LTIRS*1967715487/1305054683*LTIRS;
+   }
+   var jAhLS = 253792461;
+   if ((jAhLS+1398336012*1385299791)/(((2042867516)))/jAhLS)
+   {
+      if (1216289667*jAhLS+1856306774)
+      {
+         var NtFJo = 1974851614;
+         var OBdLo = NtFJo;
+         var nkshJ = 671457235;
+
+      }
+      var QJogC = ((152763586*OBdLo)<=nkshJ);
+      while (false)
+      {
+         var Bsjdq = 1025263481+NtFJo+(jAhLS)/NtFJo*OBdLo+442563174/(NtFJo*1052411763*(jAhLS-(685400687)))+79595134/(nkshJ)-nkshJ-OBdLo;
+         var QjfjN = 1181496196;
+         var rQLdN = (2080790368);
+
+      }
+
+   }
+   var GlhHo = QJogC;
+}
+var OjmGj = 1889579895*2012875688;
+var ObGId = ((1435238133)*OjmGj+(2069886681));
+var fQHcg = OjmGj;
+(function () {
+   NsAfT();
+   print(OjmGj); 
+   print(ObGId); 
+   print(fQHcg); 
+})();

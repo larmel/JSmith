@@ -8,9 +8,9 @@ CallExpression::CallExpression(Scope* parent_scope, int depth) : Expression(pare
     // Fetch a local function (we're only allowed to call functions on the same level)
     this->function = parent_scope->getRandomLocalVariable(FUNCTION_T);
 
-    if (this->function==NULL) {
-        // No functions available, what to do?
-    }
+    if (this->function!=NULL) {
+        this->function->funcBeenUsed = true;
+    } // No functions available, what to do?
     
 }
 
