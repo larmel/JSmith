@@ -17,7 +17,7 @@ Program::Program() : Scope(NULL) {
 void Program::print(std::ostream& out) 
 {
     for (int i = 0; i < this->source_elements.size(); ++i) {
-	    this->source_elements.at(i)->print(out, 0);
+	    this->source_elements.at(i)->print(out);
 	}
 	printMain(out);
 }

@@ -9,7 +9,7 @@ BlockStatement::BlockStatement(Scope* s, unsigned int depth) : Statement(s, dept
 	}
 }
 
-void BlockStatement::print(std::ostream& out, unsigned int depth)
+void BlockStatement::print(std::ostream& out)
 {
 	for (int t = 0; t < depth; ++t){ 
 		out << "   ";
@@ -17,7 +17,7 @@ void BlockStatement::print(std::ostream& out, unsigned int depth)
 	out << "{" << std::endl;
 	
 	for (int i = 0; i < statements.size(); ++i) {
-		statements.at(i)->print(out, depth + 1);
+		statements.at(i)->print(out);
 	}
 	
 	for (int t = 0; t < depth; ++t){

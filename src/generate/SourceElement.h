@@ -24,7 +24,7 @@ public:
     static SourceElement* createRandom(Scope* parent_scope, unsigned int depth);
     
     // Pure virtual, abstract class
-    virtual void print(std::ostream &out, unsigned int depth) = 0;
+    virtual void print(std::ostream &out) = 0;
 };
 
 #endif

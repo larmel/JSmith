@@ -11,7 +11,7 @@ private:
 
 public:
     ReturnStatement(Scope* s, unsigned int depth);
-    void print(std::ostream& out, unsigned int depth);
+    void print(std::ostream& out);
 };
 
 #endif

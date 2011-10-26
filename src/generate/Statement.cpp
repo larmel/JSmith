@@ -36,7 +36,5 @@ Statement* Statement::newRandomStatement(Scope* x, unsigned int depth){
 	        return new ForStatement(x, depth);
 	    default:
 	        exit(2);
-	
 	}
-	
 }

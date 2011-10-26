@@ -21,7 +21,7 @@ ExpressionStatement::ExpressionStatement(Scope* s, unsigned int depth) : Stateme
     }
 	
 }
-void ExpressionStatement::print(std::ostream& out, unsigned int depth)
+void ExpressionStatement::print(std::ostream& out)
 {
     for (int t = 0; t < depth; ++t) out << "   ";
 	expression->print(out, depth);

@@ -12,17 +12,17 @@ void FunctionDeclaration::generate() {
     // Create some number of SourceElements
     // Might want to enforce some return type
     for (int i = 0; i < 5; ++i) {
-        this->source_elements.push_back( SourceElement::createRandom(this, depth + 1) );
+        this->source_elements.push_back( SourceElement::createRandom(this, depth) );
     }
     
     RandomDiscreteDistribution return_or_not (2, 4, 1);
     
     if(return_or_not.getChosenIndex() == 0){
-        this->source_elements.push_back(new ReturnStatement(this, depth + 1));
+        this->source_elements.push_back(new ReturnStatement(this, depth));
     }
 }
 
-void FunctionDeclaration::print(std::ostream& out, unsigned int depth)
+void FunctionDeclaration::print(std::ostream& out)
 {
     std::string indent;
     for (int t = 0; t < depth; ++t) indent += "   ";
@@ -30,7 +30,7 @@ void FunctionDeclaration::print(std::ostream& out, unsigned int depth)
     out << indent << "function " << this->identifier->name << "()" << std::endl << indent << "{" << std::endl;
     
     for (int i = 0; i < source_elements.size(); ++i) {
-        source_elements[i]->print(out, depth + 1);
+        source_elements[i]->print(out);
     }
     
     out << indent << "}" << std::endl;

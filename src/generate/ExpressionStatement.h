@@ -9,6 +9,6 @@ private:
  	Expression* expression;
 public:
 	ExpressionStatement(Scope*, unsigned int depth);
-	void print(std::ostream&, unsigned int);
+	void print(std::ostream&);
 };
  #endif

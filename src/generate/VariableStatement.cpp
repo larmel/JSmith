@@ -18,10 +18,10 @@ VariableStatement::VariableStatement(Scope* s, unsigned int depth) : Statement(s
         
 }
 
-void VariableStatement::print(std::ostream& out, unsigned int depth){
+void VariableStatement::print(std::ostream& out){
 	
 	for (int t = 0; t < depth; ++t) out << "   ";
 	out << "var " << var->name << " = ";
-	expression->print(out, 1);
+	expression->print(out, depth);
 	out << line_end << std::endl;
 }

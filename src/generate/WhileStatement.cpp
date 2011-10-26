@@ -23,15 +23,12 @@ WhileStatement::WhileStatement(Scope* scope, unsigned int depth) : Statement(sco
 }
 
 
-void WhileStatement::print(std::ostream& out, unsigned int depth){
+void WhileStatement::print(std::ostream& out) {
 	
 	for (int t = 0; t < depth; ++t){
 		out << "   ";
 	}
 	out << "while (false)" << std::endl;
 	
-	// Don't increase print depth for block
-	if (is_block) depth--;
-	
-	statement->print(out, depth + 1);
+	statement->print(out);
 }

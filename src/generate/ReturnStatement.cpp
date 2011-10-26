@@ -7,7 +7,7 @@ ReturnStatement::ReturnStatement(Scope* s, unsigned int depth) : Statement(s, de
 	expression = Expression::generateExpression(s);
 }
 
-void ReturnStatement::print(std::ostream& out, unsigned int depth)
+void ReturnStatement::print(std::ostream& out)
 {
 	for (int t = 0; t < depth; ++t){ 
 		out << "   ";

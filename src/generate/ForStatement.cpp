@@ -25,7 +25,7 @@ ForStatement::ForStatement(Scope* scope, unsigned int parent_depth) : Statement(
 	loop_guard->unlock();
 }
 
-void ForStatement::print(std::ostream& out, unsigned int depth){
+void ForStatement::print(std::ostream& out){
 	
 	for (int t = 0; t < depth; ++t) out << "   ";
 	out << "for (var " << loop_guard->name << " = 0; "; 
@@ -36,7 +36,7 @@ void ForStatement::print(std::ostream& out, unsigned int depth){
 	for (int t = 0; t < depth; ++t) out << "   ";
 	out << "   " << "if (" << loop_guard->name << "++ > 42) break;" << std::endl;
 	
-	statement->print(out, depth + 1);
+	statement->print(out);
 	
 	for (int t = 0; t < depth; ++t) out << "   ";
 	out << "}" << std::endl;

@@ -39,14 +39,14 @@ IfStatement::IfStatement(Scope* s, unsigned int depth) : Statement(s, depth) {
 	
 }
 
-void IfStatement::print(std::ostream& out, unsigned int depth){
+void IfStatement::print(std::ostream& out){
 	std::string prefix = "";
 	for (int t = 0; t < depth; ++t){
 		prefix += "   ";
 	}
 	out << prefix << "if (";
 
-	expression->print(out, 1);
+	expression->print(out, depth);
 	
 	out << ")" << std::endl;
 	
@@ -55,7 +55,7 @@ void IfStatement::print(std::ostream& out, unsigned int depth){
 	    depth--;
 	}
 	
-	true_statement->print(out, depth + 1);
+	true_statement->print(out);
 	
 	if(true_is_block){
 	    depth++;
@@ -67,7 +67,7 @@ void IfStatement::print(std::ostream& out, unsigned int depth){
 	    if(false_is_block){
 	        depth--;
 	    }
-	    false_statement->print(out, depth + 1);
+	    false_statement->print(out);
 	}
 	
 }
