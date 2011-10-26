@@ -3,7 +3,6 @@
 #include "PrimaryExpression.h"
 #include "AddMulExpression.h"
 #include "RelationalExpression.h"
-//TODO: Create subclasses to instantiate instead
 
 Expression::Expression(Scope *scope, int depth) 
 {
@@ -29,7 +28,7 @@ Expression *Expression::generate_expression(Scope *scope, int depth) {
     
 
     // Linear increasing probability for terminal expression nodes
-    int p_terminal = 50 + 50*((double)depth/10);
+    int p_terminal = 40 + 60*((double)depth/20);
 
     if (gen_type < p_terminal) // Generate a terminal node (PrimaryExpression)
     {
@@ -44,25 +43,26 @@ Expression *Expression::generate_expression(Scope *scope, int depth) {
     {
         gen_type = rand() % 100;
         
-        if (gen_type<70) // Generate a AddMulExpression
+        if (gen_type<65) // Generate a AddMulExpression
         {
             Expression *subexpr = new AddMulExpression(scope, depth);
             expression->expressions.push_back(subexpr);
         }
+       
         
-        else if (gen_type < 90) // Generate <,>,>=,<= Expression
-        {
-            Expression *subexpr = new RelationalExpression(scope, depth);
-            expression->expressions.push_back(subexpr);
-        
-        }
-        
-        else if (gen_type < 100) // Generate '(' Expression ')'
+        else if (gen_type < 95) // Generate '(' Expression ')'
         {
             Expression *subexpr = Expression::generate_expression(scope, depth+1);
             expression->expressions.push_back(subexpr);
             
             expression->parenthesis = true;
+        }
+        
+        else if (gen_type < 100) // Generate <,>,>=,<= Expression
+        {
+            Expression *subexpr = new RelationalExpression(scope, depth);
+            expression->expressions.push_back(subexpr);
+        
         }
         
     }
