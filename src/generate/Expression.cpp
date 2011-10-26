@@ -3,6 +3,7 @@
 #include "PrimaryExpression.h"
 #include "AddMulExpression.h"
 #include "RelationalExpression.h"
+#include "CallExpression.h"
 
 Expression::Expression(Scope *scope, int depth) 
 {
@@ -50,7 +51,7 @@ Expression *Expression::generateExpression(Scope *scope, int depth) {
         }
        
         
-        else if (gen_type < 95) // Generate '(' Expression ')'
+        else if (gen_type < 85) // Generate '(' Expression ')'
         {
             Expression *subexpr = Expression::generateExpression(scope, depth+1);
             expression->expressions.push_back(subexpr);
@@ -58,11 +59,16 @@ Expression *Expression::generateExpression(Scope *scope, int depth) {
             expression->parenthesis = true;
         }
         
+        else if (gen_type < 95) // Generate function call
+        {
+            Expression *subexpr = new CallExpression(scope, depth+1);
+            expression->expressions.push_back(subexpr);
+        }
+        
         else if (gen_type < 100) // Generate <,>,>=,<= Expression
         {
             Expression *subexpr = new RelationalExpression(scope, depth);
             expression->expressions.push_back(subexpr);
-        
         }
         
     }
