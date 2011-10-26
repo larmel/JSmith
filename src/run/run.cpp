@@ -8,22 +8,12 @@ using namespace std;
 const static char* input_file = "test/generated.js";
 const static char* output_file = "test/output";
 
-string getOutput() 
-{
-    ifstream file(output_file);
-    string concatinated = "";
-    string s;
-    while (getline(file, s)) {
-        concatinated += s;
-    }
-    file.close();
-    return concatinated;
-}
+// Forward declaration
+string getOutput();
 
 bool invokeSpiderMonkey() 
 {
     string command = "js-compilers/SpiderMonkey/js " + string(input_file) + " > test/output";
-    cout << command << endl;
     
     int retcode = system(command.c_str());
     return retcode == 0;
@@ -32,7 +22,6 @@ bool invokeSpiderMonkey()
 bool invokeRhino() 
 {
     string command = "/usr/bin/rhino -f " + string(input_file) + " > test/output";
-    cout << command << endl;
     
     int retcode = system(command.c_str());
     return retcode == 0;
@@ -41,7 +30,6 @@ bool invokeRhino()
 bool invokeV8() 
 {
     string command = "js-compilers/V8/v8 " + string(input_file) + " > test/output";
-    cout << command << endl;
     
     int retcode = system(command.c_str());
     return retcode == 0;
@@ -50,7 +38,6 @@ bool invokeV8()
 bool invokeKjs()
 {
     string command = "/usr/bin/kjs " + string(input_file) + " > test/output";
-    cout << command << endl;
     
     int retcode = system(command.c_str());
     return retcode == 0;
@@ -59,7 +46,6 @@ bool invokeKjs()
 bool invokeNarcissus()
 {
     string command = "js-compilers/Narcissus/njs -f " + string(input_file) + " > test/output";
-    cout << command << endl;
     
     int retcode = system(command.c_str());
     return retcode == 0;
@@ -70,7 +56,6 @@ bool invokeNarcissus()
  */
 void generateSource() {
     string command = "bin/generate > test/generated.js";
-    cout << command << endl;
     system(command.c_str());
 }
 
@@ -96,12 +81,11 @@ bool runAllTests() {
     ifstream source(input_file);
     ofstream report("test/report");
     
-    report << "Test Summary" << endl;
+    report << "*** Test Summary ***" << endl;
     report << "SpiderMonkey: \t" << spiderMonkey << endl;
     report << "Rhino: \t\t" << rhino << endl;
     report << "V8: \t\t" << v8 << endl;
     report << "KJS: \t\t" << kjs << endl;
-    
     report << "Narcissus: \t" << narcissus << endl << endl;
     
     string s;
@@ -114,6 +98,21 @@ bool runAllTests() {
     source.close();
     
     return spiderMonkey == rhino && rhino == v8 && v8 == kjs && kjs == narcissus;
+}
+
+/*
+ * Read output file generated for each test
+ */
+string getOutput() 
+{
+    ifstream file(output_file);
+    string concatinated = "";
+    string s;
+    while (getline(file, s)) {
+        concatinated += s;
+    }
+    file.close();
+    return concatinated;
 }
 
 /*
@@ -130,6 +129,7 @@ int main(int argc, char* argv[])
     
     while (tests--)
     {
+        cout << "Remaining: " << tests + 1 << endl;
         generateSource();
         
         if (!runAllTests()) {
@@ -137,6 +137,9 @@ int main(int argc, char* argv[])
             return 1;
         }
     }
+    
+    cout << "All tests ran with no error detected :(" << endl;
+    
     return 0;
 }
 
