@@ -1,16 +1,12 @@
 #ifndef RANDOM_H
 #define RANDOM_H
+#include <cstdlib>
 
 class Random
 {
 public:
-    static void seed(unsigned long s) {
-        srand(s);
-    }
-    
-    static bool flip_coin() {
-        return rand() % 2 == 0;
-    }
+    static void seed(unsigned long );
+    static bool flip_coin();
 };
 
 #endif

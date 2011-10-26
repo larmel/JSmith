@@ -101,4 +101,8 @@ bool Scope::isUnique(std::string identifier) {
     return local_unique;
 }
 
+Scope *Scope::getParent(){
+    return parent;
+}
+
 
