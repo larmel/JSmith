@@ -5,15 +5,17 @@
 
 class Expression;
 class Statement;
+class Variable;
 
 class WhileStatement : public Statement {
 private:
+    Variable* loop_guard;
     Expression* expression;
     Statement* statement;
     bool is_block;
     
 public:
-	WhileStatement(Scope* s, unsigned int depth);
+	WhileStatement(Scope* s, int depth);
 	void print(std::ostream& out);
 };
 
