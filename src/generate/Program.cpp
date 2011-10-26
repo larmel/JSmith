@@ -43,7 +43,7 @@ void Program::printMain(std::ostream& out)
         Variable* var = *it;
         if (var->type == NUMBER_T || var->type == STRING_T) 
         {
-            out << "   " << "print(" << var->name << "); " << std::endl;
+            out << "   " << "print(" << var->name << "); print(\" \");" << std::endl;
         }
     }
     
