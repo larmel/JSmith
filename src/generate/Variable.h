@@ -12,13 +12,15 @@ static const int number_of_valid_identifier_characters = 40;
 
 
 enum Type {
-    UNDEFINED_T, NULL_T, BOOLEAN_T, NUMBER_T, STRING_T, OBJECT_T
+    UNDEFINED_T, NULL_T, BOOLEAN_T, NUMBER_T, STRING_T, OBJECT_T, FUNCTION_T
 };
 
 class Variable {
 public:
     Type type;
     std::string name;
+    
+    bool funcBeenUsed;
     
     // TODO: Remove this. Should only create new varibles from Scope anyway
     Variable(Type t = NUMBER_T);

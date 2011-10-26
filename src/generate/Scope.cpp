@@ -6,18 +6,40 @@
 #include <iostream>
 
 Scope::Scope(Scope* p) : parent(p) {
-
     // Copy all variables from parent scope to this scope
     if (parent != NULL) {
         this->variables = new std::vector<Variable*>( *(parent->variables) );
+        this->start_depth = this->variables->size();
     } else {
         this->variables = new std::vector<Variable*>();
+        this->start_depth = 0;
     }
 }
 
+Variable* Scope::getRandomLocalVariable(Type t) {
+
+    // Get all the variables of a type
+    std::vector<Variable*> vars_of_type;
+
+    // Limit the search range to [start_depth : size()], and
+    // also eliminate any functions that have been used.
+    for (int i = this->start_depth; i<this->variables->size()-start_depth; i++) {
+        if (this->variables->at(i)->type == t && !this->variables->at(i)->funcBeenUsed) {
+            vars_of_type.push_back(this->variables->at(i));
+        }
+    }
+    
+    if (vars_of_type.size() == 0) {
+        return NULL;
+    }
+    // Pick a random variable of this type
+    int pos = rand() % vars_of_type.size();
+    return vars_of_type[pos];
+}
+
+
 Variable* Scope::getRandomVariable(Type t) {
 
-    
     // Get all the variables of a type
     std::vector<Variable*> vars_of_type;
     
@@ -30,7 +52,7 @@ Variable* Scope::getRandomVariable(Type t) {
     if (vars_of_type.size() == 0) {
         return NULL;
     }
-    
+    // Pick a random variable of this type
     int pos = rand() % vars_of_type.size();
     return vars_of_type[pos];
 }
