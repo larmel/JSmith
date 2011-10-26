@@ -1,10 +1,11 @@
 #include "ExpressionStatement.h"
+#include "AssignmentExpression.h"
 #include "RandomDiscreteDistribution.h"
 #include "Expression.h"
 
 ExpressionStatement::ExpressionStatement(Scope* s) : Statement(s){
     // Todo alternate between function call and other expressions
-    RandomDiscreteDistribution d = RandomDiscreteDistribution(2, 4, 1 );
+    RandomDiscreteDistribution d = RandomDiscreteDistribution(3, 3, 0, 8 );
     
     switch(d.getChosenIndex()){
     case 0:
@@ -12,6 +13,10 @@ ExpressionStatement::ExpressionStatement(Scope* s) : Statement(s){
         break;
     case 1:
         expression = Expression::generateExpression(s);
+        break;
+    
+    case 2:
+        expression = new AssignmentExpression(s, 0);
         break;
     }
 	

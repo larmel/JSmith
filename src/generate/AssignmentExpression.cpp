@@ -9,15 +9,17 @@ AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth) : Exp
     // TODO: Something else than number here?
     this->left_side = parent_scope->getRandomVariable(NUMBER_T);
 
-    if (this->left_side!=NULL) {
-        this->right_side = Expression::generateExpression(parent_scope);
-    } // No functions available, what to do?
+    if (this->left_side==NULL) {
+        // No functions available, what to do?
+    } 
+    
+    this->right_side = Expression::generateExpression(parent_scope);
 }
 
 void AssignmentExpression::print(std::ostream& out, unsigned int depth) {
-    if (this->left_side!=NULL) 
+    if (this->left_side==NULL) 
     {
-        // No functions available, what to do?
+        // No variables available, what to do?
     } 
     
     else
