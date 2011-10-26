@@ -5,7 +5,7 @@
 #include "Scope.h"
 #include "BlockStatement.h"
 
-WhileStatement::WhileStatement(Scope* s) : Statement(s) {
+WhileStatement::WhileStatement(Scope* scope) : Statement(scope) {
 
     // TODO: Generate some complicated loop expression
 	//Expression *e = Expression::generate_expression(this->scope);
@@ -20,6 +20,7 @@ WhileStatement::WhileStatement(Scope* s) : Statement(s) {
 	} else {
 		statement = Statement::newRandomStatement(scope); 
 	}
+    
 }
 
 

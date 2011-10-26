@@ -13,10 +13,12 @@ private:
 
 protected:
     std::vector<Variable*>* variables;
+    int start_depth; // Index to the first vector element in this scope    
     
 public:
     Scope(Scope* p);
     
+    Variable* getRandomLocalVariable(Type t);
     Variable* getRandomVariable(Type t);
 
     // TODO: Make this private
