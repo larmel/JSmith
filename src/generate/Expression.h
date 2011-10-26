@@ -20,7 +20,7 @@ protected:
 public:
     Expression(Scope *parent_scope, int depth);
     
-    static Expression *generate_expression(Scope *scope, int depth = 0);
+    static Expression *generateExpression(Scope *scope, int depth = 0);
     
 	virtual void print(std::ostream& out, unsigned int depth);
 	

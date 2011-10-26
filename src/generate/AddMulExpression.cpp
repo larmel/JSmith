@@ -6,8 +6,8 @@ AddMulExpression::AddMulExpression(Scope* parent_scope, int depth) : Expression(
     // Get variables to work on:
     // TODO: Other types than NUMBER_T aswell?
 
-    this->op1 = Expression::generate_expression(this->scope, this->depth+1);
-    this->op2 = Expression::generate_expression(this->scope, this->depth+1);
+    this->op1 = Expression::generateExpression(this->scope, this->depth+1);
+    this->op2 = Expression::generateExpression(this->scope, this->depth+1);
     if (this->op1==NULL) 
         std::cerr << "No operator 1\n";   
     if (this->op1==NULL) 

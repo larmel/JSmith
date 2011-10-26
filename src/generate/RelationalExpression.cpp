@@ -5,8 +5,8 @@
 
 RelationalExpression::RelationalExpression(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
     
-    this->op1 = Expression::generate_expression(this->scope, this->depth+1);
-    this->op2 = Expression::generate_expression(this->scope, this->depth+1);
+    this->op1 = Expression::generateExpression(this->scope, this->depth+1);
+    this->op2 = Expression::generateExpression(this->scope, this->depth+1);
 
     // Pick the operator 
     int op_id = rand() % 4;

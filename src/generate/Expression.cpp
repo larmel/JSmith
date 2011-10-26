@@ -16,7 +16,7 @@ Expression::Expression(Scope *scope, int depth)
     this->parenthesis = false;
 }
 
-Expression *Expression::generate_expression(Scope *scope, int depth) {
+Expression *Expression::generateExpression(Scope *scope, int depth) {
 
 
     int gen_type = rand() % 100;
@@ -52,7 +52,7 @@ Expression *Expression::generate_expression(Scope *scope, int depth) {
         
         else if (gen_type < 95) // Generate '(' Expression ')'
         {
-            Expression *subexpr = Expression::generate_expression(scope, depth+1);
+            Expression *subexpr = Expression::generateExpression(scope, depth+1);
             expression->expressions.push_back(subexpr);
             
             expression->parenthesis = true;
