@@ -3,7 +3,7 @@
 #include <vector>
 
 BlockStatement::BlockStatement(Scope* s) : Statement(s) {
-	const int maxBlockStatements = 3;
+	const int maxBlockStatements = 2;
 	for (int i = 0; i < maxBlockStatements; i++) {
 	    statements.push_back( Statement::newRandomStatement(scope) );
 	}

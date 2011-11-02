@@ -1,7 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
-
+#include <stdio.h>
+#include <time.h>
 #include "TestSuite.h"
 
 /*
@@ -51,16 +52,22 @@ bool TestSuite::runAllTests()
     pair<bool, string> kjs = invoke( "/usr/bin/kjs" );
     pair<bool, string> narcissus = invoke( "js-compilers/Narcissus/njs -f" );
     
+    char buf [100];
+    time_t now = time (NULL);
+    struct tm *t = localtime (&now);
+    strftime (buf, 100, "%B %d, %Y at %T", t);
+
     ofstream report(report_file.c_str());
     
     report << "/*" << endl;
-    report << " * ### Test Summary ###" << endl;
+    report << " * ### Test Summary " << buf << "" << endl;
+    report << " * ### Time Taken: Todo" << endl;
     report << " *" << endl;
     report << " * SpiderMonkey: (" << spiderMonkey.first << ", " << spiderMonkey.second << ")" << endl;
-    report << " * Rhino:\t (" << rhino.first << ", " << rhino.second << ")" << endl;
-    report << " * V8:\t\t (" << v8.first << ", " << v8.second << ")" << endl;
-    report << " * KJS:\t\t (" << kjs.first << ", " << kjs.second << ")" << endl;
-    report << " * Narcissus:\t (" << narcissus.first << ", " << narcissus.second << ")" << endl;
+    report << " * Rhino:        (" << rhino.first << ", " << rhino.second << ")" << endl;
+    report << " * V8:           (" << v8.first << ", " << v8.second << ")" << endl;
+    report << " * KJS:          (" << kjs.first << ", " << kjs.second << ")" << endl;
+    report << " * Narcissus:    (" << narcissus.first << ", " << narcissus.second << ")" << endl;
     report << " */" << endl;
     
     ifstream source(input_file.c_str());
