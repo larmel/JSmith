@@ -31,7 +31,7 @@ void Program::printMain(std::ostream& out)
     // Call all functions in global scope
     for (it = this->variables->begin(); it != this->variables->end(); ++it) {
         Variable* var = *it;
-        if (var->type == OBJECT_T) 
+        if (var->type == FUNCTION_T) 
         {
             // For now assuming object is a zero argument function
             out << "   " << var->name << "();" << std::endl;
@@ -43,7 +43,7 @@ void Program::printMain(std::ostream& out)
         Variable* var = *it;
         if (var->type == NUMBER_T || var->type == STRING_T) 
         {
-            out << "   " << "print(" << var->name << "); " << std::endl;
+            out << "   " << "print(" << var->name << "); print(\" \");" << std::endl;
         }
     }
     

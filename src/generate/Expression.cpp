@@ -4,6 +4,7 @@
 #include "AddMulExpression.h"
 #include "RelationalExpression.h"
 #include "CallExpression.h"
+#include "RandomDiscreteDistribution.h"
 
 Expression::Expression(Scope *scope, int depth) 
 {
@@ -19,14 +20,12 @@ Expression::Expression(Scope *scope, int depth)
 
 Expression *Expression::generateExpression(Scope *scope, int depth) {
 
-
     int gen_type = rand() % 100;
     
     // TODO: So far this only creates 1 new expression, not utilizing the list
     // Using several should work though.
     
     Expression *expression = new Expression(scope, depth);
-    
 
     // Linear increasing probability for terminal expression nodes
     int p_terminal = 40 + 60*((double)depth/20);
@@ -42,34 +41,30 @@ Expression *Expression::generateExpression(Scope *scope, int depth) {
     
     else  // Generate some sort of non-terminal node:
     {
-        gen_type = rand() % 100;
-        
-        if (gen_type<65) // Generate a AddMulExpression
-        {
-            Expression *subexpr = new AddMulExpression(scope, depth);
-            expression->expressions.push_back(subexpr);
-        }
-       
-        
-        else if (gen_type < 95) // Generate '(' Expression ')'
-        {
-            Expression *subexpr = Expression::generateExpression(scope, depth+1);
-            expression->expressions.push_back(subexpr);
-            
-            expression->parenthesis = true;
-        }
-        
-        /*else if (gen_type < 95) // Generate function call
-        {
-            Expression *subexpr = new CallExpression(scope, depth+1);
-            expression->expressions.push_back(subexpr);
-        }*/
-        
-        else if (gen_type < 100) // Generate <,>,>=,<= Expression
-        {
-            Expression *subexpr = new RelationalExpression(scope, depth);
-            expression->expressions.push_back(subexpr);
-        }
+
+		RandomDiscreteDistribution r (3, 20, 10, 1);
+		Expression *subexpr;
+		
+		switch(r.getChosenIndex())
+		{
+			case 0:
+				subexpr = new AddMulExpression(scope, depth);
+				expression->expressions.push_back(subexpr);
+				break;
+			case 1:
+				subexpr = Expression::generateExpression(scope, depth+1);
+				expression->expressions.push_back(subexpr);
+				expression->parenthesis = true;
+				break;
+			case 2:
+				subexpr = new RelationalExpression(scope, depth);
+				expression->expressions.push_back(subexpr);
+				break;
+			
+		}
+		
+		
+
         
     }
     

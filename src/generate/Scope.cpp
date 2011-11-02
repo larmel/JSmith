@@ -71,18 +71,10 @@ Variable* Scope::generateNewVariable(Type t) {
 }
 
 std::string Scope::getNewRandomIdentifier() {
-    // TODO: Recur on parent to check that it is unique
-    // TODO: Be more sophisticated creating identifiers, standard permits unicode characters etc
-    const int identifier_length = 5;
-    char name[identifier_length + 1];
+    std::string name;
     do {
-	    for (int i = 0; i < identifier_length; i++) {
-		    int j = rand() % number_of_valid_identifier_characters;
-		    name[i] = valid_identifier_characters[j];
-	    }
-	    name[identifier_length] = '\0';
+	    name = Variable::generateRandomIdentifier();
 	} while (!isUnique(name));
-	
 	return name;
 }
 
