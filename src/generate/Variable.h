@@ -9,6 +9,9 @@ enum Type {
 };
 
 class Variable {
+private:
+    bool locked;
+    
 public:
     Type type;
     std::string name;
@@ -16,6 +19,13 @@ public:
     bool funcBeenUsed;
     
     Variable(std::string s, Type t);
+    
+    void lock();
+    void unlock();
+    
+    bool is_locked() {
+        return locked;
+    };
     
     static std::string generateRandomIdentifier();
     

@@ -1,4 +1,4 @@
-#include "WhileStatement.h"
+#include "ForStatement.h"
 #include "Expression.h"
 #include "Variable.h"
 #include "Scope.h"
@@ -6,29 +6,28 @@
 #include "Random.h"
 #include <iostream>
 
-WhileStatement::WhileStatement(Scope* scope) : Statement(scope) {
-
-    // TODO: Generate some complicated loop expression
-	//Expression *e = Expression::generate_expression(this->scope);
-	//Variable* newvar = scope->generateNewVariable(NUMBER_T);
+ForStatement::ForStatement(Scope* scope) : Statement(scope) 
+{
+    this->loop_var = scope->generateNewVariable( NUMBER_T );
+    loop_var->lock();
     
     is_block = false;
-    
 	if (Random::flip_coin()) {
 		statement = new BlockStatement(scope);
 		is_block = true;
 	} else {
 		statement = Statement::newRandomStatement(scope); 
 	}
+	
+	loop_var->unlock();
 }
 
-
-void WhileStatement::print(std::ostream& out, unsigned int depth){
+void ForStatement::print(std::ostream& out, unsigned int depth){
 	
 	for (int t = 0; t < depth; ++t){
 		out << "   ";
 	}
-	out << "while (false)" << std::endl;
+	out << "for (var " << loop_var->name << " = 0; " << loop_var->name << " < 10; " << loop_var->name << "++)" << std::endl;
 	
 	// Don't increase print depth for block
 	if (is_block) depth--;

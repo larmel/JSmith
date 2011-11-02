@@ -44,7 +44,8 @@ Variable* Scope::getRandomVariable(Type t) {
     std::vector<Variable*> vars_of_type;
     
     for (int i = 0; i<this->variables->size(); i++) {
-        if (this->variables->at(i)->type == t) {
+        Variable* var = this->variables->at(i);
+        if (var->type == t && !var->is_locked()) {
             vars_of_type.push_back(this->variables->at(i));
         }
     }
