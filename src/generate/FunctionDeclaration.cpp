@@ -11,7 +11,7 @@ void FunctionDeclaration::generate() {
     
     // Create some number of SourceElements
     // Might want to enforce some return type
-    for (int i = 0; i < 10; ++i) {
+    for (int i = 0; i < 7; ++i) {
         this->source_elements.push_back( SourceElement::createRandom(this) );
     }
     
