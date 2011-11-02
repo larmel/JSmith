@@ -14,9 +14,13 @@ public:
     std::string name;
     
     bool funcBeenUsed;
+    bool locked;
     
     Variable(std::string s, Type t);
     
+    void setLock(bool set);
+    
+    // Static functions
     static std::string generateRandomIdentifier();
     
     static int reserved_word_count;

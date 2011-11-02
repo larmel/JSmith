@@ -26,6 +26,12 @@ Variable::Variable(std::string s, Type t) {
     this->name = s;
     this->type = t;
     this->funcBeenUsed = false;
+    this->locked = false;
+}
+
+void Variable::setLock(bool set)
+{
+    this->locked = set;
 }
 
 std::string Variable::generateRandomIdentifier() 
