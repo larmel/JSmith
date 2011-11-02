@@ -73,6 +73,6 @@ bool TestSuite::runAllTests()
     source.close();
     report.close();
     
-    return spiderMonkey.second == rhino.second && rhino.second == v8.second && v8.second == kjs.second && kjs.second == narcissus.second;
+    return spiderMonkey.second == v8.second && v8.second == kjs.second && kjs.second == narcissus.second;  //  rhino.second && rhino.second == 
 }
 
