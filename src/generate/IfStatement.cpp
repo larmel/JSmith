@@ -57,8 +57,16 @@ void IfStatement::print(std::ostream& out, unsigned int depth){
 	
 	true_statement->print(out, depth + 1);
 	
+	if(true_is_block){
+	    depth++;
+	}
+	
 	if(false_statement != 0){
+	    //depth++;
 	    out << prefix << "else" << std::endl;
+	    if(false_is_block){
+	        depth--;
+	    }
 	    false_statement->print(out, depth + 1);
 	}
 	

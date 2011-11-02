@@ -11,10 +11,10 @@ RelationalExpression::RelationalExpression(Scope* parent_scope, int depth) : Exp
     // Pick the operator 
     int op_id = rand() % 4;
     switch (op_id) {
-    case 0: this->op = "<"; break;
-    case 1: this->op = ">"; break;
-    case 2: this->op = "<="; break;
-    case 3: this->op = ">="; break;
+    case 0: this->op = " < "; break;
+    case 1: this->op = " > " ; break;
+    case 2: this->op = " <= "; break;
+    case 3: this->op = " >= "; break;
     }
     
 }
