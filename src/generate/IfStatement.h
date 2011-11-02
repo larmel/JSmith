@@ -9,8 +9,10 @@ class Statement;
 class IfStatement : public Statement {
 private:
     Expression* expression;
-    Statement* statement;
-    bool is_block;
+    Statement* true_statement;
+    Statement* false_statement;
+    bool true_is_block;
+    bool false_is_block;
 
 public:
 	IfStatement(Scope* s);

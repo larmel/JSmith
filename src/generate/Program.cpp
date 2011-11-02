@@ -7,7 +7,7 @@
 Program::Program() : Scope(NULL) {
 
     // Generate some number of SourceElements
-    for (int i = 0; i < 4; ++i) {
+    for (int i = 0; i < 5; ++i) {
 	    this->source_elements.push_back( SourceElement::createRandom(this) );
 	}
 	
