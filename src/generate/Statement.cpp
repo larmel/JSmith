@@ -12,7 +12,7 @@
 using namespace std;
 
 Statement* Statement::newRandomStatement(Scope* x, unsigned int depth){
-    cout << "Creating statement on depth " << depth <<  endl;
+    
 	RandomDiscreteDistribution d = RandomDiscreteDistribution(6, 
 	    200, 
 	    50, 

@@ -1,5 +1,7 @@
 #include "AssignmentExpression.h"
+#include "RandomDiscreteDistribution.h"
 #include "Variable.h"
+#include "Literal.h"
 #include "Scope.h"
 
 
@@ -7,19 +9,30 @@ AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth) : Exp
 
     // Fetch a random variable
     // TODO: Something else than number here?
-    this->left_side = parent_scope->getRandomVariable(NUMBER_T);
 
+	RandomDiscreteDistribution d = RandomDiscreteDistribution(1, 10);
+   
+    // Switch what type of variable to assign 
+    switch(d.getChosenIndex()) {
+        case 0:
+            this->left_side = parent_scope->getRandomVariable(NUMBER_T);
+            this->right_side = Expression::generateExpression(parent_scope);
+        break;
+    
+    }
+    
+   
     if (this->left_side==NULL) {
-        // No functions available, what to do?
+        // No variables available, what to do?
     } 
     
-    this->right_side = Expression::generateExpression(parent_scope);
+
 }
 
 void AssignmentExpression::print(std::ostream& out, unsigned int depth) {
-    if (this->left_side==NULL) 
+    if (this->left_side==NULL || this->right_side==NULL) 
     {
-        // No variables available, what to do?
+        // No left or right side available, what to do?
     } 
     
     else
