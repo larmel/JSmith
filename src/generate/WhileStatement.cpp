@@ -6,29 +6,32 @@
 #include "Random.h"
 #include <iostream>
 
-WhileStatement::WhileStatement(Scope* scope, unsigned int depth) : Statement(scope, depth) {
+WhileStatement::WhileStatement(Scope* scope, int parent_depth) : Statement(scope, parent_depth) 
+{
+    this->loop_guard = scope->generateNewVariable( NUMBER_T );
+    loop_guard->lock();
+    
+    this->expression = Expression::generateExpression(scope);
 
-    // TODO: Generate some complicated loop expression
-	//Expression *e = Expression::generate_expression(this->scope);
-	//Variable* newvar = scope->generateNewVariable(NUMBER_T);
-    
-    is_block = false;
-    
-	if (Random::flip_coin()) {
-		statement = new BlockStatement(scope, depth + 1);
-		is_block = true;
+    is_block = Random::flip_coin();
+	if (is_block) {
+		statement = new BlockStatement(scope, depth);
 	} else {
-		statement = Statement::newRandomStatement(scope, depth + 1); 
+		statement = Statement::newRandomStatement(scope, depth); 
 	}
+	
+	loop_guard->unlock();
 }
 
-
-void WhileStatement::print(std::ostream& out) {
-	
+void WhileStatement::print(std::ostream& out) 
+{	
 	for (int t = 0; t < depth; ++t){
 		out << "   ";
 	}
-	out << "while (false)" << std::endl;
+	out << "var " << loop_guard->name << " = 0, ";
+	out << "while ( (";
+	expression->print(out);
+	out << ") && " << loop_guard->name << "++ < 42 )" << std::endl;
 	
 	statement->print(out);
 }

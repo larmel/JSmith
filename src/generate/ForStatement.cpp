@@ -29,15 +29,10 @@ void ForStatement::print(std::ostream& out){
 	
 	for (int t = 0; t < depth; ++t) out << "   ";
 	out << "for (var " << loop_guard->name << " = 0; "; 
-	
-	expr_b->print(out); out << "; ";	
-	expr_c->print(out); out << ") {" << std::endl;
-	
-	for (int t = 0; t < depth; ++t) out << "   ";
-	out << "   " << "if (" << loop_guard->name << "++ > 42) break;" << std::endl;
+	    expr_b->print(out); out << "; ";	
+	out << "("; 
+	    expr_c->print(out); 
+	out << ") && " << loop_guard->name << "++ < 42)" << std::endl;
 	
 	statement->print(out);
-	
-	for (int t = 0; t < depth; ++t) out << "   ";
-	out << "}" << std::endl;
 }
