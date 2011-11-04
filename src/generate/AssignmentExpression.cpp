@@ -18,7 +18,6 @@ AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth) : Exp
             this->left_side = parent_scope->getRandomVariable(NUMBER_T);
             this->right_side = Expression::generateExpression(parent_scope);
         break;
-    
     }
     
    
@@ -33,6 +32,7 @@ void AssignmentExpression::print(std::ostream& out) {
     if (this->left_side==NULL) 
     {
         // No left or right side available, what to do?
+        out << "No left side on AssignmentExpression \n";
     } 
     
     else
