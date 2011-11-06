@@ -73,15 +73,14 @@ void Expression::print(std::ostream &out) const
 {
     if (this->parenthesis) out << "(";
     
-    for (int i = 0; i<this->expressions.size(); i++) {
-        this->expressions[i]->print(out);
+    for (int i = 0; i < this->expressions.size(); i++) {
+        out << *expressions[i];
         if (i < this->expressions.size()-1) {
-            out << ",";        
+            out << ",";
         }
     }
     if (this->parenthesis) out << ")";
 }
-
 
 std::ostream& operator<<(std::ostream& out, const Expression& e) {
     e.print(out);
