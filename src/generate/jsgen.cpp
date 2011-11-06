@@ -11,7 +11,7 @@
  * > ./generate <seed>
  */
 int main(int argc, char* argv[]) {
-        
+         
     // Get the time seed
     struct timeval tv;
     gettimeofday(&tv, NULL);
