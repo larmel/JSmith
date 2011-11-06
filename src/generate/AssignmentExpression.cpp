@@ -32,7 +32,7 @@ void AssignmentExpression::print(std::ostream& out) {
     if (this->left_side==NULL) 
     {
         // No left or right side available, what to do?
-        out << "No left side on AssignmentExpression \n";
+        //out << "No left side on AssignmentExpression \n";
     } 
     
     else
