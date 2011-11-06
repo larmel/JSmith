@@ -69,7 +69,7 @@ Expression *Expression::generateExpressionForConditional(Scope *scope, int depth
 	}
 }
 
-void Expression::print(std::ostream &out)
+void Expression::print(std::ostream &out) const
 {
     if (this->parenthesis) out << "(";
     
@@ -83,7 +83,7 @@ void Expression::print(std::ostream &out)
 }
 
 
-std::ostream& operator<<(std::ostream& out, Expression& e) {
+std::ostream& operator<<(std::ostream& out, const Expression& e) {
     e.print(out);
     return out;
 }

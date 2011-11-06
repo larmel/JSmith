@@ -19,8 +19,14 @@ RelationalExpression::RelationalExpression(Scope* parent_scope, int depth) : Exp
     
 }
 
-void RelationalExpression::print(std::ostream& out) {
+void RelationalExpression::print(std::ostream& out) const {
     op1->print(out);
     out << this->op;
     op2->print(out);
 }
+
+std::ostream& operator<<(std::ostream& out, const RelationalExpression& e) {
+    e.print(out);
+    return out;
+}
+

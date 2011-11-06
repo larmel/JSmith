@@ -21,10 +21,10 @@ public:
     Expression(Scope *parent_scope, int depth);
     static Expression *generateExpression(Scope *scope, int depth = 0);
     static Expression *generateExpressionForConditional(Scope *scope, int depth = 0);
-	virtual void print(std::ostream& out);
+	virtual void print(std::ostream& out) const;
 	
 	
-    friend std::ostream& operator<<(std::ostream& out, Expression& e);
+    friend std::ostream& operator<<(std::ostream& out, const Expression& e);
 };
 
 #endif

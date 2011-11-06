@@ -26,7 +26,9 @@ public:
 
     AddMulExpression(Scope* parent_scope, int depth);
     
-    void print(std::ostream& out);
+    void print(std::ostream& out) const;
+    
+    friend std::ostream& operator<<(std::ostream& out, const AddMulExpression& e);
 };
  
  

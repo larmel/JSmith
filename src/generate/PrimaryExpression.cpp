@@ -55,7 +55,7 @@ PrimaryExpression::PrimaryExpression(Scope* parent_scope, int depth) : Expressio
     }
 }
 
-void PrimaryExpression::print(std::ostream& out) {
+void PrimaryExpression::print(std::ostream& out) const {
     // Print variable or immediate
     if (this->imm) {
         out << imm_val;
@@ -63,3 +63,9 @@ void PrimaryExpression::print(std::ostream& out) {
         out << variable->name;
     }
 }
+
+std::ostream& operator<<(std::ostream& out, const PrimaryExpression& e) {
+    e.print(out);
+    return out;
+}
+

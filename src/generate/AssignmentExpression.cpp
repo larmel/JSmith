@@ -28,7 +28,7 @@ AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth) : Exp
 
 }
 
-void AssignmentExpression::print(std::ostream& out) {
+void AssignmentExpression::print(std::ostream& out) const {
     if (this->left_side==NULL) 
     {
         // No left or right side available, what to do?
@@ -41,9 +41,9 @@ void AssignmentExpression::print(std::ostream& out) {
         right_side->print(out);
     }
 }
-/*
+
 std::ostream& operator<<(std::ostream& out, const AssignmentExpression& e) {
     e.print(out);
     return out;
-}*/
+}
 

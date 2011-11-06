@@ -13,10 +13,11 @@ CallExpression::CallExpression(Scope* parent_scope, int depth) : Expression(pare
     } // No functions available, what to do?
 }
 
-void CallExpression::print(std::ostream& out) {
+void CallExpression::print(std::ostream& out) const {
     if (this->function==NULL) 
     {
         // No functions available, what to do?
+        //out << "NOFUNC()";
     } 
     
     else
@@ -24,3 +25,10 @@ void CallExpression::print(std::ostream& out) {
         out << this->function->name << "()";
     }
 }
+
+
+std::ostream& operator<<(std::ostream& out, const CallExpression& e) {
+    e.print(out);
+    return out;
+}
+

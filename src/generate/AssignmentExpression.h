@@ -20,9 +20,9 @@ private:
 public:
     AssignmentExpression(Scope* parent_scope, int depth);
     
-    void print(std::ostream& out);
+    void print(std::ostream& out) const;
     
-    //friend std::ostream& operator<<(std::ostream& out, const AssignmentExpression& e);
+    friend std::ostream& operator<<(std::ostream& out, const AssignmentExpression& e);
 };
  
  

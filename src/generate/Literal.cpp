@@ -14,7 +14,14 @@ Literal::Literal(Scope* parent_scope, int depth) : Expression(parent_scope, dept
     } while (Random::flip_coin() || Random::flip_coin());
 }
 
-void Literal::print(std::ostream& out) {
+void Literal::print(std::ostream& out) const {
     // Print literal
     out << "\"" << literal_val << "\"";
 }
+
+
+std::ostream& operator<<(std::ostream& out, const Literal& e) {
+    e.print(out);
+    return out;
+}
+
