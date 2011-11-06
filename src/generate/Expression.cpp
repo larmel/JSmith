@@ -82,3 +82,9 @@ void Expression::print(std::ostream &out)
     if (this->parenthesis) out << ")";
 }
 
+
+std::ostream& operator<<(std::ostream& out, Expression& e) {
+    e.print(out);
+    return out;
+}
+

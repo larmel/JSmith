@@ -33,13 +33,14 @@ void ForStatement::print(std::ostream& out)
 	out << statement*/
 	
 	out << *this;
-	
+	out << "for (var " << loop_guard->name << " = 0; (" << *expr_b << ") && "<< loop_guard->name << "++ < 42;" << *expr_c << ")" << std::endl;
+	/*
 	out << "for (var " << loop_guard->name << " = 0;";
 	out << "("; 
 	    expr_b->print(out); 
 	out << ") && " << loop_guard->name << "++ < 42;";
 	    expr_c->print(out); 
-	out << ")" << std::endl;
+	out << ")" << std::endl;*/
 	
 	statement->print(out);
 }

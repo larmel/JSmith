@@ -41,3 +41,9 @@ void AssignmentExpression::print(std::ostream& out) {
         right_side->print(out);
     }
 }
+/*
+std::ostream& operator<<(std::ostream& out, const AssignmentExpression& e) {
+    e.print(out);
+    return out;
+}*/
+

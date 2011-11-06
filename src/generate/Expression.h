@@ -22,6 +22,9 @@ public:
     static Expression *generateExpression(Scope *scope, int depth = 0);
     static Expression *generateExpressionForConditional(Scope *scope, int depth = 0);
 	virtual void print(std::ostream& out);
+	
+	
+    friend std::ostream& operator<<(std::ostream& out, Expression& e);
 };
 
 #endif
