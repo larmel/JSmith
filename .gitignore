@@ -2,3 +2,6 @@ bin/*
 obj/*
 test/*
 !test/bugs/
+.cproject
+.project
+
