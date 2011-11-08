@@ -22,7 +22,6 @@ public:
     static Expression *generateExpression(Scope *scope, int depth = 0);
     static Expression *generateExpressionForConditional(Scope *scope, int depth = 0);
 	
-	// TODO: Make protected. Should use operator<<
 	virtual void print(std::ostream& out) const;
 	
     /*

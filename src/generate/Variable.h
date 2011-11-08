@@ -5,7 +5,7 @@
 #include <vector>
 
 enum Type {
-    UNDEFINED_T, NULL_T, BOOLEAN_T, NUMBER_T, STRING_T, OBJECT_T, FUNCTION_T
+    UNDEFINED_T = 1, NULL_T = 2, BOOLEAN_T = 4, NUMBER_T = 8, STRING_T = 16, OBJECT_T = 32, FUNCTION_T = 64
 };
 
 class Variable {

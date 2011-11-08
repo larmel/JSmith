@@ -3,42 +3,44 @@
 #include "Variable.h"
 #include "Literal.h"
 #include "Scope.h"
-
+#include "MemberExpression.h"
 
 AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
 
-    // Fetch a random variable
-    // TODO: Something else than number here?
+	RandomDiscreteDistribution d = RandomDiscreteDistribution(2, 1, 1);
+	this->left_variable = NULL;
+	this->left_expression = NULL;
 
-	RandomDiscreteDistribution d = RandomDiscreteDistribution(1, 10);
-   
     // Switch what type of variable to assign 
     switch(d.getChosenIndex()) {
-        case 0:
-            this->left_side = parent_scope->getRandomVariable(NUMBER_T);
+    case 0:
+        // TODO: Either move lots of logic up here, or make MemberExpression handle decision of everything
+        this->left_variable = parent_scope->getRandomVariable(NUMBER_T);
+        if (this->left_variable != NULL) {
             this->right_side = Expression::generateExpression(parent_scope);
+            break;
+        }
+    case 1:
+        this->left_expression = new MemberExpression(scope, depth);
+        this->right_side = Expression::generateExpression(parent_scope);
         break;
     }
-    
-   
-    if (this->left_side==NULL) {
-        // No variables available, what to do?
-    } 
-    
 
+    /*
+     * TODO: MemberExpressio
+     * Want to cover:
+     * - some_var = expression
+     * - this.property = expression
+     *   - this.property = function() { ... }
+     * - some_var = new ...
+     */
 }
 
 void AssignmentExpression::print(std::ostream& out) const {
-    if (this->left_side==NULL) 
-    {
-        // No left or right side available, what to do?
-        //out << "No left side on AssignmentExpression \n";
-    } 
-    
-    else
-    {
-        out << left_side->name << " = ";
-        right_side->print(out);
+    if (left_variable != NULL) {
+        out << left_variable->name << " = " << *right_side;
+    } else {
+        out << *left_expression << " = " << *right_side;
     }
 }
 

@@ -16,8 +16,6 @@ protected:
     std::vector<Variable*>* variables;
     int start_depth; // Index to the first vector element in this scope 
     
-    std::string getNewRandomIdentifier();
-    
 public:
     Scope(Scope* p);
     
@@ -26,11 +24,15 @@ public:
 
     bool isUnique(std::string identifier);
     Scope* getParent();
+
+    std::string getNewRandomIdentifier();
     
     /*
      * Generate and return a new variable for this scope
      */
     Variable* generateNewVariable(Type t);
+
+    // TODO: Generate instance variable for this scope (== function)
 };
 
 

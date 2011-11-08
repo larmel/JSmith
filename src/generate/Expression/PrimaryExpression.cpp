@@ -22,6 +22,7 @@ PrimaryExpression::PrimaryExpression(Scope* parent_scope, int depth) : Expressio
     }
 }
 
+// TODO: Might need type specifier here.
 Expression* PrimaryExpression::generatePrimaryExpression(Scope* scope, int depth) {
 
     RandomDiscreteDistribution r(3, 1, 1, 1);
