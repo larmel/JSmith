@@ -2,64 +2,40 @@
 #include "Variable.h"
 #include "Scope.h"
 #include "RandomDiscreteDistribution.h"
-#include <climits>
+#include "Literal.h"
 #include <sstream>
 #include <cstdio>
 
 PrimaryExpression::PrimaryExpression(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
-    this->imm = false;
-   
-    RandomDiscreteDistribution r (4, 1, 1, 1, 1);
-     
-    // Create a immediate
-    if (r.getChosenIndex() == 0 || this->scope->getRandomVariable(NUMBER_T) == NULL) 
-    {
-        this->imm = true;
-        std::stringstream sst;
-        RandomDiscreteDistribution type_of_immediate (4, 1, 1, 1, 1);
-        
-        switch(type_of_immediate.getChosenIndex())
-        {
-            // Int
-            case 0:
-                sst << rand() % INT_MAX;
-                break;
-            // Decimal
-            case 1:
-                sst << rand() % INT_MAX << "." << rand() % INT_MAX;
-                break;
-            // Hex
-            case 2:
-            {
-                char buffer[30];
-                sprintf(buffer, "0x%x", rand() % INT_MAX);
-                sst << buffer;
-                break;
-            }
-           // Compex normal form decimal
-           case 3:
-            {
-                sst << rand() % 10 << "." << rand() % INT_MAX << rand() % INT_MAX << "E" << rand() % 309;
-                break;
-            }    
-        }
 
-        this->imm_val = sst.str();
+    RandomDiscreteDistribution r (2, 1, 1);
+
+    switch (r.getChosenIndex()) {
+    case 0:
+        immidiate_value = "this";
+        break;
+    case 1:
+        // TODO: Don't restrict on NUMBER_T. Might need extra parameter of what is needed?
+        // Also, default fallback to this is pretty weak.
+        Variable* var = scope->getRandomVariable(NUMBER_T);
+        immidiate_value = (var == NULL) ? "this" : var->name;
     }
-    // Get an already existing variable
-    else 
-    {
-        this->variable = this->scope->getRandomVariable(NUMBER_T);
+}
+
+Expression* PrimaryExpression::generatePrimaryExpression(Scope* scope, int depth) {
+
+    RandomDiscreteDistribution r(3, 1, 1, 1);
+    switch (r.getChosenIndex()) {
+    case 0:
+        return new Literal(scope, depth);
+    case 1:
+    case 2:
+        return new PrimaryExpression(scope, depth);
     }
 }
 
 void PrimaryExpression::print(std::ostream& out) const {
-    // Print variable or immediate
-    if (this->imm) {
-        out << imm_val;
-    } else {
-        out << variable->name;
-    }
+    out << this->immidiate_value;
 }
 
 std::ostream& operator<<(std::ostream& out, const PrimaryExpression& e) {
