@@ -20,21 +20,21 @@ class Scope;
  *      ObjectLiteral
  *      ( Expression )
  *
- * Choose this to be a terminal for now.
+ * Use static factory method to generate any of the three first.
+ * An instance if PrimaryExpression will always be 'this'
  * TODO: Change to allow nesting?
  */
 class PrimaryExpression : public Expression {
 
 private:
-    Variable *variable;
-    bool imm;
-    std::string imm_val;
-    
+    std::string immidiate_value;
+
 public:
     PrimaryExpression(Scope* parent_scope, int depth);
-    void print(std::ostream& out) const;
     
-    
+    static Expression* generatePrimaryExpression(Scope* scope, int depth);
+
+    virtual void print(std::ostream& out) const;
     friend std::ostream& operator<<(std::ostream& out, const PrimaryExpression& e);
 };
  

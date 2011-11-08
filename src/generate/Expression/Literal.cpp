@@ -3,7 +3,9 @@
 #include "Scope.h"
 #include "Random.h"
 #include "RandomDiscreteDistribution.h"
+#include <climits>
 #include <cstdio>
+#include <sstream>
 
 Literal::Literal(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
 
@@ -30,7 +32,35 @@ Literal::Literal(Scope* parent_scope, int depth) : Expression(parent_scope, dept
 }
 
 std::string Literal::randomNumericLiteral() {
-    return "42";
+    std::stringstream sst;
+    RandomDiscreteDistribution numeric_type (4, 1, 1, 1, 1);
+
+    /*
+     * Separating between
+     *  - integer (int)
+     *  - Decimal
+     *  - Hex
+     *  - Complex normal form decimal
+     */
+    switch (numeric_type.getChosenIndex()) {
+    case 0:
+        sst << rand() % INT_MAX;
+        break;
+    case 1:
+        sst << rand() % INT_MAX << "." << rand() % INT_MAX;
+        break;
+    case 2:
+        {
+            char buffer[30];
+            sprintf(buffer, "0x%x", rand() % INT_MAX);
+            sst << buffer;
+            break;
+        }
+    case 3:
+        sst << rand() % 10 << "." << rand() % INT_MAX << rand() % INT_MAX << "E" << rand() % 309;
+        break;
+    }
+    return sst.str();
 }
 
 std::string Literal::randomStringLiteral() {
