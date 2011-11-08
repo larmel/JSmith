@@ -1,16 +1,28 @@
-#ifndef PRIMARYEXPRESSION_H
-#define PRIMARYEXPRESSION_H 
+#ifndef PRIMARY_EXPRESSION_H
+#define PRIMARY_EXPRESSION_H
  
 #include <iostream>
 #include <cstdlib>
 #include <string>
 #include "Expression.h"
 
-// PrimaryExpression, terminal node in the expression tree
-
 class Variable;
 class Scope;
- 
+
+/*
+ * From ECMA standard
+ *
+ * PrimaryExpression ->
+ *      this
+ *      Identifier
+ *      Literal
+ *      ArrayLiteral
+ *      ObjectLiteral
+ *      ( Expression )
+ *
+ * Choose this to be a terminal for now.
+ * TODO: Change to allow nesting?
+ */
 class PrimaryExpression : public Expression {
 
 private:

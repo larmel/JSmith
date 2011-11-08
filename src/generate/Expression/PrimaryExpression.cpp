@@ -1,12 +1,10 @@
 #include "PrimaryExpression.h"
 #include "Variable.h"
 #include "Scope.h"
-#include <climits>
 #include "RandomDiscreteDistribution.h"
+#include <climits>
 #include <sstream>
 #include <cstdio>
-
-// PrimaryExpression, terminal node in the expression tree
 
 PrimaryExpression::PrimaryExpression(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
     this->imm = false;
