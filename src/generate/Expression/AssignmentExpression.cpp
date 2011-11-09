@@ -6,21 +6,21 @@
 
 AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth, Type type) : Expression(parent_scope, depth, type) {
 
-	RandomDiscreteDistribution d = RandomDiscreteDistribution(2, 1, 1);
+	RandomDiscreteDistribution d = RandomDiscreteDistribution(2, 1, 10);
 	this->left_variable = NULL;
 
     switch (d.getChosenIndex()) {
     case 0:
         // Assign to some existing variable. Fall through if none is found.
-        left_variable = scope->getRandomVariable(NUMBER_T); // TODO type
+        left_variable = scope->getRandomVariable(type); // TODO type
         if (left_variable != NULL) {
             right_expression = Expression::generateExpression(parent_scope);
             break;
         }
     case 1:
         // Generate new property for this object
-        left_variable = scope->generateNewProperty(NUMBER_T);
         right_expression = Expression::generateExpression(parent_scope, depth + 1);
+        left_variable = scope->generateNewProperty(type); // Avoid self-reference
         break;
     case 2:
         // Create new object. Not implemented yet
@@ -28,7 +28,6 @@ AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth, Type 
         right_expression = Expression::generateExpression(scope, depth + 1, OBJECT_T);
         break;
     }
-
 }
 
 void AssignmentExpression::print(std::ostream& out) const {
