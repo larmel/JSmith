@@ -28,7 +28,8 @@ class Scope;
 class PrimaryExpression : public Expression {
 
 private:
-    std::string immidiate_value;
+	Expression *terminal_expr;
+	Variable *var;
 
 public:
     PrimaryExpression(Scope* parent_scope, int depth, Type type);

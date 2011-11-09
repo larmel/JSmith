@@ -20,6 +20,14 @@ public:
     FunctionDeclaration(Scope* parent, unsigned int depth) : SourceElement(parent, depth), Scope(parent) { generate(); };
 	
     void generate();
+    Variable* getVariable() {
+        return identifier;
+    }
+
+    virtual Variable* generateNewProperty(Type t) {
+        Variable* v = Scope::generateNewProperty(t);
+        v->attachedObject = identifier;
+    }
 	
     void print(std::ostream& out);
 };

@@ -7,18 +7,30 @@
 #include <cstdio>
 
 PrimaryExpression::PrimaryExpression(Scope* parent_scope, int depth, Type type) : Expression(parent_scope, depth, type) {
-
+    var = NULL;
     RandomDiscreteDistribution r (2, 1, 1);
 
-    switch (r.getChosenIndex()) {
-    case 0:
-        immidiate_value = "this";
-        break;
-    case 1:
-        // TODO: Don't restrict on NUMBER_T. Might need extra parameter of what is needed?
-        // Also, default fallback to this is pretty weak.
-        Variable* var = scope->getRandomVariable(NUMBER_T);
-        immidiate_value = (var == NULL) ? "this" : var->name;
+    switch (type) {
+    case NUMBER_T:
+    {
+    	RandomDiscreteDistribution r (2, 1, 1);
+    	if (r.getChosenIndex()==0)
+    		var = scope->getRandomVariable(NUMBER_T);
+
+    	if (r.getChosenIndex()==1 || var==NULL)
+    		terminal_expr = new Literal(scope,0,NUMBER_T);
+
+    }  break;
+    case STRING_T:
+    {
+    	RandomDiscreteDistribution r (2, 1, 1);
+    	if (r.getChosenIndex()==0)
+    		var = scope->getRandomVariable(NUMBER_T);
+
+    	if (r.getChosenIndex()==1 || var==NULL)
+    		terminal_expr = new Literal(scope,0,NUMBER_T);
+
+    } break;
     }
 }
 
@@ -36,7 +48,11 @@ Expression* PrimaryExpression::generatePrimaryExpression(Scope* scope, int depth
 }
 
 void PrimaryExpression::print(std::ostream& out) const {
-    out << this->immidiate_value;
+	if (var!=NULL) {
+		out << *var;
+	} else {
+		out << *terminal_expr;
+	}
 }
 
 std::ostream& operator<<(std::ostream& out, const PrimaryExpression& e) {

@@ -3,6 +3,7 @@
 #include "Scope.h"
 #include "Random.h"
 #include "RandomDiscreteDistribution.h"
+#include "Type.h"
 #include <climits>
 #include <cstdio>
 #include <sstream>
@@ -11,23 +12,18 @@ Literal::Literal(Scope* parent_scope, int depth, Type type) : Expression(parent_
 
     RandomDiscreteDistribution r (4, 1, 1, 1, 1);
 
-    switch (r.getChosenIndex()) {
-    case 0:
-        this->type = L_NULL;
-        this->literal_val = "null";
-        break;
-    case 1:
-        this->type = L_BOOLEAN;
-        this->literal_val = Random::flip_coin() ? "true" : "false";
-        break;
-    case 2:
+    switch (type) {
+    case NUMBER_T:
         this->type = L_NUMERIC;
         this->literal_val = randomNumericLiteral();
         break;
-    case 3:
+    case STRING_T:
         this->type = L_STRING;
         this->literal_val = randomStringLiteral();
         break;
+    default:
+    	std::cerr << "Undefined Literal type";
+    	exit(1);
     }
 }
 

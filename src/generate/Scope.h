@@ -36,8 +36,15 @@ public:
      */
     Variable* generateNewVariable(Type t);
 
-    // Generate instance variable for some scope, or function
-    Variable* generateNewProperty(Type t/*, Scope* function = this*/);
+    // Generate instance variable for some scope, function or program
+    virtual Variable* generateNewProperty(Type t);
+
+    void print() {
+        for (int i = 0; i < this->variables->size(); i++) {
+            std::cout << *(variables->at(i)) << ", ";
+        }
+        std::cout << "\n\n";
+    }
 };
 
 

@@ -12,21 +12,23 @@ AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth, Type 
     if (type & OBJECT_T) {
         left_variable = scope->generateNewVariable(OBJECT_T);
         right_variable = scope->getRandomVariable(FUNCTION_T);
-
-        // Add all instance variables to scope
-        std::vector<Variable*>* properties = right_variable->getObjectProperties();
-        for (int i = 0; i < properties->size(); ++i) {
-            Variable* property = properties->at(i);
-            Variable* added_property = new Variable(property->name, property->type);
-            added_property->is_property = true;
-            added_property->attachedObject = right_variable;
-            scope->add(added_property);
+        if (right_variable != NULL) {
+            // Add all instance variables to scope
+            std::vector<Variable*>* properties = right_variable->getObjectProperties();
+            for (int i = 0; i < properties->size(); ++i) {
+                Variable* property = properties->at(i);
+                Variable* added_property = new Variable(property->name, property->type);
+                added_property->is_property = true;
+                added_property->attachedObject = right_variable;
+                scope->add(added_property);
+            }
         }
 
     } else {
 
         RandomDiscreteDistribution d = RandomDiscreteDistribution(2, 1, 10);
         this->left_variable = NULL;
+        Variable* function = NULL;
 
         switch (d.getChosenIndex()) {
         case 0:
@@ -46,10 +48,15 @@ AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth, Type 
 }
 
 void AssignmentExpression::print(std::ostream& out) const {
-    if (type & OBJECT_T)
-        out << *left_variable << " = new " << *right_variable;
-    else
+    if (type & OBJECT_T) {
+        out << *left_variable << " = new ";
+        if (right_variable == NULL)
+            out << "Object";
+        else
+            out << *right_variable << "()";
+    } else {
         out << *left_variable << " = " << *right_expression;
+    }
 }
 
 std::ostream& operator<<(std::ostream& out, const AssignmentExpression& e) {

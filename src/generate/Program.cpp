@@ -1,8 +1,8 @@
 #include "Program.h"
 #include "SourceElement.h"
 #include "Variable.h"
-
 #include <vector>
+#include <string>
 
 Program::Program() : Scope(NULL) {
 
@@ -10,7 +10,7 @@ Program::Program() : Scope(NULL) {
     for (int i = 0; i < 3; ++i) {
 	    this->source_elements.push_back( SourceElement::createRandom(this, 0) );
 	}
-	
+
 	// TODO: Generate code for main function instead of just printing?
 }
 
