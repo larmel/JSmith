@@ -29,19 +29,12 @@ int main(int argc, char* argv[])
 
     system("rm -f test/current_jsmith/bugs/*.js");
 
-    cout << "This is Jsmith. Running " << tests << " tests." << endl;
+    cout << "Running " << tests << " tests." << endl;
 
     while (testno++ < tests)
     {
-        cout << "Running test " << testno << " of " << tests <<  "." << endl;
-        
         TestCase tcase;
-
-        if (input_file == "") {
-        	tcase.generateSource();
-        } else {
-        	tcase.setSource(input_file);
-        }
+		tcase.generateSource();
         tcase.testAgainstCompilers();
         
         if (!tcase.success()) {
@@ -51,7 +44,21 @@ int main(int argc, char* argv[])
             filename << "test/current_jsmith/bugs/" << num_errors << ".js";
             tcase.reportToFile(filename.str());
         }
-    }
+        else
+        {
+        	TestCaseCompiler* fastest = tcase.getFastestCompiler();
+        	TestCaseCompiler* slowest = tcase.getSlowestCompiler();
+
+        	cout << "Ran test " << testno << " in avg " << tcase.getAvgMs() << " ms (best " <<
+        			fastest->getName()<< " " << fastest->getMs() << " ms, worst " << slowest->getName() <<
+        			" "<<  slowest->getMs() << " ms)." << endl;
+        }
+
+        if(testno == tests)
+        {
+			tcase.reportToFile("test/current_jsmith/report.js");
+        }
+	}
     
     cout << "Completed! " << tests << " tests ran, " << num_errors << " errors." << endl;
     return 0;
