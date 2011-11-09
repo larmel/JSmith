@@ -22,23 +22,24 @@ int main(int argc, char* argv[])
 
     int num_errors = 0;
     int testno = 0;
-
-    system("rm -f test/current_jsmith/bugs/*.js");
-    system("rm -f test/current_jsmith/successes/*.js");
+    
+    system("rm -f test/current_jsmith/successes/*");
+    system("rm -f test/current_jsmith/bugs/*");
+   
 
     cout << "Running " << tests << " tests." << endl;
 
     while (testno++ < tests)
     {
         TestCase tcase;
-		tcase.generateSource();
+	tcase.generateSource();
         tcase.testAgainstCompilers();
         
         if (!tcase.success()) {
         	num_errors++;
             cout << "Error detected in test " << testno << ", saved as bugs/" << testno << "!" << endl;
             stringstream filename;
-            filename << "test/current_jsmith/bugs/" << num_errors << ".js";
+            filename << "test/current_jsmith/bugs/" << testno << ".js";
             tcase.reportToFile(filename.str());
         }
         else
