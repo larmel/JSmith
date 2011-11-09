@@ -3,6 +3,7 @@
 #include "AddMulExpression.h"
 #include "RelationalExpression.h"
 #include "CallExpression.h"
+#include "Literal.h"
 #include "RandomDiscreteDistribution.h"
 
 Expression::Expression(Scope *scope, int depth, Type type)
@@ -19,46 +20,92 @@ Expression::Expression(Scope *scope, int depth, Type type)
 
 Expression *Expression::generateExpression(Scope *scope, int depth, Type type) {
 
-    int gen_type = rand() % 100;
-    
-    // TODO: So far this only creates 1 new expression, not utilizing the list
-    // Using several should work though.
-    
-    Expression *expression = new Expression(scope, depth, type);
+	// TODO: So far this only creates 1 new expression, not utilizing the list
+	// Using several should work though.
+	Expression *expression = new Expression(scope, depth, type);
 
-    // Linear increasing probability for terminal expression nodes
-    int p_terminal = 40 + 60*((double)depth/20);
+	switch (type) {
 
-    if (gen_type < p_terminal) // Generate a terminal node (PrimaryExpression)
-    {
-        // PrimaryExpression (actual variables)
-        Expression *subexpr = new PrimaryExpression(scope, depth, type);
-        expression->expressions.push_back(subexpr);
-        
-    }
-    else  // Generate some sort of non-terminal node:
-    {
-		RandomDiscreteDistribution r (3, 40, 10, 1);
+	// If we want an expression of type NUMBER
+	case NUMBER_T:
+	{
+		int gen_type = rand() % 100;
 		Expression *subexpr;
-		
+		// Linear increasing probability for terminal expression nodes
+		int p_terminal = 40 + 60*((double)depth/20);
+
+		if (gen_type < p_terminal) // Generate a terminal node (PrimaryExpression)
+		{
+			// PrimaryExpression (actual variables)
+			subexpr = new PrimaryExpression(scope, depth, NUMBER_T);
+		}
+
+		else  // Generate some sort of non-terminal node:
+		{
+			RandomDiscreteDistribution r (3, 40, 10, 1);
+
+
+			switch(r.getChosenIndex())
+			{
+				case 0:
+					subexpr = new AddMulExpression(scope, depth, NUMBER_T);
+					break;
+				case 1:
+					subexpr = Expression::generateExpression(scope, depth+1, NUMBER_T);
+					expression->parenthesis = true;
+					break;
+				case 2:
+					subexpr = new RelationalExpression(scope, depth, NUMBER_T);
+					break;
+			}
+
+		}
+		if (subexpr!=NULL) {
+			expression->expressions.push_back(subexpr);
+		} else {
+			std::cerr << "NULL-expression generated!\n\n";
+			exit(1);
+		}
+	} break;
+
+
+	// If we want an expression of type STRING
+	case STRING_T:
+	{
+		RandomDiscreteDistribution r (3, 10, 2);
+
+		Expression *subexpr;
 		switch(r.getChosenIndex())
 		{
-			case 0:
-				subexpr = new AddMulExpression(scope, depth, type);
-				expression->expressions.push_back(subexpr);
-				break;
-			case 1:
-				subexpr = Expression::generateExpression(scope, depth+1, type);
-				expression->expressions.push_back(subexpr);
-				expression->parenthesis = true;
-				break;
-			case 2:
-				subexpr = new RelationalExpression(scope, depth, type);
-				expression->expressions.push_back(subexpr);
-				break;
+		case 0: // A string
+			subexpr = new Literal(scope, depth, STRING_T);
+			break;
+
+		case 1: // Concatenation of two strings
+			subexpr = new AddMulExpression(scope, depth, STRING_T);
+			break;
 		}
-    }
-    return expression;
+
+		if (subexpr!=NULL) {
+			expression->expressions.push_back(subexpr);
+		} else {
+			std::cerr << "NULL-expression generated!\n\n";
+			exit(1);
+		}
+	} break;
+
+
+
+
+	default:  // Error, you're asking for something that's not implemented!
+	{
+		std::cerr << "Expression type " << type << " is not implemented.\n\n";
+		exit(1);
+	}
+
+	}//endswitch
+
+	return expression;
 }
 
 Expression *Expression::generateExpressionForConditional(Scope *scope, int depth, Type type) {
