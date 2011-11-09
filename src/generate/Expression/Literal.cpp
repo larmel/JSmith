@@ -64,6 +64,7 @@ std::string Literal::randomStringLiteral() {
     do {
         // Careful with this one! Don't generate any " (double quotes)
         char nextchar = (rand()%(126-35)+35) ;
+        if (nextchar == '\\') continue;
         s += nextchar;
     } while (Random::flip_coin() || Random::flip_coin());
     return s;
