@@ -17,9 +17,9 @@ Statement* Statement::newRandomStatement(Scope* x, unsigned int depth){
 	    200, 
 	    50, 
 	    0, // while is bugged
-	    x->getParent() == NULL ? 0 : 10, 
+	    x->getParent() == NULL ? 0 : 10, // Only pick return if we are in a function
 	    50, 
-	    depth < 3 ? 50 : 0);
+	    depth < 3 ? 50 : 0); // Do not nest more than 3 for-loops (performance)
 	
 	switch(d.getChosenIndex()){
 	    case 0:
