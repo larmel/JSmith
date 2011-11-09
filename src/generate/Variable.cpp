@@ -59,3 +59,12 @@ std::string Variable::generateRandomIdentifier()
     
 	return identifier;
 }
+
+std::ostream& operator<<(std::ostream& out, const Variable& e) {
+    if (e.is_property) {
+        out << "this." << e.name;
+    } else {
+        out << e.name;
+    }
+    return out;
+}

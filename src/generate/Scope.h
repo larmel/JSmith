@@ -32,7 +32,8 @@ public:
      */
     Variable* generateNewVariable(Type t);
 
-    // TODO: Generate instance variable for this scope (== function)
+    // Generate instance variable for this scope (== function)
+    Variable* generateNewProperty(Type t);
 };
 
 

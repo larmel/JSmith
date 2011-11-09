@@ -71,6 +71,20 @@ Variable* Scope::generateNewVariable(Type t) {
     return var;
 }
 
+Variable* Scope::generateNewProperty(Type t) {
+    std::string identifier = this->getNewRandomIdentifier();
+    Variable* var = new Variable(identifier, t);
+    var->is_property = true;
+
+    // Functions have their own scope, but are visible in parent scope
+    if (t == FUNCTION_T) {
+        this->parent->variables->push_back( var );
+    } else {
+        this->variables->push_back( var );
+    }
+    return var;
+}
+
 std::string Scope::getNewRandomIdentifier() {
     std::string name;
     do {

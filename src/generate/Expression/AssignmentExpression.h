@@ -11,17 +11,14 @@ class Variable;
 class Scope;
  
 /*
- * From ECMA standard
- *
  * AssignmentExpression ->
  *      ConditionalExpression
  *      LeftHandSideExpression '=' AssignmentExpression
  *      LeftHandSideExpression AssignmentOperator AssignmentExpression
  *
- * We always choose the second production.
+ * We always choose the second production, ie always have an equals sign.
  * The right hand side is simplified to ConditionalExpression, which again can be
- * reduced to LeftHandSideExpression(!) = (almost) any expression.
- * Choose between MemberExpression and CallExpression
+ * reduced to (almost) any expression.
  *
  * LeftHandSideExpression ->
  *      NewExpression ->
@@ -34,11 +31,10 @@ class AssignmentExpression : public Expression {
 
 private:
     Variable* left_variable;
-    MemberExpression* left_expression;
-    Expression* right_side;
+    Expression* right_expression;
     
 public:
-    AssignmentExpression(Scope* parent_scope, int depth);
+    AssignmentExpression(Scope* parent_scope, int depth/*, Type type = NUMBER_T*/);
     
     void print(std::ostream& out) const;
     

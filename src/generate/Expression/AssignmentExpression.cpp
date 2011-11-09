@@ -3,45 +3,37 @@
 #include "Variable.h"
 #include "Literal.h"
 #include "Scope.h"
-#include "MemberExpression.h"
 
 AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
 
 	RandomDiscreteDistribution d = RandomDiscreteDistribution(2, 1, 1);
 	this->left_variable = NULL;
-	this->left_expression = NULL;
 
-    // Switch what type of variable to assign 
-    switch(d.getChosenIndex()) {
+    switch (d.getChosenIndex()) {
     case 0:
-        // TODO: Either move lots of logic up here, or make MemberExpression handle decision of everything
-        this->left_variable = parent_scope->getRandomVariable(NUMBER_T);
-        if (this->left_variable != NULL) {
-            this->right_side = Expression::generateExpression(parent_scope);
+        // Assign to some existing variable. Fall through if none is found.
+        left_variable = scope->getRandomVariable(NUMBER_T); // TODO type
+        if (left_variable != NULL) {
+            right_expression = Expression::generateExpression(parent_scope);
             break;
         }
     case 1:
-        this->left_expression = new MemberExpression(scope, depth);
-        this->right_side = Expression::generateExpression(parent_scope);
+        // Generate new property for this object
+        Variable* property = scope->generateNewProperty(NUMBER_T);
+        left_variable = property;
+        right_expression = Expression::generateExpression(parent_scope, depth + 1);
+        break;
+    case 2:
+        // Create new object. Not implemented yet
+        left_variable = scope->generateNewVariable(OBJECT_T);
+        right_expression = Expression::generateExpression(scope, depth + 1, OBJECT_T);
         break;
     }
 
-    /*
-     * TODO: MemberExpressio
-     * Want to cover:
-     * - some_var = expression
-     * - this.property = expression
-     *   - this.property = function() { ... }
-     * - some_var = new ...
-     */
 }
 
 void AssignmentExpression::print(std::ostream& out) const {
-    if (left_variable != NULL) {
-        out << left_variable->name << " = " << *right_side;
-    } else {
-        out << *left_expression << " = " << *right_side;
-    }
+    out << *left_variable << " = " << *right_expression;
 }
 
 std::ostream& operator<<(std::ostream& out, const AssignmentExpression& e) {
