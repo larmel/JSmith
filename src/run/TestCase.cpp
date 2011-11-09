@@ -3,61 +3,56 @@
 #include <cstdlib>
 #include <stdio.h>
 #include <time.h>
-#include "TestSuite.h"
+#include "TestCase.h"
 
 /*
  * Invoke generate, create a new program at test/generated.js
  */
-void TestSuite::generateSource() {
-    system("bin/generate > test/generated.js");
+void TestCase::generateSource() {
+    system("bin/generate > test/current_jsmith/_generated.js");
 }
 
-void TestSuite::setSource(string file) {
+void TestCase::setSource(string file) {
     input_file = file;
 }
 
-pair<bool, string> TestSuite::invoke(string path) {
-    string command = path + " " + input_file + " > " + output_file;
-    //cout << command << endl;
-    
+pair<bool, string> TestCase::testCompiler(string compiler_path) {
+    string command = compiler_path + " " + input_file + " > " + tmp_output_file;
     int success = system(command.c_str()) == 0;
-    string result = getOutput();
-    
-    return pair<bool, string>(success, result);
-}
+    //string result = getOutput();
 
-/*
- * Read output file generated for each test
- */
-string TestSuite::getOutput() {
-    ifstream file(output_file.c_str());
-    
-    string concatinated = "", line;
+    ifstream file(tmp_output_file.c_str());
+    string result = "", line;
     while (getline(file, line)) {
-        concatinated += line;
+        result += line;
     }
-    
     file.close();
-    return concatinated;
+
+    return pair<bool, string>(success, result);
 }
 
 /*
  * Feed generated.js to all available compilers
  */
-bool TestSuite::runAllTests() 
+
+void TestCase::testAgainstCompilers()
 {
-    pair<bool, string> spiderMonkey = invoke( "js-compilers/SpiderMonkey/js" );
-    pair<bool, string> rhino = invoke( "/usr/bin/rhino -f" );
-    pair<bool, string> v8 = invoke( "js-compilers/V8/v8" );
-    pair<bool, string> kjs = invoke( "/usr/bin/kjs" );
-    pair<bool, string> narcissus = invoke( "js-compilers/Narcissus/njs -f" );
+    spiderMonkey = testCompiler( "js-compilers/SpiderMonkey/js" );
+    rhino = testCompiler( "/usr/bin/rhino -f" );
+    v8 = testCompiler( "js-compilers/V8/v8" );
+    kjs = testCompiler( "/usr/bin/kjs" );
+    narcissus = testCompiler( "js-compilers/Narcissus/njs -f" );
     
+}
+
+void TestCase::reportToFile(string filename)
+{
     char buf [100];
     time_t now = time (NULL);
     struct tm *t = localtime (&now);
     strftime (buf, 100, "%B %d, %Y at %T", t);
 
-    ofstream report(report_file.c_str());
+    ofstream report(filename.c_str());
     
     report << "/*" << endl;
     report << " * ### Test Summary " << buf << "" << endl;
@@ -80,6 +75,10 @@ bool TestSuite::runAllTests()
     source.close();
     report.close();
     
-    return spiderMonkey.second == v8.second && v8.second == kjs.second && kjs.second == narcissus.second;  //  rhino.second && rhino.second == 
+}
+
+bool TestCase::success()
+{
+	return spiderMonkey.second == v8.second && v8.second == kjs.second && kjs.second == narcissus.second;
 }
 
