@@ -32,6 +32,7 @@ class AssignmentExpression : public Expression {
 
 private:
     Variable* left_variable;
+    std::string new_keyword;
     Expression* right_expression;
     
 public:
