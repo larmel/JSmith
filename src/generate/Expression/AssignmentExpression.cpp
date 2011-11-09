@@ -4,7 +4,7 @@
 #include "Literal.h"
 #include "Scope.h"
 
-AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
+AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth, Type type) : Expression(parent_scope, depth, type) {
 
 	RandomDiscreteDistribution d = RandomDiscreteDistribution(2, 1, 1);
 	this->left_variable = NULL;
@@ -19,8 +19,7 @@ AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth) : Exp
         }
     case 1:
         // Generate new property for this object
-        Variable* property = scope->generateNewProperty(NUMBER_T);
-        left_variable = property;
+        left_variable = scope->generateNewProperty(NUMBER_T);
         right_expression = Expression::generateExpression(parent_scope, depth + 1);
         break;
     case 2:

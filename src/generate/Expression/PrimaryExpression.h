@@ -6,6 +6,7 @@
 #include <string>
 #include "Expression.h"
 
+#include "Type.h"
 class Variable;
 class Scope;
 
@@ -30,9 +31,10 @@ private:
     std::string immidiate_value;
 
 public:
-    PrimaryExpression(Scope* parent_scope, int depth);
+    PrimaryExpression(Scope* parent_scope, int depth, Type type);
     
-    static Expression* generatePrimaryExpression(Scope* scope, int depth);
+    // TODO: Remove the default type here when done with expressions
+    static Expression* generatePrimaryExpression(Scope* scope, int depth, Type type = NUMBER_T);
 
     virtual void print(std::ostream& out) const;
     friend std::ostream& operator<<(std::ostream& out, const PrimaryExpression& e);

@@ -6,6 +6,7 @@
 #include <string>
 #include "Expression.h"
 
+#include "Type.h"
 class Variable;
 class Scope;
 
@@ -34,7 +35,7 @@ private:
     std::string randomStringLiteral();
     
 public:
-    Literal(Scope* parent_scope, int depth);
+    Literal(Scope* parent_scope, int depth, Type type);
     LiteralType type;
 
     void print(std::ostream& out) const;

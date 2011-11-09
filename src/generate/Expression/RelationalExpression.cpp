@@ -3,7 +3,7 @@
 #include "Scope.h"
 
 
-RelationalExpression::RelationalExpression(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
+RelationalExpression::RelationalExpression(Scope* parent_scope, int depth, Type type) : Expression(parent_scope, depth, type) {
     
     this->op1 = Expression::generateExpression(this->scope, this->depth+1);
     this->op2 = Expression::generateExpression(this->scope, this->depth+1);

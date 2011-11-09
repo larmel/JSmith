@@ -15,12 +15,12 @@ VariableStatement::VariableStatement(Scope* s, unsigned int depth) : Statement(s
 	
 	switch (d.getChosenIndex()) {
 	case 0:
-        this->expression = Expression::generateExpression( scope );
+        this->expression = Expression::generateExpression( scope, 0, NUMBER_T );
         this->var = scope->generateNewVariable(NUMBER_T);
     break;
     
     case 1:
-        this->expression = new Literal(scope, depth);
+        this->expression = new Literal(scope, depth, STRING_T);
         this->var = scope->generateNewVariable(STRING_T);
     break;
     }

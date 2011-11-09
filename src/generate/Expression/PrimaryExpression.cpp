@@ -6,7 +6,7 @@
 #include <sstream>
 #include <cstdio>
 
-PrimaryExpression::PrimaryExpression(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
+PrimaryExpression::PrimaryExpression(Scope* parent_scope, int depth, Type type) : Expression(parent_scope, depth, type) {
 
     RandomDiscreteDistribution r (2, 1, 1);
 
@@ -22,16 +22,16 @@ PrimaryExpression::PrimaryExpression(Scope* parent_scope, int depth) : Expressio
     }
 }
 
-// TODO: Might need type specifier here.
-Expression* PrimaryExpression::generatePrimaryExpression(Scope* scope, int depth) {
+// TODO: Might need type specifier here. EDIT: Added type specifier
+Expression* PrimaryExpression::generatePrimaryExpression(Scope* scope, int depth, Type type) {
 
     RandomDiscreteDistribution r(3, 1, 1, 1);
     switch (r.getChosenIndex()) {
     case 0:
-        return new Literal(scope, depth);
+        return new Literal(scope, depth, type);
     case 1:
     case 2:
-        return new PrimaryExpression(scope, depth);
+        return new PrimaryExpression(scope, depth, type);
     }
 }
 
