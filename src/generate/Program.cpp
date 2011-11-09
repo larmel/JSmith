@@ -6,10 +6,6 @@
 
 Program::Program() : Scope(NULL) {
 
-    // To avoid some issues of nonexisting FUNCTION_T variables, add predefined object
-    // This is standard javascript afaik
-    this->add(new Variable("Object", FUNCTION_T));
-
     // Generate some number (currently 3) of SourceElements
     for (int i = 0; i < 3; ++i) {
 	    this->source_elements.push_back( SourceElement::createRandom(this, 0) );
