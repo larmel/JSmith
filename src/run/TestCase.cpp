@@ -1,34 +1,17 @@
-#include <iostream>
-#include <fstream>
-#include <cstdlib>
-#include <stdio.h>
-#include <time.h>
-#include "TestCase.h"
 
-/*
- * Invoke generate, create a new program at test/generated.js
- */
+#include "TestCase.h"
+#include "TestCaseCompiler.h"
+
+TestCase::TestCase() {
+	compilers.push_back(TestCaseCompiler("SpiderMonkey", "js-compilers/SpiderMonkey/js"));
+	compilers.push_back(TestCaseCompiler("Rhino", "/usr/bin/rhino -f"));
+	compilers.push_back(TestCaseCompiler("V8", "js-compilers/V8/v8"));
+	compilers.push_back(TestCaseCompiler("KJS", "/usr/bin/kjs"));
+	compilers.push_back(TestCaseCompiler("Narcissus", "js-compilers/Narcissus/njs -f"));
+};
+
 void TestCase::generateSource() {
     system("bin/generate > test/current_jsmith/_generated.js");
-}
-
-void TestCase::setSource(string file) {
-    input_file = file;
-}
-
-pair<bool, string> TestCase::testCompiler(string compiler_path) {
-    string command = compiler_path + " " + input_file + " > " + tmp_output_file; // " 2>&1";
-    int success = system(command.c_str()) == 0;
-    //string result = getOutput();
-
-    ifstream file(tmp_output_file.c_str());
-    string result = "", line;
-    while (getline(file, line)) {
-        result += line;
-    }
-    file.close();
-
-    return pair<bool, string>(success, result);
 }
 
 /*
@@ -37,12 +20,10 @@ pair<bool, string> TestCase::testCompiler(string compiler_path) {
 
 void TestCase::testAgainstCompilers()
 {
-    spiderMonkey = testCompiler( "js-compilers/SpiderMonkey/js" );
-    rhino = testCompiler( "/usr/bin/rhino -f" );
-    v8 = testCompiler( "js-compilers/V8/v8" );
-    kjs = testCompiler( "/usr/bin/kjs" );
-    narcissus = testCompiler( "js-compilers/Narcissus/njs -f" );
-    
+	for(int i = 0; i < compilers.size(); i++)
+	{
+		compilers.at(i).testCompiler();
+	}
 }
 
 void TestCase::reportToFile(string filename)
@@ -56,16 +37,18 @@ void TestCase::reportToFile(string filename)
     
     report << "/*" << endl;
     report << " * ### Test Summary " << buf << "" << endl;
-    report << " * ### Time Taken: Todo" << endl;
+    report << " * ### Time Taken: Average " << this->getAvgMs() << " ms" << endl;
     report << " *" << endl;
-    report << " * SpiderMonkey: (" << spiderMonkey.first << ", " << spiderMonkey.second << ")" << endl;
-    report << " * Rhino:        (" << rhino.first << ", " << rhino.second << ")" << endl;
-    report << " * V8:           (" << v8.first << ", " << v8.second << ")" << endl;
-    report << " * KJS:          (" << kjs.first << ", " << kjs.second << ")" << endl;
-    report << " * Narcissus:    (" << narcissus.first << ", " << narcissus.second << ")" << endl;
+
+	for(int i = 0; i < compilers.size(); i++)
+	{
+		report << " * " <<  compilers.at(i).getName() << ": (" << compilers.at(i).getReturnCode()
+			   << ", " << compilers.at(i).getResult() << ")" << endl;
+	}
+
     report << " */" << endl;
     
-    ifstream source(input_file.c_str());
+    ifstream source("test/current_jsmith/_generated.js");
     
     string s;
     while (getline(source, s)) {
@@ -79,6 +62,50 @@ void TestCase::reportToFile(string filename)
 
 bool TestCase::success()
 {
-	return spiderMonkey.second == v8.second && v8.second == kjs.second && kjs.second == narcissus.second;
+	string ret = compilers.at(0).getResult();
+	for(int i = 1; i < compilers.size(); i++)
+	{
+		if(ret != compilers.at(i).getResult()){
+			return false;
+		}
+	}
+	return true;
 }
 
+int TestCase::getAvgMs()
+{
+	int sum = 0;
+	int qt = 0;
+	for(int i = 1; i < compilers.size(); i++)
+	{
+		qt++;
+		sum += compilers.at(i).getMs();
+	}
+	return sum/qt;
+}
+
+TestCaseCompiler* TestCase::getFastestCompiler()
+{
+	TestCaseCompiler* fastest  = &compilers.at(0);
+	for(int i = 1; i < compilers.size(); i++)
+	{
+		if(compilers.at(i).getMs() < fastest->getMs())
+		{
+			fastest = &compilers.at(i);
+		}
+	}
+	return fastest;
+}
+
+TestCaseCompiler* TestCase::getSlowestCompiler()
+{
+	TestCaseCompiler* slowest  = &compilers.at(0);
+	for(int i = 1; i < compilers.size(); i++)
+	{
+		if(compilers.at(i).getMs() > slowest->getMs())
+		{
+			slowest = &compilers.at(i);
+		}
+	}
+	return slowest;
+}
