@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
         
         if (!tcase.success()) {
         	num_errors++;
-            cout << "Error detected, saved as bug/" << num_errors << "!" << endl;
+            cout << "Error detected in test " << testno << ", saved as bugs/" << num_errors << "!" << endl;
             stringstream filename;
             filename << "test/current_jsmith/bugs/" << num_errors << ".js";
             tcase.reportToFile(filename.str());

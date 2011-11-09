@@ -1,6 +1,7 @@
 
 #include "TestCase.h"
 #include "TestCaseCompiler.h"
+#include <cassert>
 
 TestCase::TestCase() {
 	compilers.push_back(TestCaseCompiler("SpiderMonkey", "js-compilers/SpiderMonkey/js"));
@@ -35,6 +36,8 @@ void TestCase::reportToFile(string filename)
 
     ofstream report(filename.c_str());
     
+	assert(!report.fail());
+
     report << "/*" << endl;
     report << " * ### Test Summary " << buf << "" << endl;
     report << " * ### Time Taken: Average " << this->getAvgMs() << " ms" << endl;
