@@ -16,7 +16,7 @@ void TestCaseCompiler::testCompiler()
 
 	unsigned long long start = 1000*(unsigned long long)x.tv_sec + x.tv_usec/1000;
 
-	std::string command = compiler_path + " " + tmp_input_file + " > " + tmp_output_file; // " 2>&1";
+	std::string command = "timeout 60s " + compiler_path + " " + tmp_input_file + " > " + tmp_output_file; // " 2>&1";
     bool retcode = system(command.c_str()) == 0;
 
 	gettimeofday(&x, &tz);
