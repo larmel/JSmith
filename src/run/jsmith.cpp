@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
 #include <cstdlib>
-
-#include "TestSuite.h"
+#include <sstream>
+#include "TestCase.h"
 
 using namespace std;
 
@@ -23,26 +23,35 @@ int main(int argc, char* argv[])
     if (argc > 2) {
         input_file = argv[2];
     }
-    
-    TestSuite testSuite;
-    
-    while (tests--)
+
+    int num_errors = 0;
+    int testno = 0;
+
+    cout << "This is Jsmith. Running " << tests << " tests." << endl;
+
+    while (testno++ < tests)
     {
-        cout << "Remaining: " << tests + 1 << endl;
+        cout << "Running test " << testno << " of " << tests <<  "." << endl;
         
+        TestCase tcase;
+
         if (input_file == "") {
-            testSuite.generateSource();
+        	tcase.generateSource();
         } else {
-            testSuite.setSource(input_file);
+        	tcase.setSource(input_file);
         }
+        tcase.testAgainstCompilers();
         
-        if (!testSuite.runAllTests()) {
-            cout << "Error detected !!!" << endl;
-            return 1;
+        if (!tcase.success()) {
+        	num_errors++;
+            cout << "Error detected on test " << testno << ", saved as bug/" << num_errors << "!" << endl;
+            stringstream filename;
+            filename << "test/current_jsmith/bugs/" << num_errors << ".js";
+            tcase.reportToFile(filename.str());
         }
     }
     
-    cout << "All tests ran with no error detected" << endl;
+    cout << "Completed! " << tests << " tests ran, " << num_errors << " errors." << endl;
     return 0;
 }
 
