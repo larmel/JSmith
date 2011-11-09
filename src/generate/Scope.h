@@ -27,13 +27,17 @@ public:
 
     std::string getNewRandomIdentifier();
     
+    void add(Variable* v) {
+        variables->push_back(v);
+    }
+
     /*
      * Generate and return a new variable for this scope
      */
     Variable* generateNewVariable(Type t);
 
-    // Generate instance variable for this scope (== function)
-    Variable* generateNewProperty(Type t);
+    // Generate instance variable for some scope, or function
+    Variable* generateNewProperty(Type t/*, Scope* function = this*/);
 };
 
 

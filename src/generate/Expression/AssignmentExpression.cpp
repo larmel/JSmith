@@ -6,17 +6,27 @@
 
 AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth, Type type) : Expression(parent_scope, depth, type) {
 
+    this->type = type;
+
     // Create object with new keyword
     if (type & OBJECT_T) {
         left_variable = scope->generateNewVariable(OBJECT_T);
-        new_keyword = " new ";
-        right_expression = Expression::generateExpression(scope, depth + 1, OBJECT_T);
+        right_variable = scope->getRandomVariable(FUNCTION_T);
+
+        // Add all instance variables to scope
+        std::vector<Variable*>* properties = right_variable->getObjectProperties();
+        for (int i = 0; i < properties->size(); ++i) {
+            Variable* property = properties->at(i);
+            Variable* added_property = new Variable(property->name, property->type);
+            added_property->is_property = true;
+            added_property->attachedObject = right_variable;
+            scope->add(added_property);
+        }
 
     } else {
 
         RandomDiscreteDistribution d = RandomDiscreteDistribution(2, 1, 10);
         this->left_variable = NULL;
-        this->new_keyword = "";
 
         switch (d.getChosenIndex()) {
         case 0:
@@ -36,7 +46,10 @@ AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth, Type 
 }
 
 void AssignmentExpression::print(std::ostream& out) const {
-    out << *left_variable << " = " << new_keyword << *right_expression;
+    if (type & OBJECT_T)
+        out << *left_variable << " = new " << *right_variable;
+    else
+        out << *left_variable << " = " << *right_expression;
 }
 
 std::ostream& operator<<(std::ostream& out, const AssignmentExpression& e) {

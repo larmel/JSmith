@@ -12,23 +12,34 @@ class Variable {
 private:
     bool locked;
     
+    // Functions will have a set of properties
+    std::vector<Variable*> properties;
+
 
 public:
     Type type;
     std::string name;
     
     bool funcBeenUsed;
-    bool is_property;
-    
+
     Variable(std::string s, Type t);
     
     void lock();
     void unlock();
-    
     bool is_locked() {
         return locked;
     };
+
+    // A property is itself a variable
+    bool is_property;
+
+    // Pointer to object for which this property is attached to
+    Variable* attachedObject;
     
+    std::vector<Variable*> *getObjectProperties() {
+        return &properties;
+    }
+
     static std::string generateRandomIdentifier();
     
     static int reserved_word_count;
