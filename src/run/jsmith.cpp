@@ -6,10 +6,6 @@
 
 using namespace std;
 
-/*
- * Usage:
- * > jsmith <number> <file>
- */ 
 int main(int argc, char* argv[]) 
 {
     // First argument: how many tests to run
@@ -28,6 +24,7 @@ int main(int argc, char* argv[])
     int testno = 0;
 
     system("rm -f test/current_jsmith/bugs/*.js");
+    system("rm -f test/current_jsmith/successes/*.js");
 
     cout << "Running " << tests << " tests." << endl;
 
@@ -39,7 +36,7 @@ int main(int argc, char* argv[])
         
         if (!tcase.success()) {
         	num_errors++;
-            cout << "Error detected in test " << testno << ", saved as bugs/" << num_errors << "!" << endl;
+            cout << "Error detected in test " << testno << ", saved as bugs/" << testno << "!" << endl;
             stringstream filename;
             filename << "test/current_jsmith/bugs/" << num_errors << ".js";
             tcase.reportToFile(filename.str());
@@ -52,15 +49,15 @@ int main(int argc, char* argv[])
         	cout << "Ran test " << testno << " in avg " << tcase.getAvgMs() << " ms (best " <<
         			fastest->getName()<< " " << fastest->getMs() << " ms, worst " << slowest->getName() <<
         			" "<<  slowest->getMs() << " ms)." << endl;
+
+        	stringstream filename;
+			filename << "test/current_jsmith/successes/" << testno << ".js";
+			tcase.reportToFile(filename.str());
         }
 
-        if(testno == tests)
-        {
-			tcase.reportToFile("test/current_jsmith/report.js");
-        }
 	}
     
     cout << "Completed! " << tests << " tests ran, " << num_errors << " errors." << endl;
     return 0;
-}
 
+}

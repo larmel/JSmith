@@ -38,9 +38,16 @@ void TestCase::reportToFile(string filename)
     
 	assert(!report.fail());
 
+	TestCaseCompiler* fastest = this->getFastestCompiler();
+	TestCaseCompiler* slowest = this->getSlowestCompiler();
+
     report << "/*" << endl;
     report << " * ### Test Summary " << buf << "" << endl;
-    report << " * ### Time Taken: Average " << this->getAvgMs() << " ms" << endl;
+
+    report << " * ### Time Taken: Average " << this->getAvgMs() << " ms. " << " Best " <<
+			fastest->getName()<< " " << fastest->getMs() << " ms. Worst " << slowest->getName() <<
+			" "<<  slowest->getMs() << " ms)." << endl;
+
     report << " *" << endl;
 
 	for(int i = 0; i < compilers.size(); i++)
