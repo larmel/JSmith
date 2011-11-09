@@ -27,6 +27,8 @@ int main(int argc, char* argv[])
     int num_errors = 0;
     int testno = 0;
 
+    system("rm -f test/current_jsmith/bugs/*.js");
+
     cout << "This is Jsmith. Running " << tests << " tests." << endl;
 
     while (testno++ < tests)
@@ -44,7 +46,7 @@ int main(int argc, char* argv[])
         
         if (!tcase.success()) {
         	num_errors++;
-            cout << "Error detected on test " << testno << ", saved as bug/" << num_errors << "!" << endl;
+            cout << "Error detected, saved as bug/" << num_errors << "!" << endl;
             stringstream filename;
             filename << "test/current_jsmith/bugs/" << num_errors << ".js";
             tcase.reportToFile(filename.str());

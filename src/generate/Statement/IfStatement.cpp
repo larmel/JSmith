@@ -17,7 +17,7 @@ IfStatement::IfStatement(Scope* s, unsigned int depth) : Statement(s, depth) {
 	RandomDiscreteDistribution rt(2,4,1);
 	
 	if(rt.getChosenIndex() == 0) {
-		true_statement = new BlockStatement(scope, depth + 1);
+		true_statement = new BlockStatement(scope, depth);
 		true_is_block = true;
 	} else {
 		true_statement = Statement::newRandomStatement(scope, depth + 1);
@@ -29,7 +29,7 @@ IfStatement::IfStatement(Scope* s, unsigned int depth) : Statement(s, depth) {
 	{
 	    RandomDiscreteDistribution r (2,3,1);
 	    if(r.getChosenIndex() == 0) {
-		    false_statement = new BlockStatement(scope, depth + 1);
+		    false_statement = new BlockStatement(scope, depth );
 		    false_is_block = true;
 	    } else {
 		    false_statement = Statement::newRandomStatement(scope, depth + 1);
@@ -51,22 +51,22 @@ void IfStatement::print(std::ostream& out){
 	out << ")" << std::endl;
 	
 	// Print block on same depth
-	if (true_is_block){
+	/*if (true_is_block){
 	    depth--;
-	}
+	}*/
 	
 	true_statement->print(out);
 	
-	if(true_is_block){
+	/*if(true_is_block){
 	    depth++;
-	}
+	}*/
 	
 	if(false_statement != 0){
 	    //depth++;
 	    out << prefix << "else" << std::endl;
-	    if(false_is_block){
+	    /*if(false_is_block){
 	        depth--;
-	    }
+	    }*/
 	    false_statement->print(out);
 	}
 	

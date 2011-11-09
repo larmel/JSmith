@@ -33,7 +33,7 @@ obj/%.o: %.cpp $(H_FILES)
 # To generate jsmith (naively)	
 jsmith: bin/jsmith
 
-bin/jsmith: src/run/jsmith.cpp
+bin/jsmith: src/run/*
 	$(COMPILER) src/run/*.cpp -o bin/jsmith
 
 clean:

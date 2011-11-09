@@ -17,7 +17,7 @@ void TestCase::setSource(string file) {
 }
 
 pair<bool, string> TestCase::testCompiler(string compiler_path) {
-    string command = compiler_path + " " + input_file + " > " + tmp_output_file;
+    string command = compiler_path + " " + input_file + " > " + tmp_output_file; // " 2>&1";
     int success = system(command.c_str()) == 0;
     //string result = getOutput();
 
