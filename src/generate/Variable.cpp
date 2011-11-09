@@ -27,6 +27,7 @@ Variable::Variable(std::string s, Type t) {
     this->type = t;
     this->funcBeenUsed = false;
     this->locked = false;
+    this->is_property = false;
 }
 
 void Variable::lock() {

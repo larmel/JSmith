@@ -7,7 +7,7 @@
 #include <cstdio>
 
 PrimaryExpression::PrimaryExpression(Scope* parent_scope, int depth, Type type) : Expression(parent_scope, depth, type) {
-
+    var = NULL;
     RandomDiscreteDistribution r (2, 1, 1);
 
     switch (type) {
