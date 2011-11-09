@@ -34,7 +34,7 @@ void Program::printMain(std::ostream& out)
         if (var->type == FUNCTION_T) 
         {
             // For now assuming object is a zero argument function
-            out << "   " << var->name << "();" << std::endl;
+            out << "   " << *var << "();" << std::endl;
         }
     }
     
@@ -45,7 +45,7 @@ void Program::printMain(std::ostream& out)
         if (var->type == NUMBER_T || var->type == STRING_T) 
         {
             line++;
-            out << "   " << "print(" << var->name << "); print(\" (" << line << ") \");" << std::endl;
+            out << "   " << "print(" << *var << "); print(\" (" << line << ") \");" << std::endl;
         }
     }
     
