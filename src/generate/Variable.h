@@ -6,15 +6,12 @@
 #include <iostream>
 #include "Type.h"
 
-
-
 class Variable {
 private:
     bool locked;
     
     // Functions will have a set of properties
     std::vector<Variable*> properties;
-
 
 public:
     Type type;
