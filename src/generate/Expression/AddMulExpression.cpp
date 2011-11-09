@@ -1,7 +1,7 @@
 #include "AddMulExpression.h"
 #include "Variable.h"
 
-AddMulExpression::AddMulExpression(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
+AddMulExpression::AddMulExpression(Scope* parent_scope, int depth, Type type) : Expression(parent_scope, depth, type) {
     
     // Get variables to work on:
     // TODO: Other types than NUMBER_T aswell?

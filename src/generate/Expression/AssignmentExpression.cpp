@@ -5,7 +5,7 @@
 #include "Scope.h"
 #include "MemberExpression.h"
 
-AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
+AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth, Type type) : Expression(parent_scope, depth, type) {
 
 	RandomDiscreteDistribution d = RandomDiscreteDistribution(2, 1, 1);
 	this->left_variable = NULL;

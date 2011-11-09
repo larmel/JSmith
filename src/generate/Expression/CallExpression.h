@@ -5,7 +5,7 @@
 #include <cstdlib>
 
 #include "Expression.h"
-
+#include "Type.h"
 
 class Variable;
 class Scope;
@@ -17,7 +17,7 @@ private:
     
 
 public:
-    CallExpression(Scope* parent_scope, int depth);
+    CallExpression(Scope* parent_scope, int depth, Type type);
     
     void print(std::ostream& out) const;
     

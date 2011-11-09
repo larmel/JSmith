@@ -5,7 +5,7 @@
 #include <cstdlib>
 
 #include "Expression.h"
-
+#include "Type.h"
 class Variable;
 class Scope;
 
@@ -24,7 +24,7 @@ private:
     
 public:
 
-    AddMulExpression(Scope* parent_scope, int depth);
+    AddMulExpression(Scope* parent_scope, int depth, Type type);
     
     void print(std::ostream& out) const;
     

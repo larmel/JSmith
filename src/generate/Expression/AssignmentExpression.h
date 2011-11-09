@@ -3,8 +3,9 @@
  
 #include <iostream>
 #include <cstdlib>
-#include "Expression.h"
 
+#include "Expression.h"
+#include "Type.h"
 class MemberExpression;
 class LeftHandSideExpression;
 class Variable;
@@ -38,7 +39,7 @@ private:
     Expression* right_side;
     
 public:
-    AssignmentExpression(Scope* parent_scope, int depth);
+    AssignmentExpression(Scope* parent_scope, int depth, Type type);
     
     void print(std::ostream& out) const;
     

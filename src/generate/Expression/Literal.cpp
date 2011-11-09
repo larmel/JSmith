@@ -7,7 +7,7 @@
 #include <cstdio>
 #include <sstream>
 
-Literal::Literal(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
+Literal::Literal(Scope* parent_scope, int depth, Type type) : Expression(parent_scope, depth, type) {
 
     RandomDiscreteDistribution r (4, 1, 1, 1, 1);
 

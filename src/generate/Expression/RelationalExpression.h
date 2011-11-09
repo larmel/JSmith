@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cstdlib>
 
+#include "Type.h"
 #include "Expression.h"
 
 
@@ -19,7 +20,7 @@ private:
     std::string op;
 
 public:
-    RelationalExpression(Scope* parent_scope, int depth);
+    RelationalExpression(Scope* parent_scope, int depth, Type type);
     
     void print(std::ostream& out) const;
     
