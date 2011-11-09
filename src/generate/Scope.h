@@ -22,7 +22,7 @@ public:
     Variable* getRandomLocalVariable(Type t);
     Variable* getRandomVariable(Type t);
 
-    bool isUnique(std::string identifier);
+    void lockIfNotUnique(std::string identifier);
     Scope* getParent();
 
     std::string getNewRandomIdentifier();

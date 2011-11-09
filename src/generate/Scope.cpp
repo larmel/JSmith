@@ -86,25 +86,24 @@ Variable* Scope::generateNewProperty(Type t) {
 
 std::string Scope::getNewRandomIdentifier() {
     std::string name;
-    do {
-	    name = Variable::generateRandomIdentifier();
-	} while (!isUnique(name));
+
+    name = Variable::generateRandomIdentifier();
+	lockIfNotUnique(name);
+
 	return name;
 }
 
-bool Scope::isUnique(std::string identifier) {
-    bool local_unique = true;
+void Scope::lockIfNotUnique(std::string identifier) {
     std::vector<Variable*>::iterator it;
     for (it = variables->begin(); it != variables->end(); ++it) {
         if ((*it)->name == identifier) {
-            local_unique = false;
+            (*it)->lock();
             break;
         }
     }
     if (this->parent != NULL) {
-        return local_unique && parent->isUnique( identifier );
+        parent->lockIfNotUnique( identifier );
     }
-    return local_unique;
 }
 
 Scope *Scope::getParent(){
