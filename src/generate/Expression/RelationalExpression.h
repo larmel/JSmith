@@ -20,11 +20,9 @@ private:
     std::string op;
 
 public:
-    RelationalExpression(Scope* parent_scope, int depth, Type type);
+    RelationalExpression(Scope* parent_scope, int depth);
     
     void print(std::ostream& out) const;
-    
-    
     friend std::ostream& operator<<(std::ostream& out, const RelationalExpression& e);
 };
  

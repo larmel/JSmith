@@ -11,18 +11,18 @@
 VariableStatement::VariableStatement(Scope* s, int depth) : Statement(s, depth) {
     
     // Generate expression first to avoid circle dependency
-	RandomDiscreteDistribution d = RandomDiscreteDistribution(2, 10, 5);
+	RandomDiscreteDistribution d = RandomDiscreteDistribution(2, 10, 0);
 	
 	switch (d.getChosenIndex()) {
 	case 0:
-        this->expression = Expression::generateExpression( scope, 0, NUMBER_T );
+        this->expression = Expression::generateExpression(scope);
         this->var = scope->generateNewVariable(NUMBER_T);
         break;
     
-    case 1:
+    /*case 1:
         this->expression = new Literal(scope, depth, STRING_T);
         this->var = scope->generateNewVariable(STRING_T);
-        break;
+        break;*/
     }
     line_end = ";";        
 }

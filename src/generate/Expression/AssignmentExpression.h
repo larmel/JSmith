@@ -31,15 +31,13 @@ class Scope;
 class AssignmentExpression : public Expression {
 
 private:
-    Type type;
-
     Variable* left_variable;
     Variable* right_variable;
 
     Expression* right_expression;
     
 public:
-    AssignmentExpression(Scope* parent_scope, int depth, Type type);
+    AssignmentExpression(Scope* parent_scope, int depth);
     
     void print(std::ostream& out) const;
     friend std::ostream& operator<<(std::ostream& out, const AssignmentExpression& e);

@@ -3,7 +3,7 @@
 #include "Scope.h"
 
 
-CallExpression::CallExpression(Scope* parent_scope, int depth, Type type) : Expression(parent_scope, depth, type) {
+CallExpression::CallExpression(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
 
     // Fetch a local function (we're only allowed to call functions on the same level)
     this->function = parent_scope->getRandomLocalVariable(FUNCTION_T);

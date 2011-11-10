@@ -2,112 +2,66 @@
 #include "PrimaryExpression.h"
 #include "AddMulExpression.h"
 #include "RelationalExpression.h"
+#include "AssignmentExpression.h"
 #include "CallExpression.h"
 #include "Literal.h"
 #include "RandomDiscreteDistribution.h"
+#include <Random.h>
 #include <cassert>
 
-Expression::Expression(Scope *scope, int depth, Type type)
+Expression::Expression(Scope *scope, int depth)
 {
     assert(scope != NULL);
-    if (scope==NULL) {
-        std::cerr << "No scope provided to Expression node";
-        exit(1);
-    }
     this->scope = scope;
     this->depth = depth;
-    this->type = type;
-    this->parenthesis = false;
+    this->parenthesis = Random::flip_coin();
 }
 
-Expression *Expression::generateExpression(Scope *scope, int depth, Type type) {
+Expression *Expression::generateExpression(Scope *scope, int depth) {
+    int p_terminal = 1 + depth; //60*((double)depth/20);
+    Expression* expression = new Expression(scope, depth);
 
 	// TODO: So far this only creates 1 new expression, not utilizing the list
 	// Using several should work though.
-	Expression *expression = new Expression(scope, depth, type);
+    int expression_count = 1;
+    for (int e = 0; e < expression_count; ++e) {
+        RandomDiscreteDistribution r(5,
+                1, // AssignmentExpression
+                1, // Relational Expression
+                1, // ArithmeticExpression
+                0, // CallExpression - bugged, can return nothing
+                p_terminal);
 
-	switch (type) {
-
-	// If we want an expression of type NUMBER
-	case NUMBER_T:
-        {
-            int gen_type = rand() % 100;
-            Expression *subexpr = NULL;
-
-            // Linear increasing probability for terminal expression nodes
-            int p_terminal = 40 + 60*((double)depth/20);
-
-            if (gen_type < p_terminal) // Generate a terminal node (PrimaryExpression)
-            {
-                // PrimaryExpression (actual variables)
-                subexpr = new PrimaryExpression(scope, depth, NUMBER_T);
-            }
-
-            else  // Generate some sort of non-terminal node:
-            {
-                RandomDiscreteDistribution r (3, 40, 10, 1);
-
-                switch (r.getChosenIndex())
-                {
-                    case 0:
-                        subexpr = new AddMulExpression(scope, depth, NUMBER_T);
-                        break;
-                    case 1:
-                        subexpr = Expression::generateExpression(scope, depth+1, NUMBER_T);
-                        expression->parenthesis = true;
-                        break;
-                    case 2:
-                        subexpr = new RelationalExpression(scope, depth, NUMBER_T);
-                        break;
-                }
-            }
-
-            assert(subexpr != NULL);
-            expression->expressions.push_back(subexpr);
+        switch (r.getChosenIndex()) {
+        case 0:
+            expression->expressions.push_back(new AssignmentExpression(scope, depth + 1));
+            // var a = 1 > this.b = 2 is not allowed, but var a = 1 > (this.b = 2) is.
+            // We might avoid this if we recur in PrimaryExpression with parenthesis instead, like the grammar dictates.
+            expression->parenthesis = true;
+            break;
+        case 1:
+            expression->expressions.push_back(new RelationalExpression(scope, depth + 1));
+            break;
+        case 2:
+            expression->expressions.push_back(new AddMulExpression(scope, depth + 1));
+            break;
+        case 3:
+            expression->expressions.push_back(new CallExpression(scope, depth + 1));
+            break;
+        case 4:
+            expression->expressions.push_back(new PrimaryExpression(scope, depth + 1));
+            break;
         }
-        break;
-
-	case STRING_T:
-        {
-            RandomDiscreteDistribution r (2, 10, 2);
-
-            Expression *subexpr = NULL;
-            std::cout << subexpr << "\n\n";
-
-            switch(r.getChosenIndex())
-            {
-            case 0: // A string
-                subexpr = new Literal(scope, depth, STRING_T);
-                break;
-
-            case 1: // Concatenation of two strings
-                subexpr = new AddMulExpression(scope, depth, STRING_T);
-                break;
-            }
-
-            assert(subexpr != NULL);
-            expression->expressions.push_back(subexpr);
-        }
-        break;
-
-	default:
-        {
-            std::cerr << "Expression type " << type << " is not implemented.\n\n";
-            exit(1);
-        }
-
-	}
-
-	assert(expression != NULL);
-	return expression;
+    }
+    return expression;
 }
 
-Expression *Expression::generateExpressionForConditional(Scope *scope, int depth, Type type) {
+Expression *Expression::generateExpressionForConditional(Scope *scope, int depth) {
 	RandomDiscreteDistribution r (2, 90, 10);
 	if(r.getChosenIndex() == 0) {
-	    return new RelationalExpression(scope, depth, type);
+	    return new RelationalExpression(scope, depth);
 	} else {
-	    return Expression::generateExpression(scope, depth, type);
+	    return Expression::generateExpression(scope, depth);
 	}
 }
 

@@ -6,9 +6,7 @@
 #include <iostream>
 #include <vector>
 
-#include "Type.h"
 class Scope;
-
 
 class Expression {
 private: 
@@ -17,14 +15,13 @@ private:
 protected:
     Scope* scope;
     int depth;
-    Type type;
     bool parenthesis;
 	
 public:
     // TODO: Remove the default types when done with expressions
-    Expression(Scope *parent_scope, int depth, Type type = NUMBER_T);
-    static Expression *generateExpression(Scope *scope, int depth = 0, Type type = NUMBER_T);
-    static Expression *generateExpressionForConditional(Scope *scope, int depth = 0, Type type = NUMBER_T);
+    Expression(Scope *parent_scope, int depth);
+    static Expression* generateExpression(Scope *scope, int depth = 0);
+    static Expression* generateExpressionForConditional(Scope *scope, int depth = 0);
 	
 	virtual void print(std::ostream& out) const;
 	

@@ -4,12 +4,10 @@
 #include "Literal.h"
 #include "Scope.h"
 
-AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth, Type type) : Expression(parent_scope, depth, type) {
-
-    this->type = type;
+AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
 
     // Create object with new keyword
-    if (type & OBJECT_T) {
+    if (false) {
         left_variable = scope->generateNewVariable(OBJECT_T);
         right_variable = scope->getRandomVariable(FUNCTION_T);
         if (right_variable != NULL) {
@@ -33,22 +31,22 @@ AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth, Type 
         switch (d.getChosenIndex()) {
         case 0:
             // Assign to some existing variable. Fall through if none is found.
-            left_variable = scope->getRandomVariable(type); // TODO type
+            left_variable = scope->getRandomVariable(NUMBER_T);
             if (left_variable != NULL) {
-                right_expression = Expression::generateExpression(parent_scope, depth + 1, type);
+                right_expression = Expression::generateExpression(parent_scope, depth + 1);
                 break;
             }
         case 1:
             // Generate new property for this object
-            right_expression = Expression::generateExpression(parent_scope, depth + 1, type);
-            left_variable = scope->generateNewProperty(type); // Avoid self-reference
+            right_expression = Expression::generateExpression(parent_scope, depth + 1);
+            left_variable = scope->generateNewProperty(NUMBER_T); // Avoid self-reference
             break;
         }
     }
 }
 
 void AssignmentExpression::print(std::ostream& out) const {
-    if (type & OBJECT_T) {
+    if (false) {
         out << *left_variable << " = new ";
         if (right_variable == NULL)
             out << "Object";

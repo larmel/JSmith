@@ -6,8 +6,8 @@
 #include <string>
 #include "Expression.h"
 
-#include "Type.h"
 class Variable;
+class Literal;
 class Scope;
 
 /*
@@ -28,15 +28,12 @@ class Scope;
 class PrimaryExpression : public Expression {
 
 private:
-	Expression *terminal_expr;
-	Variable *var;
+	Variable* variable;
+    Literal* literal;
 
 public:
-    PrimaryExpression(Scope* parent_scope, int depth, Type type);
+    PrimaryExpression(Scope* parent_scope, int depth);
     
-    // TODO: Remove the default type here when done with expressions
-    static Expression* generatePrimaryExpression(Scope* scope, int depth, Type type = NUMBER_T);
-
     virtual void print(std::ostream& out) const;
     friend std::ostream& operator<<(std::ostream& out, const PrimaryExpression& e);
 };

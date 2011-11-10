@@ -8,36 +8,26 @@
 #include <cstdio>
 #include <sstream>
 
-Literal::Literal(Scope* parent_scope, int depth, Type type) : Expression(parent_scope, depth, type) {
+Literal::Literal() {
+    RandomDiscreteDistribution r(2,
+            10,
+            1);
 
-    RandomDiscreteDistribution r (4, 1, 1, 1, 1);
-
-    switch (type) {
-    case NUMBER_T:
+    switch (r.getChosenIndex()) {
+    case 0:
         this->type = L_NUMERIC;
         this->literal_val = randomNumericLiteral();
         break;
-    case STRING_T:
+    case 1:
         this->type = L_STRING;
         this->literal_val = randomStringLiteral();
-        break;
-    default:
-    	std::cerr << "Undefined Literal type";
-    	exit(1);
     }
 }
 
 std::string Literal::randomNumericLiteral() {
     std::stringstream sst;
-    RandomDiscreteDistribution numeric_type (4, 1, 1, 1, 1);
+    RandomDiscreteDistribution numeric_type (4, 4, 3, 1, 3);
 
-    /*
-     * Separating between
-     *  - integer (int)
-     *  - Decimal
-     *  - Hex
-     *  - Complex normal form decimal
-     */
     switch (numeric_type.getChosenIndex()) {
     case 0:
         sst << rand() % INT_MAX;
@@ -62,7 +52,7 @@ std::string Literal::randomNumericLiteral() {
 std::string Literal::randomStringLiteral() {
     std::string s = "";
     do {
-        // Careful with this one! Don't generate any " (double quotes)
+        // Careful with this one! Don't generate any " (double quotes) or backslash
         char nextchar = (rand()%(126-35)+35) ;
         if (nextchar == '\\') continue;
         s += nextchar;

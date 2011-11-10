@@ -3,10 +3,11 @@
 #include "Scope.h"
 
 
-RelationalExpression::RelationalExpression(Scope* parent_scope, int depth, Type type) : Expression(parent_scope, depth, type) {
+RelationalExpression::RelationalExpression(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
     
-    this->op1 = Expression::generateExpression(this->scope, this->depth+1);
-    this->op2 = Expression::generateExpression(this->scope, this->depth+1);
+    // Should really generate new RelationExpressions, but grammar ends in Expression
+    this->op1 = Expression::generateExpression(scope, depth+1);
+    this->op2 = Expression::generateExpression(scope, depth+1);
 
     // Pick the operator 
     int op_id = rand() % 4;

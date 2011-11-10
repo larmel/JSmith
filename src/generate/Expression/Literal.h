@@ -27,7 +27,7 @@ enum LiteralType {
  * Terminal node for strings and numbers
  * TODO: Fix, this class is not used everywhere, but it should
  */
-class Literal : public Expression {
+class Literal {
 
 private:
     std::string literal_val;
@@ -35,7 +35,7 @@ private:
     std::string randomStringLiteral();
     
 public:
-    Literal(Scope* parent_scope, int depth, Type type);
+    Literal();
     LiteralType type;
 
     void print(std::ostream& out) const;

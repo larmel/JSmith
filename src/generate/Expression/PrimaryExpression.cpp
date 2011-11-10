@@ -6,52 +6,36 @@
 #include <sstream>
 #include <cstdio>
 
-PrimaryExpression::PrimaryExpression(Scope* parent_scope, int depth, Type type) : Expression(parent_scope, depth, type) {
-    var = NULL;
-    RandomDiscreteDistribution r (2, 1, 1);
+PrimaryExpression::PrimaryExpression(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
 
-    switch (type) {
-    case NUMBER_T:
-    {
-    	RandomDiscreteDistribution r (2, 1, 1);
-    	if (r.getChosenIndex()==0)
-    		var = scope->getRandomVariable(NUMBER_T);
+    RandomDiscreteDistribution d(3,
+            1, // Identifier
+            5, // Literal
+            1  // this
+            );
 
-    	if (r.getChosenIndex()==1 || var==NULL)
-    		terminal_expr = new Literal(scope,0,NUMBER_T);
+    variable = NULL;
+    literal = NULL;
 
-    }  break;
-    case STRING_T:
-    {
-    	RandomDiscreteDistribution r (2, 1, 1);
-    	if (r.getChosenIndex()==0)
-    		var = scope->getRandomVariable(NUMBER_T);
-
-    	if (r.getChosenIndex()==1 || var==NULL)
-    		terminal_expr = new Literal(scope,0,NUMBER_T);
-
-    } break;
-    }
-}
-
-// TODO: Might need type specifier here. EDIT: Added type specifier
-Expression* PrimaryExpression::generatePrimaryExpression(Scope* scope, int depth, Type type) {
-
-    RandomDiscreteDistribution r(3, 1, 1, 1);
-    switch (r.getChosenIndex()) {
+    switch (d.getChosenIndex()) {
     case 0:
-        return new Literal(scope, depth, type);
+        variable = scope->getRandomVariable(NUMBER_T);
+        if (variable != NULL) break;
     case 1:
-    case 2:
-        return new PrimaryExpression(scope, depth, type);
+        literal = new Literal();
+        break;
+    default:
+        ; // When both variables are null, print 'this'
     }
 }
 
 void PrimaryExpression::print(std::ostream& out) const {
-	if (var!=NULL) {
-		out << *var;
+	if (variable != NULL) {
+		out << *variable;
+	} else if (literal != NULL) {
+		out << *literal;
 	} else {
-		out << *terminal_expr;
+	    out << "this";
 	}
 }
 

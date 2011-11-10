@@ -9,7 +9,7 @@
 
 IfStatement::IfStatement(Scope* s, unsigned int depth) : Statement(s, depth) {
 
-	expression = Expression::generateExpressionForConditional(this->scope, depth + 1);
+	expression = Expression::generateExpression(this->scope);
     false_statement = NULL;
     true_is_block = false_is_block = false;
 	
