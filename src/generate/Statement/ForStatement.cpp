@@ -8,7 +8,7 @@
 
 ForStatement::ForStatement(Scope* scope, unsigned int parent_depth) : Statement(scope, parent_depth) 
 {
-    this->loop_guard = scope->generateNewVariable( NUMBER_T );
+    this->loop_guard = scope->generateNumberVariable();
     loop_guard->lock();
     
     this->expr_b = Expression::generateExpression(scope);

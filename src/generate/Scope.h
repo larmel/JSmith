@@ -44,13 +44,6 @@ public:
         variables->push_back(v);
     }
 
-    /*
-     * Generate and return a new variable for this scope
-     */
-    Variable* generateNewVariable(Type t);
-
-    // Generate instance variable for some scope, function or program
-    virtual Variable* generateNewProperty(Type t);
 
     void print() {
         for (int i = 0; i < this->variables->size(); i++) {

@@ -16,7 +16,7 @@ VariableStatement::VariableStatement(Scope* s, int depth) : Statement(s, depth) 
 	switch (d.getChosenIndex()) {
 	case 0:
         this->expression = Expression::generateExpression(scope);
-        this->var = scope->generateNewVariable(NUMBER_T);
+        this->var = scope->generateNumberVariable();
         break;
     
     /*case 1:

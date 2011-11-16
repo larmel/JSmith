@@ -101,6 +101,7 @@ void FunctionVariable::print(std::ostream& out) const {
     // print some shits
 }
 
+
 // ClassVariable
 
 ClassVariable::ClassVariable(std::string identifier, int numarg) : Variable(identifier){
@@ -112,7 +113,7 @@ Type ClassVariable::getType() {
 }
 
 void ClassVariable::print(std::ostream& out) const {
-	if(this->parent != NULL){
+	if (this->parent != NULL){
 		out << this->parent << ".";
 	}
 	out << "this";
