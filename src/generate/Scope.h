@@ -28,12 +28,11 @@ public:
 
 	FunctionVariable* generateFunctionVariable(int num_args);
 	NumberVariable* generateNumberVariable();
-
 	ClassVariable* generateClassVariable(int num_args);
 
     virtual void setParent(Variable*);
 
-
+    Variable* getRandomVariable(Type t);
 
     void lockIfNotUnique(std::string identifier);
     Scope* getParent();

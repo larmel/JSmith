@@ -26,8 +26,7 @@ void FunctionDeclaration::print(std::ostream& out)
     std::string indent;
     for (int t = 0; t < depth; ++t) indent += "   ";
     
-    out << indent << "function ";
-    this->variable->print(out);
+    out << indent << "function " << this->variable->identifier;
     out << "()" << std::endl << indent << "{" << std::endl;
     
     for (int i = 0; i < source_elements.size(); ++i) {
