@@ -25,6 +25,7 @@ Expression *Expression::generateExpression(Scope *scope, int depth) {
 	// Using several should work though.
     int expression_count = 1;
     for (int e = 0; e < expression_count; ++e) {
+
         RandomDiscreteDistribution r(4,
                 1, // Relational Expression
                 1, // ArithmeticExpression
