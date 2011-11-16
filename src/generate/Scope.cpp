@@ -7,6 +7,8 @@
 
 Scope::Scope(Scope* p) : parent(p) {
     // Copy all variables from parent scope to this scope
+    this->allowReturn = p != NULL ? p->allowReturn : false;
+
     if (parent != NULL) {
         this->variables = new std::vector<Variable*>( *(parent->variables) );
         this->start_depth = this->variables->size();
@@ -19,6 +21,10 @@ Scope::Scope(Scope* p) : parent(p) {
 void Scope::setParent(Variable* v ) // Override in FunctionDeclaration, to denote class
 {
     v->parent = NULL;
+}
+
+bool allowReturn () {
+    return allowReturn;
 }
 
 

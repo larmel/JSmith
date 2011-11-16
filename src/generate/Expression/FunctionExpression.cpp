@@ -8,6 +8,7 @@
 FunctionExpression::FunctionExpression(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
     this->depth = depth;
     Scope *scope = new Scope(parent_scope);
+    scope->allowReturn = true;
 
     // Create some number of Statements. Not SourceElements, as we do not want FunctionDeclaration
     for (int i = 0; i < 2; ++i) {
