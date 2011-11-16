@@ -54,16 +54,17 @@ void Scope::setParent(Variable* v )
 {
 	v->parent = NULL;
 }
-FunctionVariable* Scope::generateRandomFunctionVariable(int numargs) {
+
+FunctionVariable* Scope::generateFunctionVariable(int numargs) {
 	FunctionVariable* f = new FunctionVariable(numargs);
 	this->setParent(f);
 }
 
-NumberVariable* Scope::generateRandomNumberVariable() {
+NumberVariable* Scope::generateNumberVariable() {
 	// TODO
 }
 
-ClassVariable* Scope::generateRandomClassVariable() {
+ClassVariable* Scope::generateClassVariable() {
 	// TODO
 }
 
@@ -133,7 +134,7 @@ std::string Scope::getNewRandomIdentifier() {
 void Scope::lockIfNotUnique(std::string identifier) {
     std::vector<Variable*>::iterator it;
     for (it = variables->begin(); it != variables->end(); ++it) {
-        if ((*it)->name == identifier) {
+        if ((*it)->identifier == identifier) {
             (*it)->lock();
             break;
         }

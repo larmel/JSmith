@@ -16,7 +16,7 @@ private:
 public:
     //Type type;
     std::string identifier;
-    Varaible* parent;
+    Variable* parent;
     
     //bool funcBeenUsed;
 
@@ -48,14 +48,16 @@ public:
 
     friend std::ostream& operator<<(std::ostream& out, const Variable& e);
     virtual void print(std::ostream& out);
+    virtual Type getType();
 };
 
 
-class NumberVariable : Variable
+class NumberVariable : public Variable
 {
+
 };
 
-class FunctionVariable : Variable
+class FunctionVariable : public Variable
 {
 private:
 	int num_arguments;
@@ -63,7 +65,7 @@ public:
 	FunctionVariable(int);
 };
 
-class ClassVariable : Variable
+class ClassVariable : public Variable
 {
 private:
 	int num_arguments;

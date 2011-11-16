@@ -29,7 +29,7 @@ public:
     
     // Pure virtual, abstract class TODO: Remove, use overloading instead
     virtual void print(std::ostream &out) = 0;
-    void SourceElement::printIndentation(std::ostream& out);
+    void printIndentation(std::ostream& out);
     //friend std::ostream& operator<<(std::ostream& out, const SourceElement& e);
 };
 

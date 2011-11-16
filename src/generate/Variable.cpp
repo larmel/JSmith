@@ -22,12 +22,9 @@ char Variable::identifier_character[] = {
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T'
 };
 
-Variable::Variable(std::string s, Type t) {
-    this->name = s;
-    this->type = t;
-    this->funcBeenUsed = false;
+Variable::Variable(std::string s) {
+    this->identifier = s;
     this->locked = false;
-    this->is_property = false;
 }
 
 void Variable::lock() {
@@ -71,6 +68,8 @@ void Variable::print(std::ostream& out) {
     return out;
 }
 
+// NumberVariable
+
 void NumberVariable::print(std::ostream& out) {
 	// TODO chain
 	if(this->parent != NULL){
@@ -79,16 +78,31 @@ void NumberVariable::print(std::ostream& out) {
 	out << this->identifier;
 }
 
+
+void NumberVariable::getType() {
+    return NUMBER_T;
+}
+
+
+
 // FunctionVariable
 
 FunctionVariable::FunctionVariable(int numarg){
 	this.num_arguments = numarg;
 }
 
+void FunctionVariable::getType() {
+    return FUNCTION_T;
+}
+
 // ClassVariable
 
 ClassVariable::ClassVariable(int numarg){
 	this.num_arguments = numarg;
+}
+
+void ClassVariable::getType() {
+    return CLASS_T;
 }
 
 void ClassVariable::print(std::ostream& out) {
