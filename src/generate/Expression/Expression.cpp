@@ -14,11 +14,11 @@ Expression::Expression(Scope *scope, int depth)
     assert(scope != NULL);
     this->scope = scope;
     this->depth = depth;
-    this->parenthesis = Random::flip_coin();
+    this->parenthesis = false; // Random::flip_coin();
 }
 
 Expression *Expression::generateExpression(Scope *scope, int depth) {
-    int p_terminal = 10*(1 + depth); //60*((double)depth/20);
+    int p_terminal = 20*(1 + depth); //60*((double)depth/20);
     Expression* expression = new Expression(scope, depth);
 
 	// TODO: So far this only creates 1 new expression, not utilizing the list
@@ -27,8 +27,8 @@ Expression *Expression::generateExpression(Scope *scope, int depth) {
     for (int e = 0; e < expression_count; ++e) {
         RandomDiscreteDistribution r(4,
                 1, // Relational Expression
-                1, // ArithmeticExpression
-                1, // CallExpression - bugged, can return nothing
+                10, // ArithmeticExpression
+                10, // CallExpression - bugged, can return nothing
                 p_terminal);
 
         switch (r.getChosenIndex()) {
@@ -60,7 +60,7 @@ Expression *Expression::generateExpressionForConditional(Scope *scope, int depth
 
 void Expression::print(std::ostream &out) const
 {
-    if (this->parenthesis) out << "(";
+    if (this->parenthesis && this->expressions.size() > 1) out << "(";
     
     for (int i = 0; i < this->expressions.size(); i++) {
         out << *expressions[i];
@@ -68,7 +68,7 @@ void Expression::print(std::ostream &out) const
             out << ",";
         }
     }
-    if (this->parenthesis) out << ")";
+    if (this->parenthesis && this->expressions.size() > 1) out << ")";
 }
 
 std::ostream& operator<<(std::ostream& out, const Expression& e) {

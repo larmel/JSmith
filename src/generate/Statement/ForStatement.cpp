@@ -11,12 +11,12 @@ ForStatement::ForStatement(Scope* scope, unsigned int parent_depth) : Statement(
     this->loop_guard = scope->generateNumberVariable();
     loop_guard->lock();
     
-    this->expr_b = Expression::generateExpression(scope);
+    this->expr_b = Expression::generateExpressionForConditional(scope);
     this->expr_c = Expression::generateExpression(scope);
     
     is_block = false;
 	if (Random::flip_coin()) {
-		statement = new BlockStatement(scope, depth);
+		statement = new BlockStatement(scope, depth-1);
 		is_block = true;
 	} else {
 		statement = Statement::newRandomStatement(scope, depth); 

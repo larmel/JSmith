@@ -25,11 +25,9 @@ SourceElement* SourceElement::createRandom(Scope* parent_scope, unsigned int dep
  * Derived classes should call this before other print code. 
  */
 void SourceElement::printIndentation(std::ostream& out) {
-    for (int i = 0; i < this->depth; ++i) {
+    for (int i = 0; i < this->depth - 1; ++i) {
         for (int j = 0; j < this->indentation; ++j) {
             out << " ";
         }
     }
 }
-
-

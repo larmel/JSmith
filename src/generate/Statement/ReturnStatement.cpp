@@ -9,9 +9,11 @@ ReturnStatement::ReturnStatement(Scope* s, unsigned int depth) : Statement(s, de
 
 void ReturnStatement::print(std::ostream& out)
 {
-	for (int t = 0; t < depth; ++t){ 
-		out << "   ";
-	}
+	//for (int t = 0; t < depth; ++t){
+	//	out << "   ";
+	//}
+
+	this->printIndentation(out);
 	out << "return ";
 	expression->print(out);
 	out << ";" << std::endl;

@@ -28,7 +28,8 @@ VariableStatement::VariableStatement(Scope* s, int depth) : Statement(s, depth) 
 }
 
 void VariableStatement::print(std::ostream& out) {
-	for (int t = 0; t < depth; ++t) out << "   ";
+	//for (int t = 0; t < depth; ++t) out << "   ";
+	this->printIndentation(out);
 	out << "var " << *var << " = ";
 	expression->print(out);
 	out << line_end << std::endl;

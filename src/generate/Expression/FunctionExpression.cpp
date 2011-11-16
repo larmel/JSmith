@@ -46,10 +46,9 @@ void FunctionExpression::print(std::ostream& out) const {
     for (int i = 0; i < statements.size(); ++i) {
         statements[i]->print(out);
     }
-
     // Fake indentation
-    for (int i = 0; i < depth; ++i) {
-        out << "   ";
+    for (int i = 0; i < depth-1; ++i) {
+        out << "    ";
     }
     out <<  "}";
 }
