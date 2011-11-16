@@ -29,7 +29,7 @@ public:
 	FunctionVariable* generateFunctionVariable(int num_args);
 	NumberVariable* generateNumberVariable();
 
-	ClassVariable* generateClassVariable();
+	ClassVariable* generateClassVariable(int num_args);
 
     virtual void setParent(Variable*);
 

@@ -28,6 +28,6 @@ ForStatement::ForStatement(Scope* scope, unsigned int parent_depth) : Statement(
 void ForStatement::print(std::ostream& out)
 {
 	this->printIndentation(out);
-	out << "for (var " << loop_guard->name << " = 0; (" << *expr_b << ") && "<< loop_guard->name << "++ < 42;" << *expr_c << ")" << std::endl;
+	out << "for (var " << loop_guard->identifier << " = 0; (" << *expr_b << ") && "<< loop_guard->identifier << "++ < 42;" << *expr_c << ")" << std::endl;
 	statement->print(out);
 }

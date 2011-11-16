@@ -60,17 +60,18 @@ std::string Variable::generateRandomIdentifier()
 
 std::ostream& operator<<(std::ostream& out, const Variable& e) {
     e.print(out);
-}
-
-void Variable::print(std::ostream& out) {
-	// TODO chain
-	out << this->identifier;
     return out;
 }
 
+
+
 // NumberVariable
 
-void NumberVariable::print(std::ostream& out) {
+NumberVariable::NumberVariable(std::string identifier) : Variable(identifier) {
+
+}
+
+void NumberVariable::print(std::ostream& out) const {
 	// TODO chain
 	if(this->parent != NULL){
 		out << this->parent << ".";
@@ -79,7 +80,7 @@ void NumberVariable::print(std::ostream& out) {
 }
 
 
-void NumberVariable::getType() {
+Type NumberVariable::getType() {
     return NUMBER_T;
 }
 
@@ -87,25 +88,30 @@ void NumberVariable::getType() {
 
 // FunctionVariable
 
-FunctionVariable::FunctionVariable(int numarg){
-	this.num_arguments = numarg;
+FunctionVariable::FunctionVariable(std::string identifier, int numarg) : Variable(identifier) {
+	this->num_arguments = numarg;
 }
 
-void FunctionVariable::getType() {
+Type FunctionVariable::getType() {
     return FUNCTION_T;
+}
+
+void FunctionVariable::print(std::ostream& out) const {
+    //TODO:
+    // print some shits
 }
 
 // ClassVariable
 
-ClassVariable::ClassVariable(int numarg){
-	this.num_arguments = numarg;
+ClassVariable::ClassVariable(std::string identifier, int numarg) : Variable(identifier){
+	this->num_arguments = numarg;
 }
 
-void ClassVariable::getType() {
+Type ClassVariable::getType() {
     return CLASS_T;
 }
 
-void ClassVariable::print(std::ostream& out) {
+void ClassVariable::print(std::ostream& out) const {
 	if(this->parent != NULL){
 		out << this->parent << ".";
 	}

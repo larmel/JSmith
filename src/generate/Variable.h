@@ -20,7 +20,7 @@ public:
     
     //bool funcBeenUsed;
 
-    Variable(std::string s, Type t);
+    Variable(std::string s);
     
     void lock();
     void unlock();
@@ -47,14 +47,17 @@ public:
     static char identifier_character[];
 
     friend std::ostream& operator<<(std::ostream& out, const Variable& e);
-    virtual void print(std::ostream& out);
+    virtual void print(std::ostream& out) const;
     virtual Type getType();
 };
 
 
 class NumberVariable : public Variable
 {
-
+public:
+    NumberVariable(std::string);
+    void print(std::ostream& out) const;
+    Type getType();
 };
 
 class FunctionVariable : public Variable
@@ -62,7 +65,9 @@ class FunctionVariable : public Variable
 private:
 	int num_arguments;
 public:
-	FunctionVariable(int);
+	FunctionVariable(std::string, int);
+	void print(std::ostream& out) const;
+	Type getType();
 };
 
 class ClassVariable : public Variable
@@ -70,7 +75,9 @@ class ClassVariable : public Variable
 private:
 	int num_arguments;
 public:
-	ClassVariable(int);
+	ClassVariable(std::string, int);
+	void print(std::ostream& out) const;
+	Type getType();
 };
 
 

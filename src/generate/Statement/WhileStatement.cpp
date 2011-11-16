@@ -28,10 +28,10 @@ void WhileStatement::print(std::ostream& out)
 	for (int t = 0; t < depth; ++t){
 		out << "   ";
 	}
-	out << "var " << loop_guard->name << " = 0, ";
+	out << "var " << loop_guard->identifier << " = 0, ";
 	out << "while ( (";
 	expression->print(out);
-	out << ") && " << loop_guard->name << "++ < 42 )" << std::endl;
+	out << ") && " << loop_guard->identifier << "++ < 42 )" << std::endl;
 	
 	statement->print(out);
 }

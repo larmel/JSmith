@@ -56,16 +56,35 @@ void Scope::setParent(Variable* v )
 }
 
 FunctionVariable* Scope::generateFunctionVariable(int numargs) {
-	FunctionVariable* f = new FunctionVariable(numargs);
+    std::string identifier = this->getNewRandomIdentifier();
+
+    FunctionVariable* f = new FunctionVariable(identifier, numargs);
+
+    // Functions have their own scope, but are visible in parent scope
+    this->parent->variables->push_back( f );
+
 	this->setParent(f);
 }
 
 NumberVariable* Scope::generateNumberVariable() {
-	// TODO
+    std::string identifier = this->getNewRandomIdentifier();
+
+    NumberVariable *n = new NumberVariable(identifier);
+
+    this->variables->push_back( n );
+
+    this->setParent(n);
 }
 
-ClassVariable* Scope::generateClassVariable() {
-	// TODO
+ClassVariable* Scope::generateClassVariable(int numargs) {
+    std::string identifier = this->getNewRandomIdentifier();
+
+    ClassVariable *c = new ClassVariable(identifier, numargs);
+
+    // Functions have their own scope, but are visible in parent scope
+    this->parent->variables->push_back( c );
+
+    this->setParent(c);
 }
 
 
