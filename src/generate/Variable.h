@@ -54,6 +54,7 @@ public:
 	FunctionVariable(std::string, int);
 	void print(std::ostream& out) const;
 	Type getType();
+	int getNumArguments();
 };
 
 class ClassVariable : public Variable
@@ -64,6 +65,7 @@ public:
 	ClassVariable(std::string, int);
 	void print(std::ostream& out) const;
 	Type getType();
+	int getNumArguments();
 };
 
 

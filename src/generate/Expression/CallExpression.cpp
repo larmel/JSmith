@@ -7,6 +7,9 @@ CallExpression::CallExpression(Scope* parent_scope, int depth) : Expression(pare
 
     // Fetch a local function (we're only allowed to call functions on the same level)
     this->function = parent_scope->getRandomFunctionVariable();
+    for(int i = 0; i < this->function->getNumArguments(); i++){
+    	this->parameters.push_back(Expression::generateExpression(parent_scope, depth));
+    }
 
     // TODO Create expressions to use as args
 }
@@ -16,11 +19,17 @@ void CallExpression::print(std::ostream& out) const {
     {
         // No functions available, what to do?
         out << "1";
-    } 
-    
+    }
     else
     {
-        out << *this->function << "()"; // TODO args
+        out << *this->function << "(";
+        for(int i = 0; i < this->function->getNumArguments(); i++){
+        	out << *this->parameters.at(i);
+        	if(i !=this->function->getNumArguments()){
+				out << ", ";
+        	}
+        }
+        out << ")";
     }
 }
 
