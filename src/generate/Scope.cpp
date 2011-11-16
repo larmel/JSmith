@@ -14,28 +14,13 @@ Scope::Scope(Scope* p) : parent(p) {
         this->start_depth = 0;
     }
 }
-/*
-Variable* Scope::getRandomLocalVariable(Type t) {
 
-    // Get all the variables of a type
-    std::vector<Variable*> vars_of_type;
-
-    // Limit the search range to [start_depth : size()], and
-    // also eliminate any functions that have been used.
-    for (int i = this->start_depth; i<this->variables->size() - this->start_depth; i++) {
-        if (this->variables->at(i)->type == t && !this->variables->at(i)->funcBeenUsed) {
-            vars_of_type.push_back(this->variables->at(i));
-        }
-    }
-    
-    if (vars_of_type.size() == 0) {
-        return NULL;
-    }
-    // Pick a random variable of this type
-    int pos = rand() % vars_of_type.size();
-    return vars_of_type[pos];
+void Scope::setParent(Variable* v ) // Override in FunctionDeclaration, to denote class
+{
+    v->parent = NULL;
 }
-*/
+
+
 
 FunctionVariable* Scope::getRandomFunctionVariable() {
     return (FunctionVariable*)getRandomVariable(FUNCTION_T);
@@ -50,10 +35,6 @@ ClassVariable* Scope::getRandomClassVariable() {
 }
 
 
-void Scope::setParent(Variable* v )
-{
-	v->parent = NULL;
-}
 
 FunctionVariable* Scope::generateFunctionVariable(int numargs) {
     std::string identifier = this->getNewRandomIdentifier();
@@ -112,37 +93,6 @@ Variable* Scope::getRandomVariable(Type t) {
     return vars_of_type[pos];
 }
 
-/*
-Variable* Scope::generateNewVariable(Type t) {
-    std::string identifier = this->getNewRandomIdentifier();
-    Variable* var = new Variable(identifier, t);
-    
-    // Functions have their own scope, but are visible in parent scope
-    if (t == FUNCTION_T) {
-        this->parent->variables->push_back( var );
-    } else {
-        this->variables->push_back( var );
-    }
-    return var;
-}
-*/
-/*
-
-Variable* Scope::generateNewProperty(Type t) {
-    std::string identifier = this->getNewRandomIdentifier();
-    Variable* var = new Variable(identifier, t);
-    var->is_property = true;
-
-    // Functions have their own scope, but are visible in parent scope
-    if (t == FUNCTION_T) {
-        this->parent->variables->push_back( var );
-    } else {
-        this->variables->push_back( var );
-    }
-    return var;
-}
-*/
-
 std::string Scope::getNewRandomIdentifier() {
     std::string name;
 
@@ -168,5 +118,4 @@ void Scope::lockIfNotUnique(std::string identifier) {
 Scope *Scope::getParent(){
     return parent;
 }
-
 
