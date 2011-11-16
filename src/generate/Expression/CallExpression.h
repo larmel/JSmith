@@ -13,7 +13,7 @@ class CallExpression : public Expression {
 
 private:
     FunctionVariable *function;
-    
+    std::vector<Expression*> parameters;
 
 public:
     CallExpression(Scope* parent_scope, int depth);

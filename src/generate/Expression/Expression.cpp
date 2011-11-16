@@ -50,10 +50,6 @@ Expression *Expression::generateExpression(Scope *scope, int depth) {
     return expression;
 }
 
-
-
-
-
 Expression *Expression::generateExpressionForConditional(Scope *scope, int depth) {
 	RandomDiscreteDistribution r (2, 90, 10);
 	if(r.getChosenIndex() == 0) {
