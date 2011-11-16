@@ -94,6 +94,8 @@ Type FunctionVariable::getType() {
 void FunctionVariable::print(std::ostream& out) const {
     //TODO:
     // print some shits
+    std::cerr << "Unimplemented functionvar print!\n";
+    exit(1);
 }
 
 
