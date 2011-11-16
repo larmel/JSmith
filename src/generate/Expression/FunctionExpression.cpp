@@ -6,14 +6,13 @@
 #include "ReturnStatement.h"
 
 FunctionExpression::FunctionExpression(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
-
+    this->depth = depth;
     Scope *scope = new Scope(parent_scope);
 
-    // Create some number of SourceElements
-    // Might want to enforce some return type
-    /*for (int i = 0; i < 2; ++i) {
-        this->statements.push_back( Statement::newRandomStatement(scope, depth+1) );
-    }*/
+    // Create some number of Statements. Not SourceElements, as we do not want FunctionDeclaration
+    for (int i = 0; i < 2; ++i) {
+        this->statements.push_back( Statement::newRandomStatement(scope, depth) );
+    }
 
     RandomDiscreteDistribution return_or_not (2, 50, 1);
 
@@ -43,14 +42,16 @@ void FunctionExpression::print(std::ostream& out) const {
             out << ", ";
         }
     }
-    out << ")" << std::endl;
-    out << "{" << std::endl;
+    out << ") {" << std::endl;
     for (int i = 0; i < statements.size(); ++i) {
         statements[i]->print(out);
     }
-    // TODO: Wtf goes on with indent here?
-    //out << indent << "}" << std::endl;
-    out <<  "}" << std::endl;
+
+    // Fake indentation
+    for (int i = 0; i < depth; ++i) {
+        out << "   ";
+    }
+    out <<  "}";
 }
 
 std::ostream& operator<<(std::ostream& out, const FunctionExpression& e) {

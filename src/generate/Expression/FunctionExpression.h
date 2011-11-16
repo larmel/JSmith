@@ -16,6 +16,8 @@ private:
 	std::vector<NumberVariable*> arguments;
 	std::vector<Statement*> statements;
 
+	int depth; // Used as statement depth
+
 public:
     FunctionExpression(Scope* parent_scope, int depth);
     int numberOfArguments();
