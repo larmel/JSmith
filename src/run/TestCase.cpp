@@ -3,13 +3,24 @@
 #include "TestCaseCompiler.h"
 #include <cassert>
 
+std::string TestCase::compilers[] = {"SpiderMonkey", "Rhino", "V8", "KJS", "Narcissus" };
+std::string TestCase::compiler_commands[] = {"js-compilers/SpiderMonkey/js", "/usr/bin/rhino -f", "js-compilers/V8/v8", "/usr/bin/kjs", "js-compilers/Narcissus/njs -f" };
+int TestCase::num_compilers = 5;
+
 TestCase::TestCase() {
-	compilers.push_back(TestCaseCompiler("SpiderMonkey", "js-compilers/SpiderMonkey/js"));
-	compilers.push_back(TestCaseCompiler("Rhino", "/usr/bin/rhino -f"));
-	compilers.push_back(TestCaseCompiler("V8", "js-compilers/V8/v8"));
-	compilers.push_back(TestCaseCompiler("KJS", "/usr/bin/kjs"));
-	compilers.push_back(TestCaseCompiler("Narcissus", "js-compilers/Narcissus/njs -f"));
+	for(int i = 0; i < num_compilers; i++)
+	{
+		tccompilers.push_back(new TestCaseCompiler(compilers[i], compiler_commands[i]));
+	}
 };
+
+TestCase::~TestCase() {
+	for(int i = 0; i < num_compilers; i++)
+	{
+		delete tccompilers.at(i);
+	}
+};
+
 
 void TestCase::generateSource() {
     system("bin/generate > test/current_jsmith/_generated.js");
@@ -21,9 +32,9 @@ void TestCase::generateSource() {
 
 void TestCase::testAgainstCompilers()
 {
-	for(int i = 0; i < compilers.size(); i++)
+	for(int i = 0; i < tccompilers.size(); i++)
 	{
-		compilers.at(i).testCompiler();
+		tccompilers.at(i)->testCompiler();
 	}
 }
 
@@ -50,10 +61,10 @@ void TestCase::reportToFile(string filename)
 
     report << " *" << endl;
 
-	for(int i = 0; i < compilers.size(); i++)
+	for(int i = 0; i < tccompilers.size(); i++)
 	{
-		report << " * " <<  compilers.at(i).getName() << ": (" << compilers.at(i).getReturnCode()
-			   << ", " << compilers.at(i).getResult() << ")" << endl;
+		report << " * " <<  tccompilers.at(i)->getName() << ": (" << tccompilers.at(i)->getReturnCode()
+			   << ", " << tccompilers.at(i)->getResult() << ")" << endl;
 	}
 
     report << " */" << endl;
@@ -72,10 +83,10 @@ void TestCase::reportToFile(string filename)
 
 bool TestCase::success()
 {
-	string ret = compilers.at(0).getResult();
-	for(int i = 1; i < compilers.size(); i++)
+	string ret = tccompilers.at(0)->getResult();
+	for(int i = 1; i < tccompilers.size(); i++)
 	{
-		if(ret != compilers.at(i).getResult()){
+		if(ret != tccompilers.at(i)->getResult()){
 			return false;
 		}
 	}
@@ -86,22 +97,22 @@ int TestCase::getAvgMs()
 {
 	int sum = 0;
 	int qt = 0;
-	for(int i = 1; i < compilers.size(); i++)
+	for(int i = 1; i < tccompilers.size(); i++)
 	{
 		qt++;
-		sum += compilers.at(i).getMs();
+		sum += tccompilers.at(i)->getMs();
 	}
 	return sum/qt;
 }
 
 TestCaseCompiler* TestCase::getFastestCompiler()
 {
-	TestCaseCompiler* fastest  = &compilers.at(0);
-	for(int i = 1; i < compilers.size(); i++)
+	TestCaseCompiler* fastest  = tccompilers.at(0);
+	for(int i = 1; i < tccompilers.size(); i++)
 	{
-		if(compilers.at(i).getMs() < fastest->getMs())
+		if(tccompilers.at(i)->getMs() < fastest->getMs())
 		{
-			fastest = &compilers.at(i);
+			fastest = tccompilers.at(i);
 		}
 	}
 	return fastest;
@@ -109,13 +120,18 @@ TestCaseCompiler* TestCase::getFastestCompiler()
 
 TestCaseCompiler* TestCase::getSlowestCompiler()
 {
-	TestCaseCompiler* slowest  = &compilers.at(0);
-	for(int i = 1; i < compilers.size(); i++)
+	TestCaseCompiler* slowest  = tccompilers.at(0);
+	for(int i = 1; i < tccompilers.size(); i++)
 	{
-		if(compilers.at(i).getMs() > slowest->getMs())
+		if(tccompilers.at(i)->getMs() > slowest->getMs())
 		{
-			slowest = &compilers.at(i);
+			slowest = tccompilers.at(i);
 		}
 	}
 	return slowest;
+}
+
+vector<TestCaseCompiler*> TestCase::getCompilers()
+{
+	return tccompilers;
 }

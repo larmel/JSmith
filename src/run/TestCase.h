@@ -15,9 +15,10 @@ using namespace std;
 class TestCase
 {
 private:
-    vector<TestCaseCompiler> compilers;
+    vector<TestCaseCompiler*> tccompilers;
 public:
     TestCase();
+    ~TestCase();
     void generateSource();
     void setSource(string);
     void testAgainstCompilers();
@@ -26,6 +27,11 @@ public:
     int getAvgMs();
     TestCaseCompiler* getFastestCompiler();
     TestCaseCompiler* getSlowestCompiler();
+    vector<TestCaseCompiler*> getCompilers();
+
+    static string compilers[];
+    static string compiler_commands[];
+    static int num_compilers;
 };
 
 #endif
