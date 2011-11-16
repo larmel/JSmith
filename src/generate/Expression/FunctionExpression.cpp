@@ -9,24 +9,21 @@ FunctionExpression::FunctionExpression(Scope* parent_scope, int depth) : Express
     this->depth = depth;
     Scope *scope = new Scope(parent_scope);
 
+    // Add formal parameters to scope
+    int num_args = rand() % 4;
+    for (int i = 0; i < num_args; i++) {
+        arguments.push_back(scope->generateNumberVariable());
+    }
+
     // Create some number of Statements. Not SourceElements, as we do not want FunctionDeclaration
     for (int i = 0; i < 2; ++i) {
         this->statements.push_back( Statement::newRandomStatement(scope, depth) );
     }
 
     RandomDiscreteDistribution return_or_not (2, 50, 1);
-
     if(return_or_not.getChosenIndex() == 0){
         this->statements.push_back(new ReturnStatement(scope, depth));
     }
-
-    int num_args = rand() % 4;
-
-    for (int i = 0; i < num_args; i++) {
-    	arguments.push_back(scope->generateNumberVariable());
-    }
-
-    // TODO Create expressions to use as args
 }
 
 int FunctionExpression::numberOfArguments() {
