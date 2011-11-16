@@ -6,11 +6,12 @@
 
 void FunctionDeclaration::generate() {
     
+    // The new class scope
     this->variable = scope->generateClassVariable(0);
 
     // Create some number of SourceElements
     // Might want to enforce some return type
-    for (int i = 0; i < 8; ++i) {
+    for (int i = 0; i < 4; ++i) {
         this->source_elements.push_back( SourceElement::createRandom(this, depth) );
     }
     
@@ -19,6 +20,11 @@ void FunctionDeclaration::generate() {
     if(return_or_not.getChosenIndex() == 0){
         this->source_elements.push_back(new ReturnStatement(this, depth));
     }
+}
+
+void FunctionDeclaration::setParent(Variable *v) {
+    v->parent = this->variable;
+
 }
 
 void FunctionDeclaration::print(std::ostream& out)

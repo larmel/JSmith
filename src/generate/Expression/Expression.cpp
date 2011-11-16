@@ -28,7 +28,7 @@ Expression *Expression::generateExpression(Scope *scope, int depth) {
         RandomDiscreteDistribution r(4,
                 1, // Relational Expression
                 1, // ArithmeticExpression
-                0, // CallExpression - bugged, can return nothing
+                1, // CallExpression - bugged, can return nothing
                 p_terminal);
 
         switch (r.getChosenIndex()) {

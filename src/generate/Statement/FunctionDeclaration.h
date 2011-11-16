@@ -21,6 +21,8 @@ public:
 	
     void generate();
 
+    void setParent(Variable* v );
+
 
     void print(std::ostream& out);
 };
