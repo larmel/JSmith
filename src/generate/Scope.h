@@ -19,17 +19,17 @@ protected:
 public:
     Scope(Scope* p);
     
-    FunctionVariable* Scope::getRandomFunctionVariable();
+    FunctionVariable* getRandomFunctionVariable();
 
-    NumberVariable* Scope::getRandomNumberVariable();
+    NumberVariable* getRandomNumberVariable();
 
-    ClassVariable* Scope::getRandomClassVariable();
+    ClassVariable* getRandomClassVariable();
 
 
-	FunctionVariable* Scope::newRandomFunctionVariable();
-	NumberVariable* Scope::newRandomNumberVariable();
+	FunctionVariable* generateFunctionVariable(int num_args);
+	NumberVariable* generateNumberVariable();
 
-	ClassVariable* Scope::newRandomClassVariable();
+	ClassVariable* generateClassVariable(int num_args);
 
     virtual void setParent(Variable*);
 

@@ -22,10 +22,12 @@ private:
 public:
 	Program();
 	
+	/*
 	virtual Variable* generateNewProperty(Type t) {
         Variable* v = Scope::generateNewProperty(t);
         v->attachedObject = NULL;
     }
+    */
 
     void print(std::ostream& out);
 	void printMain(std::ostream& out);

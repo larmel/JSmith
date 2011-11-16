@@ -6,7 +6,7 @@
 CallExpression::CallExpression(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
 
     // Fetch a local function (we're only allowed to call functions on the same level)
-    this->function = parent_scope->getRandomFunction();
+    this->function = parent_scope->getRandomFunctionVariable();
 
     // TODO Create expressions to use as args
 }

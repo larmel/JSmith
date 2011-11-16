@@ -54,17 +54,37 @@ void Scope::setParent(Variable* v )
 {
 	v->parent = NULL;
 }
-FunctionVariable* Scope::generateRandomFunctionVariable(int numargs) {
-	FunctionVariable* f = new FunctionVariable(numargs);
+
+FunctionVariable* Scope::generateFunctionVariable(int numargs) {
+    std::string identifier = this->getNewRandomIdentifier();
+
+    FunctionVariable* f = new FunctionVariable(identifier, numargs);
+
+    // Functions have their own scope, but are visible in parent scope
+    this->parent->variables->push_back( f );
+
 	this->setParent(f);
 }
 
-NumberVariable* Scope::generateRandomNumberVariable() {
-	// TODO
+NumberVariable* Scope::generateNumberVariable() {
+    std::string identifier = this->getNewRandomIdentifier();
+
+    NumberVariable *n = new NumberVariable(identifier);
+
+    this->variables->push_back( n );
+
+    this->setParent(n);
 }
 
-ClassVariable* Scope::generateRandomClassVariable() {
-	// TODO
+ClassVariable* Scope::generateClassVariable(int numargs) {
+    std::string identifier = this->getNewRandomIdentifier();
+
+    ClassVariable *c = new ClassVariable(identifier, numargs);
+
+    // Functions have their own scope, but are visible in parent scope
+    this->parent->variables->push_back( c );
+
+    this->setParent(c);
 }
 
 
@@ -133,7 +153,7 @@ std::string Scope::getNewRandomIdentifier() {
 void Scope::lockIfNotUnique(std::string identifier) {
     std::vector<Variable*>::iterator it;
     for (it = variables->begin(); it != variables->end(); ++it) {
-        if ((*it)->name == identifier) {
+        if ((*it)->identifier == identifier) {
             (*it)->lock();
             break;
         }

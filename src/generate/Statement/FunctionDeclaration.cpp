@@ -5,8 +5,9 @@
 #include "RandomDiscreteDistribution.h"
 
 void FunctionDeclaration::generate() {
-    this->variable = new ClassVariable(0);
     
+    this->variable = scope->generateClassVariable(0);
+
     // Create some number of SourceElements
     // Might want to enforce some return type
     for (int i = 0; i < 8; ++i) {

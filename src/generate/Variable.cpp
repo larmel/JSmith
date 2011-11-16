@@ -22,12 +22,9 @@ char Variable::identifier_character[] = {
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T'
 };
 
-Variable::Variable(std::string s, Type t) {
-    this->name = s;
-    this->type = t;
-    this->funcBeenUsed = false;
+Variable::Variable(std::string s) {
+    this->identifier = s;
     this->locked = false;
-    this->is_property = false;
 }
 
 void Variable::lock() {
@@ -63,15 +60,18 @@ std::string Variable::generateRandomIdentifier()
 
 std::ostream& operator<<(std::ostream& out, const Variable& e) {
     e.print(out);
-}
-
-void Variable::print(std::ostream& out) {
-	// TODO chain
-	out << this->identifier;
     return out;
 }
 
-void NumberVariable::print(std::ostream& out) {
+
+
+// NumberVariable
+
+NumberVariable::NumberVariable(std::string identifier) : Variable(identifier) {
+
+}
+
+void NumberVariable::print(std::ostream& out) const {
 	// TODO chain
 	if(this->parent != NULL){
 		out << this->parent << ".";
@@ -79,19 +79,39 @@ void NumberVariable::print(std::ostream& out) {
 	out << this->identifier;
 }
 
+
+Type NumberVariable::getType() {
+    return NUMBER_T;
+}
+
+
+
 // FunctionVariable
 
-FunctionVariable::FunctionVariable(int numarg){
-	this.num_arguments = numarg;
+FunctionVariable::FunctionVariable(std::string identifier, int numarg) : Variable(identifier) {
+	this->num_arguments = numarg;
+}
+
+Type FunctionVariable::getType() {
+    return FUNCTION_T;
+}
+
+void FunctionVariable::print(std::ostream& out) const {
+    //TODO:
+    // print some shits
 }
 
 // ClassVariable
 
-ClassVariable::ClassVariable(int numarg){
-	this.num_arguments = numarg;
+ClassVariable::ClassVariable(std::string identifier, int numarg) : Variable(identifier){
+	this->num_arguments = numarg;
 }
 
-void ClassVariable::print(std::ostream& out) {
+Type ClassVariable::getType() {
+    return CLASS_T;
+}
+
+void ClassVariable::print(std::ostream& out) const {
 	if(this->parent != NULL){
 		out << this->parent << ".";
 	}

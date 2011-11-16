@@ -1,12 +1,15 @@
 #include "FunctionExpression.h"
 #include "Variable.h"
 #include "Scope.h"
+#include "Statement.h"
+#include "RandomDiscreteDistribution.h"
+#include "ReturnStatement.h"
 
 
 FunctionExpression::FunctionExpression(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
 
     // Fetch a local function (we're only allowed to call functions on the same level)
-    this->function = parent_scope->getRandomFunction();
+    this->function = parent_scope->getRandomFunctionVariable();
 
     Scope *scope = new Scope(parent_scope);
 
@@ -19,7 +22,7 @@ FunctionExpression::FunctionExpression(Scope* parent_scope, int depth) : Express
     RandomDiscreteDistribution return_or_not (2, 50, 1);
 
     if(return_or_not.getChosenIndex() == 0){
-        this->statements.push_back(new ReturnStatement(this, depth));
+        this->statements.push_back(new ReturnStatement(scope, depth));
     }
 
 
@@ -30,7 +33,7 @@ FunctionExpression::FunctionExpression(Scope* parent_scope, int depth) : Express
 
 
     for (int i = 0; i < num_args; i++) {
-    	arguments.push_back(scope->generateRandomNumberVariable());
+    	arguments.push_back(scope->generateNumberVariable());
 
     }
 
@@ -54,12 +57,14 @@ void FunctionExpression::print(std::ostream& out) const {
         		out << ", ";
         	}
         }
-        out << ")" << endl;
+        out << ")" << std::endl;
         out << "{" << std::endl;
 		for (int i = 0; i < statements.size(); ++i) {
 			statements[i]->print(out);
 		}
-		out << indent << "}" << std::endl;
+		// TODO: Wtf goes on with indent here?
+		//out << indent << "}" << std::endl;
+		out <<  "}" << std::endl;
     }
 }
 

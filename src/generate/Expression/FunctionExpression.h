@@ -7,12 +7,18 @@
 #include "Expression.h"
 
 class FunctionVariable;
+class NumberVariable;
+class Statement;
+class CallExpression;
+
 class Scope;
  
 class FunctionExpression : public Expression {
 private:
 	std::vector<NumberVariable*> arguments;
 	std::vector<Statement*> statements;
+
+	FunctionVariable* function;
 public:
     FunctionExpression(Scope* parent_scope, int depth);
     void print(std::ostream& out) const;
