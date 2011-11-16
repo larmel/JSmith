@@ -61,9 +61,10 @@ FunctionVariable* Scope::generateFunctionVariable(int numargs) {
     FunctionVariable* f = new FunctionVariable(identifier, numargs);
 
     // Functions have their own scope, but are visible in parent scope
-    this->parent->variables->push_back( f );
+    this->variables->push_back( f );
 
 	this->setParent(f);
+	return f;
 }
 
 NumberVariable* Scope::generateNumberVariable() {
@@ -74,6 +75,7 @@ NumberVariable* Scope::generateNumberVariable() {
     this->variables->push_back( n );
 
     this->setParent(n);
+    return n;
 }
 
 ClassVariable* Scope::generateClassVariable(int numargs) {
@@ -82,9 +84,10 @@ ClassVariable* Scope::generateClassVariable(int numargs) {
     ClassVariable *c = new ClassVariable(identifier, numargs);
 
     // Functions have their own scope, but are visible in parent scope
-    this->parent->variables->push_back( c );
+    this->variables->push_back( c );
 
     this->setParent(c);
+    return c;
 }
 
 
