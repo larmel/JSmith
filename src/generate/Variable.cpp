@@ -98,6 +98,9 @@ void FunctionVariable::print(std::ostream& out) const {
     out << this->identifier;
 }
 
+int FunctionVariable::getNumArguments(){
+	return this->num_arguments;
+}
 
 // ClassVariable
 ClassVariable::ClassVariable(std::string identifier, int numarg) : Variable(identifier){
@@ -114,3 +117,7 @@ void ClassVariable::print(std::ostream& out) const {
 	}
 	out << "this";
 }
+int ClassVariable::getNumArguments(){
+	return this->num_arguments;
+}
+
