@@ -70,7 +70,6 @@ NumberVariable::NumberVariable(std::string identifier) : Variable(identifier) {
 }
 
 void NumberVariable::print(std::ostream& out) const {
-	// TODO chain
 	if(this->parent != NULL){
 		out << this->parent << ".";
 	}
@@ -92,8 +91,10 @@ Type FunctionVariable::getType() {
 }
 
 void FunctionVariable::print(std::ostream& out) const {
-    //TODO:
-    // print some shits
+    if(this->parent != NULL){
+        out << this->parent << ".";
+    }
+    out << this->identifier;
 }
 
 

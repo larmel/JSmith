@@ -9,8 +9,6 @@
 class FunctionVariable;
 class NumberVariable;
 class Statement;
-class CallExpression;
-
 class Scope;
  
 class FunctionExpression : public Expression {
@@ -18,11 +16,12 @@ private:
 	std::vector<NumberVariable*> arguments;
 	std::vector<Statement*> statements;
 
-	FunctionVariable* function;
 public:
     FunctionExpression(Scope* parent_scope, int depth);
+    int numberOfArguments();
+
     void print(std::ostream& out) const;
-    friend std::ostream& operator<<(std::ostream& out, const CallExpression& e);
+    friend std::ostream& operator<<(std::ostream& out, const FunctionExpression& e);
 };
  
  

@@ -1,10 +1,19 @@
 #include "AssignmentExpression.h"
 #include "RandomDiscreteDistribution.h"
+#include "FunctionExpression.h"
 #include "Variable.h"
 #include "Literal.h"
 #include "Scope.h"
 
-AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
+AssignmentExpression::AssignmentExpression(Scope* scope, int depth) : Expression(scope, depth) {
+
+    // Create function expression
+    if (true) {
+        FunctionExpression* fexpr = new FunctionExpression(scope, depth + 1);
+        left_variable = scope->generateFunctionVariable( fexpr->numberOfArguments() );
+        right_expression = (Expression*) fexpr;
+    }
+
 
     // Create object with new keyword
     /*if (false) {
@@ -54,8 +63,6 @@ AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth) : Exp
 }
 
 void AssignmentExpression::print(std::ostream& out) const {
-
-    /*
     if (false) {
         out << *left_variable << " = new ";
         if (right_variable == NULL)
@@ -65,7 +72,6 @@ void AssignmentExpression::print(std::ostream& out) const {
     } else {
         out << *left_variable << " = " << *right_expression;
     }
-    */
 }
 
 std::ostream& operator<<(std::ostream& out, const AssignmentExpression& e) {
