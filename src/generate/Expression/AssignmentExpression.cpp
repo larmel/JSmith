@@ -9,7 +9,7 @@ AssignmentExpression::AssignmentExpression(Scope* scope, int depth) : Expression
 
     // Create function expression
     if (true) {
-        FunctionExpression* fexpr = new FunctionExpression(scope, depth + 1);
+        FunctionExpression* fexpr = new FunctionExpression(scope, depth);
         left_variable = scope->generateFunctionVariable( fexpr->numberOfArguments() );
         right_expression = (Expression*) fexpr;
     }

@@ -71,7 +71,7 @@ NumberVariable::NumberVariable(std::string identifier) : Variable(identifier) {
 
 void NumberVariable::print(std::ostream& out) const {
 	if(this->parent != NULL){
-		out << this->parent << ".";
+		out << *this->parent << ".";
 	}
 	out << this->identifier;
 }
@@ -92,7 +92,7 @@ Type FunctionVariable::getType() {
 
 void FunctionVariable::print(std::ostream& out) const {
     if(this->parent != NULL){
-        out << this->parent << ".";
+        out << *this->parent << ".";
     }
     out << this->identifier;
 }
@@ -109,7 +109,7 @@ Type ClassVariable::getType() {
 
 void ClassVariable::print(std::ostream& out) const {
 	if (this->parent != NULL){
-		out << this->parent << ".";
+		out << *this->parent << ".";
 	}
 	out << "this";
 }
