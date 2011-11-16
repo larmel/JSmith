@@ -1,5 +1,6 @@
 #include "Scope.h"
 #include "Variable.h"
+#include "Random.h"
 #include <cstdlib>
 #include <algorithm>
 #include <iostream>
@@ -48,14 +49,16 @@ FunctionVariable* Scope::generateFunctionVariable(int numargs) {
 	return f;
 }
 
-NumberVariable* Scope::generateNumberVariable() {
+NumberVariable* Scope::generateNumberVariable(bool set_parent) {
     std::string identifier = this->getNewRandomIdentifier();
 
     NumberVariable *n = new NumberVariable(identifier);
 
     this->variables->push_back( n );
 
-    this->setParent(n);
+    if (set_parent) {
+        this->setParent(n);
+    }
     return n;
 }
 
