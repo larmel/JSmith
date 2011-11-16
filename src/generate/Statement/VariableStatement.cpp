@@ -16,7 +16,7 @@ VariableStatement::VariableStatement(Scope* s, int depth) : Statement(s, depth) 
 	switch (d.getChosenIndex()) {
 	case 0:
         this->expression = Expression::generateExpression(scope);
-        this->var = scope->generateNewVariable(NUMBER_T);
+        this->var = scope->generateNumberVariable();
         break;
     
     /*case 1:
@@ -29,7 +29,7 @@ VariableStatement::VariableStatement(Scope* s, int depth) : Statement(s, depth) 
 
 void VariableStatement::print(std::ostream& out) {
 	for (int t = 0; t < depth; ++t) out << "   ";
-	out << "var " << var->name << " = ";
+	out << "var " << var->identifier << " = ";
 	expression->print(out);
 	out << line_end << std::endl;
 }

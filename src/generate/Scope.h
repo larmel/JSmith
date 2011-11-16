@@ -28,12 +28,11 @@ public:
 
 	FunctionVariable* generateFunctionVariable(int num_args);
 	NumberVariable* generateNumberVariable();
-
-	ClassVariable* generateClassVariable();
+	ClassVariable* generateClassVariable(int num_args);
 
     virtual void setParent(Variable*);
 
-
+    Variable* getRandomVariable(Type t);
 
     void lockIfNotUnique(std::string identifier);
     Scope* getParent();
@@ -44,13 +43,6 @@ public:
         variables->push_back(v);
     }
 
-    /*
-     * Generate and return a new variable for this scope
-     */
-    Variable* generateNewVariable(Type t);
-
-    // Generate instance variable for some scope, function or program
-    virtual Variable* generateNewProperty(Type t);
 
     void print() {
         for (int i = 0; i < this->variables->size(); i++) {

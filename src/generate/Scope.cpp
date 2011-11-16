@@ -38,15 +38,15 @@ Variable* Scope::getRandomLocalVariable(Type t) {
 */
 
 FunctionVariable* Scope::getRandomFunctionVariable() {
-	// TODO
+    return (FunctionVariable*)getRandomVariable(FUNCTION_T);
 }
 
 NumberVariable* Scope::getRandomNumberVariable() {
-	// TODO
+	return (NumberVariable*)getRandomVariable(NUMBER_T);
 }
 
 ClassVariable* Scope::getRandomClassVariable() {
-	// TODO
+	return (ClassVariable*)getRandomVariable(CLASS_T);
 }
 
 
@@ -56,29 +56,50 @@ void Scope::setParent(Variable* v )
 }
 
 FunctionVariable* Scope::generateFunctionVariable(int numargs) {
-	FunctionVariable* f = new FunctionVariable(numargs);
+    std::string identifier = this->getNewRandomIdentifier();
+
+    FunctionVariable* f = new FunctionVariable(identifier, numargs);
+
+    // Functions have their own scope, but are visible in parent scope
+    this->variables->push_back( f );
+
 	this->setParent(f);
+	return f;
 }
 
 NumberVariable* Scope::generateNumberVariable() {
-	// TODO
+    std::string identifier = this->getNewRandomIdentifier();
+
+    NumberVariable *n = new NumberVariable(identifier);
+
+    this->variables->push_back( n );
+
+    this->setParent(n);
+    return n;
 }
 
-ClassVariable* Scope::generateClassVariable() {
-	// TODO
+ClassVariable* Scope::generateClassVariable(int numargs) {
+    std::string identifier = this->getNewRandomIdentifier();
+
+    ClassVariable *c = new ClassVariable(identifier, numargs);
+
+    // Functions have their own scope, but are visible in parent scope
+    this->variables->push_back( c );
+
+    this->setParent(c);
+    return c;
 }
 
 
 
-/*
+
 Variable* Scope::getRandomVariable(Type t) {
-
     // Get all the variables of a type
     std::vector<Variable*> vars_of_type;
     
     for (int i = 0; i < this->variables->size(); i++) {
         Variable* var = this->variables->at(i);
-        if (var->type == t && !var->is_locked()) {
+        if (var->getType() == t && !var->is_locked()) {
             vars_of_type.push_back(this->variables->at(i));
         }
     }
@@ -90,7 +111,7 @@ Variable* Scope::getRandomVariable(Type t) {
     int pos = rand() % vars_of_type.size();
     return vars_of_type[pos];
 }
-*/
+
 /*
 Variable* Scope::generateNewVariable(Type t) {
     std::string identifier = this->getNewRandomIdentifier();

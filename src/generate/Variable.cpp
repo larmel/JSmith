@@ -60,17 +60,16 @@ std::string Variable::generateRandomIdentifier()
 
 std::ostream& operator<<(std::ostream& out, const Variable& e) {
     e.print(out);
-}
-
-void Variable::print(std::ostream& out) {
-	// TODO chain
-	out << this->identifier;
     return out;
 }
 
-// NumberVariable
 
-void NumberVariable::print(std::ostream& out) {
+// NumberVariable
+NumberVariable::NumberVariable(std::string identifier) : Variable(identifier) {
+
+}
+
+void NumberVariable::print(std::ostream& out) const {
 	// TODO chain
 	if(this->parent != NULL){
 		out << this->parent << ".";
@@ -78,35 +77,39 @@ void NumberVariable::print(std::ostream& out) {
 	out << this->identifier;
 }
 
-
-void NumberVariable::getType() {
+Type NumberVariable::getType() {
     return NUMBER_T;
 }
 
 
-
 // FunctionVariable
-
-FunctionVariable::FunctionVariable(int numarg){
-	this.num_arguments = numarg;
+FunctionVariable::FunctionVariable(std::string identifier, int numarg) : Variable(identifier) {
+	this->num_arguments = numarg;
 }
 
-void FunctionVariable::getType() {
+Type FunctionVariable::getType() {
     return FUNCTION_T;
 }
 
-// ClassVariable
-
-ClassVariable::ClassVariable(int numarg){
-	this.num_arguments = numarg;
+void FunctionVariable::print(std::ostream& out) const {
+    //TODO:
+    // print some shits
+    std::cerr << "Unimplemented functionvar print!\n";
+    exit(1);
 }
 
-void ClassVariable::getType() {
+
+// ClassVariable
+ClassVariable::ClassVariable(std::string identifier, int numarg) : Variable(identifier){
+	this->num_arguments = numarg;
+}
+
+Type ClassVariable::getType() {
     return CLASS_T;
 }
 
-void ClassVariable::print(std::ostream& out) {
-	if(this->parent != NULL){
+void ClassVariable::print(std::ostream& out) const {
+	if (this->parent != NULL){
 		out << this->parent << ".";
 	}
 	out << "this";

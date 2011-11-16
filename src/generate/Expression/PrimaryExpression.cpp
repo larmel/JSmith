@@ -19,7 +19,7 @@ PrimaryExpression::PrimaryExpression(Scope* parent_scope, int depth) : Expressio
 
     switch (d.getChosenIndex()) {
     case 0:
-        variable = scope->getRandomVariable(NUMBER_T);
+        variable = scope->getRandomNumberVariable();
         if (variable != NULL) break;
     case 1:
         literal = new Literal();

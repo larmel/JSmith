@@ -1,4 +1,3 @@
-
 #include "TestCase.h"
 #include "TestCaseCompiler.h"
 #include <cassert>
@@ -24,6 +23,11 @@ TestCase::~TestCase() {
 
 void TestCase::generateSource() {
     system("bin/generate > test/current_jsmith/_generated.js");
+}
+
+void TestCase::setSource(std::string path) {
+    std::string command = "cp " + path + " test/current_jsmith/_generated.js";
+    system(command.c_str());
 }
 
 /*

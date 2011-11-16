@@ -24,13 +24,12 @@ SourceElement* SourceElement::createRandom(Scope* parent_scope, unsigned int dep
  * Simply print the correct number of spaces for indentation.
  * Derived classes should call this before other print code. 
  */
-void SourceElement::printIndentation(std::ostream& out, const SourceElement& e) {
-    for (int i = 0; i < e.depth; ++i) {
-        for (int j = 0; j < e.indentation; ++j) {
+void SourceElement::printIndentation(std::ostream& out) {
+    for (int i = 0; i < this->depth; ++i) {
+        for (int j = 0; j < this->indentation; ++j) {
             out << " ";
         }
     }
-    return out;
 }
 
 

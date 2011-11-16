@@ -1,6 +1,6 @@
 #include "WhileStatement.h"
-#include <Expression.h>
-#include <Variable.h>
+#include "Expression.h"
+#include "Variable.h"
 #include "Scope.h"
 #include "BlockStatement.h"
 #include "Random.h"
@@ -8,7 +8,7 @@
 
 WhileStatement::WhileStatement(Scope* scope, int parent_depth) : Statement(scope, parent_depth) 
 {
-    this->loop_guard = scope->generateNewVariable( NUMBER_T );
+    this->loop_guard = scope->generateNumberVariable();
     loop_guard->lock();
     
     this->expression = Expression::generateExpression(scope);
@@ -28,10 +28,10 @@ void WhileStatement::print(std::ostream& out)
 	for (int t = 0; t < depth; ++t){
 		out << "   ";
 	}
-	out << "var " << loop_guard->name << " = 0, ";
+	out << "var " << loop_guard->identifier << " = 0, ";
 	out << "while ( (";
 	expression->print(out);
-	out << ") && " << loop_guard->name << "++ < 42 )" << std::endl;
+	out << ") && " << loop_guard->identifier << "++ < 42 )" << std::endl;
 	
 	statement->print(out);
 }

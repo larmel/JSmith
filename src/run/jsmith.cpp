@@ -60,7 +60,11 @@ int main(int argc, char* argv[])
     while (testno++ < tests)
     {
         TestCase tcase;
-        tcase.generateSource();
+        if (input_file == "") {
+            tcase.generateSource();
+        } else {
+            tcase.setSource(input_file);
+        }
         tcase.testAgainstCompilers();
         
         if (!tcase.success()) {
