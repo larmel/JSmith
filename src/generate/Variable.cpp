@@ -64,9 +64,7 @@ std::ostream& operator<<(std::ostream& out, const Variable& e) {
 }
 
 
-
 // NumberVariable
-
 NumberVariable::NumberVariable(std::string identifier) : Variable(identifier) {
 
 }
@@ -79,15 +77,12 @@ void NumberVariable::print(std::ostream& out) const {
 	out << this->identifier;
 }
 
-
 Type NumberVariable::getType() {
     return NUMBER_T;
 }
 
 
-
 // FunctionVariable
-
 FunctionVariable::FunctionVariable(std::string identifier, int numarg) : Variable(identifier) {
 	this->num_arguments = numarg;
 }
@@ -103,7 +98,6 @@ void FunctionVariable::print(std::ostream& out) const {
 
 
 // ClassVariable
-
 ClassVariable::ClassVariable(std::string identifier, int numarg) : Variable(identifier){
 	this->num_arguments = numarg;
 }
