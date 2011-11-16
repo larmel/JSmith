@@ -25,8 +25,7 @@ Expression *Expression::generateExpression(Scope *scope, int depth) {
 	// Using several should work though.
     int expression_count = 1;
     for (int e = 0; e < expression_count; ++e) {
-        RandomDiscreteDistribution r(5,
-                0, // AssignmentExpression (Used in ExpressionStatement atm)
+        RandomDiscreteDistribution r(4,
                 1, // Relational Expression
                 1, // ArithmeticExpression
                 0, // CallExpression - bugged, can return nothing
@@ -34,21 +33,15 @@ Expression *Expression::generateExpression(Scope *scope, int depth) {
 
         switch (r.getChosenIndex()) {
         case 0:
-            expression->expressions.push_back(new AssignmentExpression(scope, depth + 1));
-            // var a = 1 > this.b = 2 is not allowed, but var a = 1 > (this.b = 2) is.
-            // We might avoid this if we recur in PrimaryExpression with parenthesis instead, like the grammar dictates.
-            expression->parenthesis = true;
-            break;
-        case 1:
             expression->expressions.push_back(new RelationalExpression(scope, depth + 1));
             break;
-        case 2:
+        case 1:
             expression->expressions.push_back(new AddMulExpression(scope, depth + 1));
             break;
-        case 3:
+        case 2:
             expression->expressions.push_back(new CallExpression(scope, depth + 1));
             break;
-        case 4:
+        case 3:
             expression->expressions.push_back(new PrimaryExpression(scope, depth + 1));
             break;
         }
