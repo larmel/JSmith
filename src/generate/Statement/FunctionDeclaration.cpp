@@ -9,10 +9,10 @@ void FunctionDeclaration::generate() {
     // The new class scope
     this->variable = scope->generateClassVariable(0);
 
-    // Create some number of SourceElements
-    // Might want to enforce some return type
+    // Create some number of Statements
+    // Do not want nested declarations
     for (int i = 0; i < 4; ++i) {
-        this->source_elements.push_back( SourceElement::createRandom(this, depth) );
+        this->source_elements.push_back( Statement::newRandomStatement(this, depth + 1) );
     }
     
     RandomDiscreteDistribution return_or_not (2, 4, 1);
@@ -24,7 +24,6 @@ void FunctionDeclaration::generate() {
 
 void FunctionDeclaration::setParent(Variable *v) {
     v->parent = this->variable;
-
 }
 
 void FunctionDeclaration::print(std::ostream& out)

@@ -25,6 +25,7 @@ char Variable::identifier_character[] = {
 Variable::Variable(std::string s) {
     this->identifier = s;
     this->locked = false;
+    this->parent = NULL;
 }
 
 void Variable::lock() {
