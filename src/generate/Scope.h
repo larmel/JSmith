@@ -11,11 +11,13 @@ class Scope
 private:
     
     Scope* parent;
-protected:
 
+protected:
     std::vector<Variable*>* variables;
-    int start_depth; // Index to the first vector element in this scope 
+    int start_depth; // Index to the first vector element in this scope
+
     
+
 public:
     Scope(Scope* p);
     
@@ -31,6 +33,8 @@ public:
 	ClassVariable* generateClassVariable(int num_args);
 
     virtual void setParent(Variable*);
+
+    bool allowReturn;
 
     Variable* getRandomVariable(Type t);
 

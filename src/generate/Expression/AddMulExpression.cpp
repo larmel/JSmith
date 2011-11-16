@@ -1,6 +1,6 @@
 #include "AddMulExpression.h"
 #include "Variable.h"
-
+#include "Random.h"
 #include <string>
 
 AddMulExpression::AddMulExpression(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
@@ -8,8 +8,10 @@ AddMulExpression::AddMulExpression(Scope* parent_scope, int depth) : Expression(
     op1 = Expression::generateExpression(scope, depth + 1);
     op2 = Expression::generateExpression(scope, depth + 1);
     
-    std::string operand[] = {"+", "-", "*", "/", "%"};
+    std::string operand[] = {" + ", " - ", " * ", " / ", " % "};
     op = operand[rand() % 5];
+
+    this->parenthesis = Random::flip_coin();
 }
 
 void AddMulExpression::print(std::ostream& out) const {

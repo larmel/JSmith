@@ -24,7 +24,7 @@ void Program::print(std::ostream& out)
 
 void Program::printMain(std::ostream& out)
 {
-    out << "//" << std::endl << "(function () {" << std::endl;
+    out << "" << std::endl << "(function () {" << std::endl;
     
     std::vector<Variable*>::iterator it;
     

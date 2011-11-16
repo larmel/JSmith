@@ -8,6 +8,7 @@
 FunctionExpression::FunctionExpression(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
     this->depth = depth;
     Scope *scope = new Scope(parent_scope);
+    scope->allowReturn = true;
 
     // Add formal parameters to scope
     int num_args = rand() % 4;
@@ -43,10 +44,9 @@ void FunctionExpression::print(std::ostream& out) const {
     for (int i = 0; i < statements.size(); ++i) {
         statements[i]->print(out);
     }
-
     // Fake indentation
-    for (int i = 0; i < depth; ++i) {
-        out << "   ";
+    for (int i = 0; i < depth-1; ++i) {
+        out << "    ";
     }
     out <<  "}";
 }

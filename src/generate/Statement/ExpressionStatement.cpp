@@ -20,7 +20,7 @@ ExpressionStatement::ExpressionStatement(Scope* s, int depth) : Statement(s, dep
 
 void ExpressionStatement::print(std::ostream& out)
 {
-    for (int t = 0; t < depth; ++t) out << "   ";
+	this->printIndentation(out);
 	expression->print(out);
 	out << ";" << std::endl;
 }
