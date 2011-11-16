@@ -17,7 +17,7 @@ Statement* Statement::newRandomStatement(Scope* x, int depth){
 	    200, 
 	    50, 
 	    0, // while is bugged
-	    x->getParent() == NULL ? 0 : 10, // Only pick return if we are in a function
+	    x->allowReturn ? 10 : 0, // Only pick return if we are in a function
 	    50, 
 	    depth < 3 ? 50 : 0); // Do not nest more than 3 for-loops (performance)
 	
