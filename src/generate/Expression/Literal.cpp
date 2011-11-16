@@ -11,7 +11,7 @@
 Literal::Literal() {
     RandomDiscreteDistribution r(2,
             10,
-            1);
+            0);
 
     switch (r.getChosenIndex()) {
     case 0:

@@ -11,13 +11,14 @@ private:
     bool locked;
     
     // Functions will have a set of properties
-    std::vector<Variable*> properties;
+    //std::vector<Variable*> properties;
 
 public:
-    Type type;
-    std::string name;
+    //Type type;
+    std::string identifier;
+    Varaible* parent;
     
-    bool funcBeenUsed;
+    //bool funcBeenUsed;
 
     Variable(std::string s, Type t);
     
@@ -28,14 +29,14 @@ public:
     };
 
     // A property is itself a variable
-    bool is_property;
+    //bool is_property;
 
     // Pointer to object for which this property is attached to
-    Variable* attachedObject;
+    //Variable* attachedObject;
     
-    std::vector<Variable*> *getObjectProperties() {
+    /*std::vector<Variable*> *getObjectProperties() {
         return &properties;
-    }
+    }*/
 
     static std::string generateRandomIdentifier();
     
@@ -46,7 +47,30 @@ public:
     static char identifier_character[];
 
     friend std::ostream& operator<<(std::ostream& out, const Variable& e);
+    virtual void print(std::ostream& out);
 };
+
+
+class NumberVariable : Variable
+{
+};
+
+class FunctionVariable : Variable
+{
+private:
+	int num_arguments;
+public:
+	FunctionVariable(int);
+};
+
+class ClassVariable : Variable
+{
+private:
+	int num_arguments;
+public:
+	ClassVariable(int);
+};
+
 
 #endif
 

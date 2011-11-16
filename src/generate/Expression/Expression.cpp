@@ -26,7 +26,7 @@ Expression *Expression::generateExpression(Scope *scope, int depth) {
     int expression_count = 1;
     for (int e = 0; e < expression_count; ++e) {
         RandomDiscreteDistribution r(5,
-                1, // AssignmentExpression
+                0, // AssignmentExpression
                 1, // Relational Expression
                 1, // ArithmeticExpression
                 0, // CallExpression - bugged, can return nothing
@@ -55,6 +55,10 @@ Expression *Expression::generateExpression(Scope *scope, int depth) {
     }
     return expression;
 }
+
+
+
+
 
 Expression *Expression::generateExpressionForConditional(Scope *scope, int depth) {
 	RandomDiscreteDistribution r (2, 90, 10);

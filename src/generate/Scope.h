@@ -19,8 +19,21 @@ protected:
 public:
     Scope(Scope* p);
     
-    Variable* getRandomLocalVariable(Type t);
-    Variable* getRandomVariable(Type t);
+    FunctionVariable* Scope::getRandomFunctionVariable();
+
+    NumberVariable* Scope::getRandomNumberVariable();
+
+    ClassVariable* Scope::getRandomClassVariable();
+
+
+	FunctionVariable* Scope::newRandomFunctionVariable();
+	NumberVariable* Scope::newRandomNumberVariable();
+
+	ClassVariable* Scope::newRandomClassVariable();
+
+    virtual void setParent(Variable*);
+
+
 
     void lockIfNotUnique(std::string identifier);
     Scope* getParent();

@@ -6,13 +6,13 @@
 
 #include "Expression.h"
 
-class Variable;
+class FunctionVariable;
 class Scope;
  
 class CallExpression : public Expression {
 
 private:
-    Variable *function;
+    FunctionVariable *function;
     
 
 public:

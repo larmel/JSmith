@@ -62,10 +62,38 @@ std::string Variable::generateRandomIdentifier()
 }
 
 std::ostream& operator<<(std::ostream& out, const Variable& e) {
-    if (e.is_property) {
-        out << "this." << e.name;
-    } else {
-        out << e.name;
-    }
+    e.print(out);
+}
+
+void Variable::print(std::ostream& out) {
+	// TODO chain
+	out << this->identifier;
     return out;
+}
+
+void NumberVariable::print(std::ostream& out) {
+	// TODO chain
+	if(this->parent != NULL){
+		out << this->parent << ".";
+	}
+	out << this->identifier;
+}
+
+// FunctionVariable
+
+FunctionVariable::FunctionVariable(int numarg){
+	this.num_arguments = numarg;
+}
+
+// ClassVariable
+
+ClassVariable::ClassVariable(int numarg){
+	this.num_arguments = numarg;
+}
+
+void ClassVariable::print(std::ostream& out) {
+	if(this->parent != NULL){
+		out << this->parent << ".";
+	}
+	out << "this";
 }

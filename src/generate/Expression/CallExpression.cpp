@@ -6,23 +6,21 @@
 CallExpression::CallExpression(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
 
     // Fetch a local function (we're only allowed to call functions on the same level)
-    this->function = parent_scope->getRandomLocalVariable(FUNCTION_T);
+    this->function = parent_scope->getRandomFunction();
 
-    if (this->function!=NULL) {
-        this->function->funcBeenUsed = true;
-    } // No functions available, what to do?
+    // TODO Create expressions to use as args
 }
 
 void CallExpression::print(std::ostream& out) const {
-    if (this->function==NULL) 
+    if (this->function == NULL)
     {
         // No functions available, what to do?
-        //out << "NOFUNC()";
+        out << "1";
     } 
     
     else
     {
-        out << this->function->name << "()";
+        out << *this->function << "()"; // TODO args
     }
 }
 

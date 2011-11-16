@@ -24,7 +24,7 @@ SourceElement* SourceElement::createRandom(Scope* parent_scope, unsigned int dep
  * Simply print the correct number of spaces for indentation.
  * Derived classes should call this before other print code. 
  */
-std::ostream& operator<<(std::ostream& out, const SourceElement& e) {
+void SourceElement::printIndentation(std::ostream& out, const SourceElement& e) {
     for (int i = 0; i < e.depth; ++i) {
         for (int j = 0; j < e.indentation; ++j) {
             out << " ";

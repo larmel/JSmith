@@ -7,7 +7,7 @@
 AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
 
     // Create object with new keyword
-    if (false) {
+    /*if (false) {
         left_variable = scope->generateNewVariable(OBJECT_T);
         right_variable = scope->getRandomVariable(FUNCTION_T);
         if (right_variable != NULL) {
@@ -22,27 +22,35 @@ AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth) : Exp
             }
         }
 
-    } else {
+    } else {*/
 
-        RandomDiscreteDistribution d = RandomDiscreteDistribution(2, 1, 10);
-        this->left_variable = NULL;
-        Variable* function = NULL;
 
-        switch (d.getChosenIndex()) {
-        case 0:
-            // Assign to some existing variable. Fall through if none is found.
-            left_variable = scope->getRandomVariable(NUMBER_T);
-            if (left_variable != NULL) {
-                right_expression = Expression::generateExpression(parent_scope, depth + 1);
-                break;
-            }
-        case 1:
-            // Generate new property for this object
-            right_expression = Expression::generateExpression(parent_scope, depth + 1);
-            left_variable = scope->generateNewProperty(NUMBER_T); // Avoid self-reference
-            break;
-        }
-    }
+
+
+	RandomDiscreteDistribution d = RandomDiscreteDistribution(2, 0, 10);
+	this->left_variable = NULL;
+	Variable* function = NULL;
+
+	switch (d.getChosenIndex()) {
+	case 0:
+		// Assign to some existing variable. Fall through if none is found.
+		left_variable = scope->getRandomVariable(NUMBER_T);
+		if (left_variable != NULL) {
+			right_expression = Expression::generateExpression(parent_scope, depth + 1);
+			break;
+		}
+	case 1:
+		// Generate new property for this object
+		right_expression = Expression::generateNumberExpression(parent_scope, depth + 1);
+		left_variable = new NumberVariable();
+		break;
+	}
+
+
+
+
+
+    //}
 }
 
 void AssignmentExpression::print(std::ostream& out) const {

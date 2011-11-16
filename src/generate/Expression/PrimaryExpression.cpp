@@ -11,7 +11,7 @@ PrimaryExpression::PrimaryExpression(Scope* parent_scope, int depth) : Expressio
     RandomDiscreteDistribution d(3,
             1, // Identifier
             5, // Literal
-            1  // this
+            0  // this
             );
 
     variable = NULL;

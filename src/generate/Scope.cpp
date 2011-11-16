@@ -14,7 +14,7 @@ Scope::Scope(Scope* p) : parent(p) {
         this->start_depth = 0;
     }
 }
-
+/*
 Variable* Scope::getRandomLocalVariable(Type t) {
 
     // Get all the variables of a type
@@ -35,8 +35,41 @@ Variable* Scope::getRandomLocalVariable(Type t) {
     int pos = rand() % vars_of_type.size();
     return vars_of_type[pos];
 }
+*/
+
+FunctionVariable* Scope::getRandomFunctionVariable() {
+	// TODO
+}
+
+NumberVariable* Scope::getRandomNumberVariable() {
+	// TODO
+}
+
+ClassVariable* Scope::getRandomClassVariable() {
+	// TODO
+}
 
 
+void Scope::setParent(Variable* v )
+{
+	v->parent = NULL;
+}
+FunctionVariable* Scope::generateRandomFunctionVariable(int numargs) {
+	FunctionVariable* f = new FunctionVariable(numargs);
+	this->setParent(f);
+}
+
+NumberVariable* Scope::generateRandomNumberVariable() {
+	// TODO
+}
+
+ClassVariable* Scope::generateRandomClassVariable() {
+	// TODO
+}
+
+
+
+/*
 Variable* Scope::getRandomVariable(Type t) {
 
     // Get all the variables of a type
@@ -56,7 +89,8 @@ Variable* Scope::getRandomVariable(Type t) {
     int pos = rand() % vars_of_type.size();
     return vars_of_type[pos];
 }
-
+*/
+/*
 Variable* Scope::generateNewVariable(Type t) {
     std::string identifier = this->getNewRandomIdentifier();
     Variable* var = new Variable(identifier, t);
@@ -69,6 +103,8 @@ Variable* Scope::generateNewVariable(Type t) {
     }
     return var;
 }
+*/
+/*
 
 Variable* Scope::generateNewProperty(Type t) {
     std::string identifier = this->getNewRandomIdentifier();
@@ -83,6 +119,7 @@ Variable* Scope::generateNewProperty(Type t) {
     }
     return var;
 }
+*/
 
 std::string Scope::getNewRandomIdentifier() {
     std::string name;

@@ -5,9 +5,7 @@
 #include "RandomDiscreteDistribution.h"
 
 void FunctionDeclaration::generate() {
-    this->identifier = generateNewVariable( FUNCTION_T );
-    
-    // TODO: Argument list
+    this->variable = new ClassVariable(0);
     
     // Create some number of SourceElements
     // Might want to enforce some return type
@@ -27,7 +25,7 @@ void FunctionDeclaration::print(std::ostream& out)
     std::string indent;
     for (int t = 0; t < depth; ++t) indent += "   ";
     
-    out << indent << "function " << this->identifier->name << "()" << std::endl << indent << "{" << std::endl;
+    out << indent << "function " << *this->variable << "()" << std::endl << indent << "{" << std::endl;
     
     for (int i = 0; i < source_elements.size(); ++i) {
         source_elements[i]->print(out);
