@@ -6,7 +6,7 @@
 #include "CallExpression.h"
 #include "Literal.h"
 #include "RandomDiscreteDistribution.h"
-#include <Random.h>
+#include "Random.h"
 #include <cassert>
 
 Expression::Expression(Scope *scope, int depth)
