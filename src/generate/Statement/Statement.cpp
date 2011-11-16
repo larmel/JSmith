@@ -11,7 +11,7 @@
 #include <iostream>
 using namespace std;
 
-Statement* Statement::newRandomStatement(Scope* x, unsigned int depth){
+Statement* Statement::newRandomStatement(Scope* x, int depth){
     
 	RandomDiscreteDistribution d = RandomDiscreteDistribution(6, 
 	    200, 
