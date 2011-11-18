@@ -18,7 +18,7 @@ Expression::Expression(Scope *scope, int depth)
 }
 
 Expression *Expression::generateExpression(Scope *scope, int depth) {
-    int p_terminal = 20*(1 + depth); //60*((double)depth/20);
+    int p_terminal = 10*(1 + depth); //60*((double)depth/20);
     Expression* expression = new Expression(scope, depth);
 
 	// TODO: So far this only creates 1 new expression, not utilizing the list
@@ -29,7 +29,7 @@ Expression *Expression::generateExpression(Scope *scope, int depth) {
         RandomDiscreteDistribution r(4,
                 1, // Relational Expression
                 10, // ArithmeticExpression
-                10, // CallExpression - bugged, can return nothing
+                14, // CallExpression
                 p_terminal);
 
         switch (r.getChosenIndex()) {

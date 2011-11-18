@@ -4,7 +4,7 @@
 #include "Expression.h"
 
 ExpressionStatement::ExpressionStatement(Scope* s, int depth) : Statement(s, depth) {
-    RandomDiscreteDistribution r(2, 1, 1);
+    RandomDiscreteDistribution r(2, 1, 10);
 
     /*
      * Move all assignment expressions here. They could really be a part of the generic

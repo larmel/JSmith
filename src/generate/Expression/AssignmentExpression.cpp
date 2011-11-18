@@ -7,11 +7,20 @@
 
 AssignmentExpression::AssignmentExpression(Scope* scope, int depth) : Expression(scope, depth) {
 
+    RandomDiscreteDistribution r(2, 10, 0);
+
     // Create function expression
-    if (true) {
+    if (r.getChosenIndex()==0) {
         FunctionExpression* fexpr = new FunctionExpression(scope, depth);
         left_variable = scope->generateFunctionVariable( fexpr->numberOfArguments() );
         right_expression = (Expression*) fexpr;
+    }
+
+
+    else if (r.getChosenIndex()==1) {
+
+        //scope->generateObjece
+
     }
 
 

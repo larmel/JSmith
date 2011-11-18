@@ -39,6 +39,7 @@ public:
     Variable* getRandomVariable(Type t);
 
     void lockIfNotUnique(std::string identifier);
+    bool isUnique(std::string identifier);
     Scope* getParent();
 
     std::string getNewRandomIdentifier();

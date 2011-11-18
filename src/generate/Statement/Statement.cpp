@@ -14,11 +14,11 @@ using namespace std;
 Statement* Statement::newRandomStatement(Scope* x, int depth){
     
 	RandomDiscreteDistribution d = RandomDiscreteDistribution(6, 
-	    200, 
+	    200,
 	    50, 
 	    0, // while is bugged
 	    x->allowReturn ? 10 : 0, // Only pick return if we are in a function
-	    50, 
+	    100,
 	    depth < 3 ? 50 : 0); // Do not nest more than 3 for-loops (performance)
 	
 	switch(d.getChosenIndex()){

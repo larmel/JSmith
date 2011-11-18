@@ -105,8 +105,11 @@ Variable* Scope::getRandomVariable(Type t) {
 std::string Scope::getNewRandomIdentifier() {
     std::string name;
 
-    name = Variable::generateRandomIdentifier();
-	lockIfNotUnique(name);
+    do {
+        name = Variable::generateRandomIdentifier();
+    } while (!isUnique(name));
+
+	//lockIfNotUnique(name);
 
 	return name;
 }
@@ -122,6 +125,21 @@ void Scope::lockIfNotUnique(std::string identifier) {
     if (this->parent != NULL) {
         parent->lockIfNotUnique( identifier );
     }
+
+}
+
+
+bool Scope::isUnique(std::string identifier) {
+    std::vector<Variable*>::iterator it;
+    for (it = variables->begin(); it != variables->end(); ++it) {
+        if ((*it)->identifier == identifier) {
+            return false;
+        }
+    }
+    if (this->parent != NULL) {
+        return parent->isUnique( identifier );
+    }
+    return true;
 }
 
 Scope *Scope::getParent(){

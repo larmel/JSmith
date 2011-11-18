@@ -45,7 +45,7 @@ std::string Variable::generateRandomIdentifier()
         do {
             char nextchar = identifier_character[ rand() % identifier_character_count ];
             identifier += nextchar;
-        } while (Random::flip_coin());
+        } while (Random::flip_coin() || Random::flip_coin());
         
         is_reserved = false;
         for (int i = 0; i < reserved_word_count; ++i) {

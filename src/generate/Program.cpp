@@ -1,10 +1,15 @@
 #include "Program.h"
 #include "SourceElement.h"
 #include "Variable.h"
+#include "VariableStatement.h"
 #include <vector>
 #include <string>
 
 Program::Program() : Scope(NULL) {
+
+    for (int i = 0; i < 8; i++) {
+        this->source_elements.push_back( new VariableStatement(this,0));
+    }
 
     // Generate some number (currently 3) of SourceElements
     for (int i = 0; i < 3; ++i) {
@@ -28,6 +33,7 @@ void Program::printMain(std::ostream& out)
     
     std::vector<Variable*>::iterator it;
     
+    /*
     // Call all functions in global scope
     for (it = this->variables->begin(); it != this->variables->end(); ++it) {
         Variable* var = *it;
@@ -37,6 +43,7 @@ void Program::printMain(std::ostream& out)
             out << "   " << *var << "();" << std::endl;
         }
     }
+    */
     
     // Print all variables in global scope
     int line = 0;

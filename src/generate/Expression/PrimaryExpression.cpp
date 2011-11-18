@@ -9,7 +9,7 @@
 PrimaryExpression::PrimaryExpression(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
 
     RandomDiscreteDistribution d(3,
-            1, // Identifier
+            10, // Identifier
             5, // Literal
             0  // this
             );
