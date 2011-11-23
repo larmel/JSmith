@@ -1,6 +1,7 @@
 #include "AssignmentExpression.h"
 #include "RandomDiscreteDistribution.h"
 #include "FunctionExpression.h"
+#include "Random.h"
 #include "Variable.h"
 #include "Literal.h"
 #include "Scope.h"
@@ -9,10 +10,11 @@ AssignmentExpression::AssignmentExpression(Scope* scope, int depth) : Expression
 
     // TODO:
     // Reassign number variables
+    // Object properies, this.... ??? Handled already, by virtual setParent
     // new FunctionDeclaration
     // Assign to MapExpression
 
-    RandomDiscreteDistribution r(2, 10, 10);
+    RandomDiscreteDistribution r(3, 10, 10, 10);
 
     switch (r.getChosenIndex()) {
     case 0:
@@ -27,6 +29,13 @@ AssignmentExpression::AssignmentExpression(Scope* scope, int depth) : Expression
         left_variable = scope->getRandomNumberVariable();
         right_expression = Expression::generateExpression(scope);
         break;
+    case 2:
+    {
+        // Generate a new number variable, can be property if inside FunctionDeclaration
+        left_variable = scope->generateNumberVariable( Random::flip_coin() );
+        right_expression = Expression::generateExpression(scope);
+        break;
+    }
     }
 
     // Create object with new keyword
