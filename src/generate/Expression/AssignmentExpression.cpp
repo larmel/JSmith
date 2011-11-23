@@ -7,22 +7,27 @@
 
 AssignmentExpression::AssignmentExpression(Scope* scope, int depth) : Expression(scope, depth) {
 
-    RandomDiscreteDistribution r(2, 10, 0);
+    // TODO:
+    // Reassign number variables
+    // new FunctionDeclaration
+    // Assign to MapExpression
 
-    // Create function expression
-    if (r.getChosenIndex()==0) {
+    RandomDiscreteDistribution r(2, 10, 10);
+
+    switch (r.getChosenIndex()) {
+    case 0:
+    {
         FunctionExpression* fexpr = new FunctionExpression(scope, depth);
         left_variable = scope->generateFunctionVariable( fexpr->numberOfArguments() );
         right_expression = (Expression*) fexpr;
+        break;
     }
-
-
-    else if (r.getChosenIndex()==1) {
-
-        //scope->generateObjece
-
+    case 1:
+        // Reassign some existing number variable
+        left_variable = scope->getRandomNumberVariable();
+        right_expression = Expression::generateExpression(scope);
+        break;
     }
-
 
     // Create object with new keyword
     /*if (false) {
