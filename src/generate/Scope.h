@@ -16,8 +16,6 @@ protected:
     std::vector<Variable*>* variables;
     int start_depth; // Index to the first vector element in this scope
 
-    
-
 public:
     Scope(Scope* p);
     
@@ -30,6 +28,9 @@ public:
 	NumberVariable* generateNumberVariable(bool set_parent = true);
 	ClassVariable* generateClassVariable(int num_args);
 	MapVariable* generateMapVariable();
+    ObjectVariable* generateObjectVariable();
+
+	void createInstance(ClassVariable* classVariable, Variable* handle);
 
     virtual void setParent(Variable*);
 

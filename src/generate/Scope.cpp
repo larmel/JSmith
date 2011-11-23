@@ -94,7 +94,24 @@ ClassVariable* Scope::generateClassVariable(int numargs) {
     return c;
 }
 
+ObjectVariable* Scope::generateObjectVariable() {
+    std::string identifier = this->getNewRandomIdentifier();
 
+    ObjectVariable* f = new ObjectVariable(identifier);
+    f->parent = NULL; // Never property
+    return f;
+}
+
+/*
+ * Add new variables in scope for all properties in classVariable
+ */
+void Scope::createInstance(ClassVariable* classVariable, Variable* handle) {
+    for (int i = 0; i < classVariable->getProperties().size(); ++i) {
+        Variable* property = classVariable->getProperties().at(i);
+        Variable* copy = property->copyTo( handle );
+        this->add( copy );
+    }
+}
 
 
 Variable* Scope::getRandomVariable(Type t) {

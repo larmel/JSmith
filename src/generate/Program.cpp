@@ -2,17 +2,20 @@
 #include "SourceElement.h"
 #include "Variable.h"
 #include "VariableStatement.h"
+#include "FunctionDeclaration.h"
 #include <vector>
 #include <string>
 
 Program::Program() : Scope(NULL) {
 
-    for (int i = 0; i < 8; i++) {
-        this->source_elements.push_back( new VariableStatement(this,0));
+    for (int i = 0; i < 5; i++) {
+        this->source_elements.push_back( new VariableStatement(this, 0));
     }
 
+    this->source_elements.push_back( new FunctionDeclaration(this, 0) );
+
     // Generate some number (currently 3) of SourceElements
-    for (int i = 0; i < 3; ++i) {
+    for (int i = 0; i < 5; ++i) {
 	    this->source_elements.push_back( SourceElement::createRandom(this, 0) );
 	}
 

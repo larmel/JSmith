@@ -22,8 +22,12 @@ void FunctionDeclaration::generate() {
     }
 }
 
+/*
+ * Creates a new instance variable
+ */
 void FunctionDeclaration::setParent(Variable *v) {
     v->parent = this->variable;
+    this->variable->addProperty(v);
 }
 
 void FunctionDeclaration::print(std::ostream& out)
