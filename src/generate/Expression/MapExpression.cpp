@@ -12,7 +12,8 @@ MapExpression::MapExpression(Scope* parent_scope, int depth) : Expression(parent
     scope = new Scope(parent_scope);
 
     // Generate a random number of properties
-    int num_properties = Random::randint(0,6);
+    int num_properties = Random::randint(0,0);
+
     for(int i = 0; i < num_properties; i++)
     {
     	RandomDiscreteDistribution r(2,3,4);

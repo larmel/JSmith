@@ -18,7 +18,7 @@ Expression::Expression(Scope *scope, int depth)
 }
 
 Expression *Expression::generateExpression(Scope *scope, int depth) {
-    int p_terminal = 20*(3 + depth); //60*((double)depth/20);
+    int p_terminal = 16*(3 + depth); //60*((double)depth/20);
     Expression* expression = new Expression(scope, depth);
 
 	// TODO: So far this only creates 1 new expression, not utilizing the list

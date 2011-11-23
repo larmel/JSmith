@@ -4,6 +4,7 @@
 #include "Scope.h"
 #include "BlockStatement.h"
 #include "Random.h"
+#include "RandomDiscreteDistribution.h"
 #include <iostream>
 
 ForStatement::ForStatement(Scope* scope, unsigned int parent_depth) : Statement(scope, parent_depth) 
@@ -16,7 +17,8 @@ ForStatement::ForStatement(Scope* scope, unsigned int parent_depth) : Statement(
 
     Scope* s = new Scope(scope);
     is_block = false;
-	if (Random::flip_coin()) {
+    RandomDiscreteDistribution r (2, 3, 1);
+	if (r.getChosenIndex() == 0) {
 		statement = new BlockStatement(s, depth-1);
 		is_block = true;
 	} else {
