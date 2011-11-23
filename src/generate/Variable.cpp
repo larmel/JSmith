@@ -118,9 +118,7 @@ int FunctionVariable::getNumArguments(){
 
 
 // MapVariable
-MapVariable::MapVariable(std::string identifier) : Variable(identifier) {
-
-}
+MapVariable::MapVariable(std::string identifier) : Variable(identifier) { }
 
 Type MapVariable::getType() {
     return MAP_T;
@@ -130,7 +128,7 @@ void MapVariable::print(std::ostream& out) const {
     if(this->parent != NULL){
         out << *this->parent << ".";
     }
-    out << this->identifier;
+    out << "this";
 }
 
 
