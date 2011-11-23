@@ -4,7 +4,6 @@
 
 #include <cstdlib>
 
-// XXX: Limit function count, or we will get segfault. EDIT: Why segfault?
 static int function_count = 3;
 
 SourceElement* SourceElement::createRandom(Scope* parent_scope, unsigned int depth)
