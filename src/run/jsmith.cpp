@@ -16,6 +16,7 @@ int main(int argc, char* argv[])
     }
     bool plot = false;
     
+    // Plot?
     if(argc > 2){
     	for(int i = 2; i < argc; i++){
 			string s = argv[i];
@@ -26,10 +27,16 @@ int main(int argc, char* argv[])
     	}
     }
 
-    // Test a specific file
+    // Test a specific file?
     string input_file = "";
     if (argc > 2) {
-        input_file = argv[2];
+        for(int i = 2; i < argc-1; i++){
+            string s = argv[i];
+            if(s == "-file"){
+                input_file = argv[i+1];
+                break;
+            }
+        }
     }
 
     int num_errors = 0;
@@ -40,12 +47,12 @@ int main(int argc, char* argv[])
 
     ofstream plotfile("test/current_jsmith/plot.dat");
 
-    if(plot && false){
+    if(plot){
 		if(plotfile.fail()){
 			cerr << "Missing file plot.dat";
 			exit(2);
 		}
-		plotfile << endl;
+		plotfile << "#Avg" << "\t";
 		for(int i = 0; i < TestCase::num_compilers; i++){
 			plotfile << TestCase::compilers[i];
 			if(i != TestCase::num_compilers - 1){
@@ -57,8 +64,22 @@ int main(int argc, char* argv[])
 
     cout << "Running " << tests << " tests." << endl;
 
+    ofstream running("test/current_jsmith/RUNNING");
+    running << "RUNNING";
+    running.close();
+
     while (testno++ < tests)
     {
+        ifstream runningcheck;
+        runningcheck.open("test/current_jsmith/RUNNING");
+        if (runningcheck.fail()) {
+            cout << "Stopping." << endl;
+            break;
+        } else {
+            runningcheck.close();
+        }
+
+
         TestCase tcase;
         if (input_file == "") {
             tcase.generateSource();
@@ -90,6 +111,9 @@ int main(int argc, char* argv[])
 			// Record to plot.dat
 			if(plot){
 				vector<TestCaseCompiler*> compilers = tcase.getCompilers();
+
+				plotfile << testno << "\t" << tcase.getAvgMs() << "\t";
+
 				for(int i = 0; i < compilers.size(); i++){
 					plotfile << compilers.at(i)->getMs();
 					if(i != compilers.size() - 1){
@@ -109,23 +133,41 @@ int main(int argc, char* argv[])
 
     if(plot)
     {
-    	string plotpg_filename = "test/current_jsmith/plot.pg";
-    	ofstream plotpg (plotpg_filename.c_str());
-    	if(plotpg.fail()){
-			cerr << "Missing file plot.pg.";
-			exit(2);
-		}
-    	plotpg << string("reset\nset terminal png\nset xlabel \"time\"\nset ylabel \"total actives\"\nset title ") +
-				  string("\"M7YC Performance per time\"\nset key reverse Left outside\nset grid\nset style data linespoints\nplot \"plot.dat\"");
-    	plotpg.close();
+        ofstream plotconfig("test/current_jsmith/plot.pg");
+        plotconfig << "reset" << endl;
+        plotconfig << "set terminal png size 1100,600" << endl;
+        plotconfig << "set xlabel \"Test Number\"" << endl;
+        plotconfig << "set ylabel \"Time (ms)\"" << endl;
+        plotconfig << "set title \"Runtimes for generated JSmith tests\"" << endl;
+        plotconfig << "set key reverse Left outside" << endl;
+        plotconfig << "set grid" << endl;
+        plotconfig << "set style data linespoints" << endl;
 
-    	//system(string(string("chmod +x ") + plotpg_filename).c_str());
-    	//system(string(string("gnuplot ") + plotpg_filename + string(" > test/current_jsmith/graph.png")).c_str());
+        plotconfig << "set logscale y" << endl;
+        plotconfig << "set style line 1 lt 0 lw 2" << endl;
+
+        plotconfig << "plot  \"test/current_jsmith/plot.dat\" using 1:2 w l ls 1 title 'Average', \\" << endl;
+
+        TestCase tcase;
+        vector<TestCaseCompiler*> compilers = tcase.getCompilers();
+        for(int i = 0; i < compilers.size(); i++){
+            plotconfig << "  \"test/current_jsmith/plot.dat\" using 1:" << i+2 << " title '"<<compilers[i]->getName()<<"'";
+            if(i != compilers.size() - 1){
+                plotconfig << ",\\"<<endl;
+            }
+        }
+        plotconfig.close();
+
+        system("gnuplot test/current_jsmith/plot.pg > test/current_jsmith/plot.png");
+
+        cout << "Run times plotted to test/current_jsmith/plot.png" << endl;
 
     }
 
 
-    cout << "Completed! " << tests << " tests ran, " << num_errors << " errors." << endl;
+    cout << "Completed! " << testno-1 << " tests ran, " << num_errors << " errors." << endl;
+
+    system("rm -f test/current_jsmith/RUNNING");
     return 0;
 
 }
