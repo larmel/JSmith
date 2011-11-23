@@ -105,6 +105,7 @@ int FunctionVariable::getNumArguments(){
 
 // MapVariable
 MapVariable::MapVariable(std::string identifier) : Variable(identifier) {
+
 }
 
 Type MapVariable::getType() {

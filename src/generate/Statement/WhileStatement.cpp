@@ -3,35 +3,36 @@
 #include "Variable.h"
 #include "Scope.h"
 #include "BlockStatement.h"
-#include "Random.h"
+#include "../RandomDiscreteDistribution.h"
+#include "../Random.h"
 #include <iostream>
 
-WhileStatement::WhileStatement(Scope* scope, int parent_depth) : Statement(scope, parent_depth) 
+WhileStatement::WhileStatement(Scope* parent_scope, int parent_depth) : Statement(parent_scope, parent_depth)
 {
-    this->loop_guard = scope->generateNumberVariable();
+    this->loop_guard = parent_scope->generateNumberVariable();
     loop_guard->lock();
-    
-    this->expression = Expression::generateExpression(scope);
+    this->expression = Expression::generateExpressionForConditional(parent_scope);
 
-    is_block = Random::flip_coin();
-	if (is_block) {
-		statement = new BlockStatement(scope, depth);
+    Scope* new_scope = new Scope(parent_scope);
+
+    RandomDiscreteDistribution rw(2,6,1);
+	if (rw.getChosenIndex() == 0) {
+		statement = new BlockStatement(new_scope, parent_depth);
 	} else {
-		statement = Statement::newRandomStatement(scope, depth); 
+		statement = Statement::newRandomStatement(new_scope, parent_depth+1);
 	}
-	
 	loop_guard->unlock();
 }
 
 void WhileStatement::print(std::ostream& out) 
 {	
-	for (int t = 0; t < depth; ++t){
-		out << "   ";
-	}
-	out << "var " << loop_guard->identifier << " = 0, ";
+	this->printIndentation(out);
+	out << "var " << loop_guard->identifier << " = 0;" << std::endl;
+	this->printIndentation(out);
 	out << "while ( (";
 	expression->print(out);
-	out << ") && " << loop_guard->identifier << "++ < 42 )" << std::endl;
-	
+	out << ") && " << loop_guard->identifier << "++ < ";
+	out << Random::randint(3,5000);
+	out << ")" << std::endl;
 	statement->print(out);
 }

@@ -70,6 +70,7 @@ class ClassVariable : public Variable
 {
 private:
 	int num_arguments;
+	//Scope* scope;
 public:
 	ClassVariable(std::string, int);
 	void print(std::ostream& out) const;

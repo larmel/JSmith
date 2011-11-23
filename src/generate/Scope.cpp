@@ -6,9 +6,9 @@
 #include <iostream>
 
 Scope::Scope(Scope* p) : parent(p) {
-    // Copy all variables from parent scope to this scope
-    this->allowReturn = (p != NULL ? p->allowReturn : false);
 
+    this->allowReturn = (p != NULL ? p->allowReturn : false);
+    // Copy all variables from parent scope to this scope
     if (parent != NULL) {
         this->variables = new std::vector<Variable*>( *(parent->variables) );
         this->start_depth = this->variables->size();
@@ -63,8 +63,6 @@ MapVariable* Scope::generateMapVariable() {
 
     // Maps have their own scope, but are visible in parent scope
     this->variables->push_back( f );
-
-	//this->setParent(f);
 	return f;
 }
 
@@ -159,4 +157,6 @@ bool Scope::isUnique(std::string identifier) {
 Scope *Scope::getParent(){
     return parent;
 }
+
+
 

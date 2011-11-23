@@ -1,26 +1,27 @@
 #include "AssignmentExpression.h"
 #include "RandomDiscreteDistribution.h"
 #include "FunctionExpression.h"
+#include "MapExpression.h"
 #include "Variable.h"
 #include "Literal.h"
 #include "Scope.h"
 
-AssignmentExpression::AssignmentExpression(Scope* scope, int depth) : Expression(scope, depth) {
+AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
 
-    RandomDiscreteDistribution r(2, 10, 0);
+    RandomDiscreteDistribution r(2, 10, 1);
 
-    // Create function expression
-    if (r.getChosenIndex()==0) {
-        FunctionExpression* fexpr = new FunctionExpression(scope, depth);
-        left_variable = scope->generateFunctionVariable( fexpr->numberOfArguments() );
-        right_expression = (Expression*) fexpr;
+    // Create map expression
+    if (r.getChosenIndex()==0 && depth < 8) {
+    	MapExpression* mexpr = new MapExpression(parent_scope, depth);
+		left_variable = parent_scope->generateMapVariable( );
+		right_expression = (Expression*) mexpr;
     }
 
-
-    else if (r.getChosenIndex()==1) {
-
-        //scope->generateObjece
-
+    // Create function expression
+    else {
+        FunctionExpression* fexpr = new FunctionExpression(parent_scope, depth);
+        left_variable = parent_scope->generateFunctionVariable( fexpr->numberOfArguments() );
+        right_expression = (Expression*) fexpr;
     }
 
 

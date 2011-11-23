@@ -9,7 +9,7 @@
 
 MapExpression::MapExpression(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
     this->depth = depth;
-    //Scope *scope = new Scope(parent_scope);
+    scope = new Scope(parent_scope);
 
     // Generate a random number of properties
     int num_properties = Random::randint(2,4);
