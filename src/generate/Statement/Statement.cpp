@@ -14,7 +14,7 @@ using namespace std;
 Statement* Statement::newRandomStatement(Scope* x, int depth){
     
 	RandomDiscreteDistribution d = RandomDiscreteDistribution(6,
-		170,
+		120,
 		50,
 		depth < 3 ? 30 : 0, // while is bugged
 		x->allowReturn ? 10 : 0, // Only pick return if we are in a function

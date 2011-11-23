@@ -143,6 +143,8 @@ std::string Scope::getNewRandomIdentifier() {
 	return name;
 }
 
+
+// This one is not used anymore
 void Scope::lockIfNotUnique(std::string identifier) {
     std::vector<Variable*>::iterator it;
     for (it = variables->begin(); it != variables->end(); ++it) {

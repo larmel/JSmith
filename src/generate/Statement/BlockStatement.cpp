@@ -3,7 +3,7 @@
 #include <vector>
 
 BlockStatement::BlockStatement(Scope* s, unsigned int depth) : Statement(s, depth) {
-	int maxBlockStatements = depth > 6 ? 1 : 3;
+	int maxBlockStatements = depth > 6 ? 2 : 3;
 	for (int i = 0; i < maxBlockStatements; i++) {
 	    statements.push_back( Statement::newRandomStatement(scope, depth+1) );
 	}
