@@ -31,8 +31,8 @@ AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth) : Exp
 		}
 		case 1:
 			// Reassign some existing number variable
+            right_expression = Expression::generateExpression(scope);
 			left_variable = scope->getRandomNumberVariable();
-			right_expression = Expression::generateExpression(scope);
 			break;
         case 2:
         {
@@ -57,8 +57,8 @@ AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth) : Exp
 		default:
 		{
 			// Generate a new number variable, can be property if inside FunctionDeclaration
+            right_expression = Expression::generateExpression(scope);
 			left_variable = scope->generateNumberVariable( Random::flip_coin() || Random::flip_coin() );
-			right_expression = Expression::generateExpression(scope);
 			break;
 		}
     }
