@@ -12,10 +12,10 @@ MapExpression::MapExpression(Scope* parent_scope, int depth) : Expression(parent
     scope = new Scope(parent_scope);
 
     // Generate a random number of properties
-    int num_properties = Random::randint(2,4);
-    for(int i = 0; i < 2; i++)
+    int num_properties = Random::randint(2,5);
+    for(int i = 0; i < num_properties; i++)
     {
-    	RandomDiscreteDistribution r(2,5,5);
+    	RandomDiscreteDistribution r(2,3,5);
 
     	if(r.getChosenIndex() == 0)
     	{
@@ -55,7 +55,7 @@ void MapExpression::print(std::ostream& out) const {
         for (int j = 0; j < depth; ++j) {
             out << "    ";
         }
-        out << *this->properties.at(i) << ": " << *this->expressions.at(i);
+        out << "\"" << *this->properties.at(i) << "\": " << *this->expressions.at(i);
         if(i != this->expressions.size()-1)
         {
         	out << ",";
