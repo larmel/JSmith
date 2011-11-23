@@ -55,6 +55,20 @@ FunctionVariable* Scope::generateFunctionVariable(int numargs) {
 	return f;
 }
 
+
+MapVariable* Scope::generateMapVariable() {
+    std::string identifier = this->getNewRandomIdentifier();
+
+    MapVariable* f = new MapVariable(identifier);
+
+    // Maps have their own scope, but are visible in parent scope
+    this->variables->push_back( f );
+
+	//this->setParent(f);
+	return f;
+}
+
+
 NumberVariable* Scope::generateNumberVariable(bool set_parent) {
     std::string identifier = this->getNewRandomIdentifier();
 

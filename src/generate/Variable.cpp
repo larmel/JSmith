@@ -102,6 +102,23 @@ int FunctionVariable::getNumArguments(){
 	return this->num_arguments;
 }
 
+
+// MapVariable
+MapVariable::MapVariable(std::string identifier) : Variable(identifier) {
+}
+
+Type MapVariable::getType() {
+    return MAP_T;
+}
+
+void MapVariable::print(std::ostream& out) const {
+    if(this->parent != NULL){
+        out << *this->parent << ".";
+    }
+    out << this->identifier;
+}
+
+
 // ClassVariable
 ClassVariable::ClassVariable(std::string identifier, int numarg) : Variable(identifier){
 	this->num_arguments = numarg;
