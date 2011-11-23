@@ -9,7 +9,7 @@
 
 WhileStatement::WhileStatement(Scope* parent_scope, int parent_depth) : Statement(parent_scope, parent_depth)
 {
-    this->loop_guard = parent_scope->generateNumberVariable();
+    this->loop_guard = parent_scope->generateNumberVariable(false);
     loop_guard->lock();
     this->expression = Expression::generateExpressionForConditional(parent_scope);
 
