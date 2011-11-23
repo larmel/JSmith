@@ -6,7 +6,7 @@
 #include "Literal.h"
 #include "Scope.h"
 
-AssignmentExpression::AssignmentExpression(Scope* scope, int depth) : Expression(scope, depth) {
+AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
 
     left_variable = NULL;
     right_variable = NULL;

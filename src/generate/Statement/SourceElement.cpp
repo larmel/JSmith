@@ -10,7 +10,7 @@ static int function_count = 3;
 SourceElement* SourceElement::createRandom(Scope* parent_scope, unsigned int depth)
 {
 	// Probability of a new function (sourceelement)
-    int flip = rand() % 8;
+    int flip = rand() % 6;
     if (flip == 0 && function_count-- > 0) 
     {
         return new FunctionDeclaration(parent_scope, depth);
