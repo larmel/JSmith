@@ -45,6 +45,7 @@ class NumberVariable : public Variable
 {
 public:
     NumberVariable(std::string);
+    Variable* copyTo(Variable* handle);
     void print(std::ostream& out) const;
     Type getType();
 };
@@ -55,6 +56,7 @@ private:
 	int num_arguments;
 public:
 	FunctionVariable(std::string, int);
+	Variable* copyTo(Variable* handle);
 	void print(std::ostream& out) const;
 	Type getType();
 	int getNumArguments();
@@ -76,6 +78,7 @@ class ObjectVariable : public Variable
 {
 public:
     ObjectVariable(std::string);
+    Variable* copyTo(Variable* handle);
     void print(std::ostream& out) const;
     Type getType();
 };

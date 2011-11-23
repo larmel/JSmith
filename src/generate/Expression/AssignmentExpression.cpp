@@ -15,8 +15,8 @@ AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth) : Exp
 
     RandomDiscreteDistribution r(5,
             10,     // a = function() { ... }
-            10,     // a = b + c
-            30,     // a = { b: function() { ... }, ... }
+            100,     // a = b + c
+            10,     // a = { b: function() { ... }, ... }
             100,    // a = new A();
             100     // this.a = 42
     );
@@ -34,7 +34,14 @@ AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth) : Exp
 			left_variable = scope->getRandomNumberVariable();
 			right_expression = Expression::generateExpression(scope);
 			break;
-		case 2:
+        case 2:
+        {
+            MapExpression* mexpr = new MapExpression(parent_scope, depth);
+            left_variable = parent_scope->generateMapVariable( );
+            right_expression = (Expression*) mexpr;
+            break;
+        }
+		case 3:
 		{
 			// Create new instance of FunctionDeclaration
 			ClassVariable* classVariable = scope->getRandomClassVariable();
@@ -47,17 +54,10 @@ AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth) : Exp
 				break;
 			}
 		}
-		case 3:
-		{
-			MapExpression* mexpr = new MapExpression(parent_scope, depth);
-			left_variable = parent_scope->generateMapVariable( );
-			right_expression = (Expression*) mexpr;
-			break;
-		}
 		default:
 		{
 			// Generate a new number variable, can be property if inside FunctionDeclaration
-			left_variable = scope->generateNumberVariable( Random::flip_coin() );
+			left_variable = scope->generateNumberVariable( Random::flip_coin() || Random::flip_coin() );
 			right_expression = Expression::generateExpression(scope);
 			break;
 		}
@@ -76,4 +76,3 @@ std::ostream& operator<<(std::ostream& out, const AssignmentExpression& e) {
     e.print(out);
     return out;
 }
-

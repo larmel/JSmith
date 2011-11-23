@@ -29,17 +29,7 @@ Variable::Variable(std::string s) {
 }
 
 Variable* Variable::copyTo(Variable* handle) {
-    Variable* v = NULL;
-    switch (this->getType()) {
-    case NUMBER_T:
-        v = new NumberVariable( this->identifier );
-        break;
-    case FUNCTION_T:
-        v = new FunctionVariable( this->identifier, 0 ); // TODO: Arguments. Use virtual functions instead.
-        break;
-    }
-    v->parent = handle;
-    return v;
+    return NULL; // ??
 }
 
 void Variable::lock() {
@@ -84,6 +74,12 @@ NumberVariable::NumberVariable(std::string identifier) : Variable(identifier) {
 
 }
 
+Variable* NumberVariable::copyTo(Variable* handle) {
+    Variable* v = new NumberVariable( this->identifier );
+    v->parent = handle;
+    return v;
+}
+
 void NumberVariable::print(std::ostream& out) const {
 	if(this->parent != NULL){
 		out << *this->parent << ".";
@@ -99,6 +95,12 @@ Type NumberVariable::getType() {
 // FunctionVariable
 FunctionVariable::FunctionVariable(std::string identifier, int numarg) : Variable(identifier) {
 	this->num_arguments = numarg;
+}
+
+Variable* FunctionVariable::copyTo(Variable* handle) {
+    Variable* v = new FunctionVariable( this->identifier, 0 );
+    v->parent = handle;
+    return v;
 }
 
 Type FunctionVariable::getType() {
@@ -128,12 +130,17 @@ void MapVariable::print(std::ostream& out) const {
     if(this->parent != NULL){
         out << *this->parent << ".";
     }
-    out << "this";
+    out << this->identifier;
 }
 
 
 // ObjectVariable
-ObjectVariable::ObjectVariable(std::string identifier) : Variable(identifier) {
+ObjectVariable::ObjectVariable(std::string identifier) : Variable(identifier) { }
+
+Variable* ObjectVariable::copyTo(Variable* handle) {
+    Variable* v = new ObjectVariable( this->identifier );
+    v->parent = handle;
+    return v;
 }
 
 Type ObjectVariable::getType() {
