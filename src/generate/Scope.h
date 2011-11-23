@@ -22,15 +22,14 @@ public:
     Scope(Scope* p);
     
     FunctionVariable* getRandomFunctionVariable();
-
+    MapVariable* getRandomMapVariable();
     NumberVariable* getRandomNumberVariable();
-
     ClassVariable* getRandomClassVariable();
-
 
 	FunctionVariable* generateFunctionVariable(int num_args);
 	NumberVariable* generateNumberVariable(bool set_parent = true);
 	ClassVariable* generateClassVariable(int num_args);
+	MapVariable* generateMapVariable();
 
     virtual void setParent(Variable*);
 
@@ -48,7 +47,6 @@ public:
         variables->push_back(v);
     }
 
-
     void print() {
         for (int i = 0; i < this->variables->size(); i++) {
             std::cout << *(variables->at(i)) << ", ";
@@ -56,6 +54,4 @@ public:
         std::cout << "\n\n";
     }
 };
-
-
 #endif

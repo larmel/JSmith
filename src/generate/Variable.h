@@ -57,6 +57,15 @@ public:
 	int getNumArguments();
 };
 
+class MapVariable : public Variable
+{
+private:
+public:
+	MapVariable(std::string);
+	void print(std::ostream& out) const;
+	Type getType();
+};
+
 class ClassVariable : public Variable
 {
 private:

@@ -5,7 +5,7 @@
 // Defines the variable type enums
 // Must be powers of two! 
 enum Type {
-    UNDEFINED_T, NULL_T, BOOLEAN_T, NUMBER_T, STRING_T, OBJECT_T, FUNCTION_T, CLASS_T
+    UNDEFINED_T, NULL_T, BOOLEAN_T, NUMBER_T, STRING_T, OBJECT_T, FUNCTION_T, CLASS_T, MAP_T
 };
  
 
