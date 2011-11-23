@@ -7,6 +7,7 @@ class Random
 public:
     static void seed(unsigned long );
     static bool flip_coin();
+    static int randint(int,int);
 };
 
 #endif

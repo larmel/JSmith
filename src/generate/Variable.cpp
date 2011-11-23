@@ -28,6 +28,20 @@ Variable::Variable(std::string s) {
     this->parent = NULL;
 }
 
+Variable* Variable::copyTo(Variable* handle) {
+    Variable* v = NULL;
+    switch (this->getType()) {
+    case NUMBER_T:
+        v = new NumberVariable( this->identifier );
+        break;
+    case FUNCTION_T:
+        v = new FunctionVariable( this->identifier, 0 ); // TODO: Arguments. Use virtual functions instead.
+        break;
+    }
+    v->parent = handle;
+    return v;
+}
+
 void Variable::lock() {
     locked = true;
 }
@@ -102,6 +116,40 @@ int FunctionVariable::getNumArguments(){
 	return this->num_arguments;
 }
 
+
+// MapVariable
+MapVariable::MapVariable(std::string identifier) : Variable(identifier) {
+
+}
+
+Type MapVariable::getType() {
+    return MAP_T;
+}
+
+void MapVariable::print(std::ostream& out) const {
+    if(this->parent != NULL){
+        out << *this->parent << ".";
+    }
+    out << this->identifier;
+}
+
+
+// ObjectVariable
+ObjectVariable::ObjectVariable(std::string identifier) : Variable(identifier) {
+}
+
+Type ObjectVariable::getType() {
+    return OBJECT_T;
+}
+
+void ObjectVariable::print(std::ostream& out) const {
+    if(this->parent != NULL){
+        out << *this->parent << ".";
+    }
+    out << this->identifier;
+}
+
+
 // ClassVariable
 ClassVariable::ClassVariable(std::string identifier, int numarg) : Variable(identifier){
 	this->num_arguments = numarg;
@@ -117,7 +165,16 @@ void ClassVariable::print(std::ostream& out) const {
 	}
 	out << "this";
 }
-int ClassVariable::getNumArguments(){
+
+int ClassVariable::getNumArguments() {
 	return this->num_arguments;
+}
+
+void ClassVariable::addProperty(Variable* v) {
+    this->properties.push_back(v);
+}
+
+std::vector<Variable*> ClassVariable::getProperties() {
+    return this->properties;
 }
 

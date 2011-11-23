@@ -3,6 +3,7 @@
 #include "VariableStatement.h"
 #include "Variable.h"
 #include "RandomDiscreteDistribution.h"
+#include "FunctionExpression.h"
 #include "Literal.h"
 #include "Scope.h"
 #include "Expression.h"
@@ -15,16 +16,11 @@ VariableStatement::VariableStatement(Scope* s, int depth) : Statement(s, depth) 
 	
 	switch (d.getChosenIndex()) {
 	case 0:
-        this->expression = Expression::generateExpression(scope);
+        this->expression = Expression::generateExpression(scope, depth+1);
         this->var = scope->generateNumberVariable(false);
         break;
-    
-    /*case 1:
-        this->expression = new Literal(scope, depth, STRING_T);
-        this->var = scope->generateNewVariable(STRING_T);
-        break;*/
     }
-    line_end = ";";        
+    line_end = ";";
 }
 
 void VariableStatement::print(std::ostream& out) {

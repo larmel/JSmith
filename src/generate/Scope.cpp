@@ -6,9 +6,9 @@
 #include <iostream>
 
 Scope::Scope(Scope* p) : parent(p) {
-    // Copy all variables from parent scope to this scope
-    this->allowReturn = (p != NULL ? p->allowReturn : false);
 
+    this->allowReturn = (p != NULL ? p->allowReturn : false);
+    // Copy all variables from parent scope to this scope
     if (parent != NULL) {
         this->variables = new std::vector<Variable*>( *(parent->variables) );
         this->start_depth = this->variables->size();
@@ -55,6 +55,18 @@ FunctionVariable* Scope::generateFunctionVariable(int numargs) {
 	return f;
 }
 
+
+MapVariable* Scope::generateMapVariable() {
+    std::string identifier = this->getNewRandomIdentifier();
+
+    MapVariable* f = new MapVariable(identifier);
+
+    // Maps have their own scope, but are visible in parent scope
+    this->variables->push_back( f );
+	return f;
+}
+
+
 NumberVariable* Scope::generateNumberVariable(bool set_parent) {
     std::string identifier = this->getNewRandomIdentifier();
 
@@ -80,7 +92,24 @@ ClassVariable* Scope::generateClassVariable(int numargs) {
     return c;
 }
 
+ObjectVariable* Scope::generateObjectVariable() {
+    std::string identifier = this->getNewRandomIdentifier();
 
+    ObjectVariable* f = new ObjectVariable(identifier);
+    f->parent = NULL; // Never property
+    return f;
+}
+
+/*
+ * Add new variables in scope for all properties in classVariable
+ */
+void Scope::createInstance(ClassVariable* classVariable, Variable* handle) {
+    for (int i = 0; i < classVariable->getProperties().size(); ++i) {
+        Variable* property = classVariable->getProperties().at(i);
+        Variable* copy = property->copyTo( handle );
+        this->add( copy );
+    }
+}
 
 
 Variable* Scope::getRandomVariable(Type t) {
@@ -147,4 +176,6 @@ bool Scope::isUnique(std::string identifier) {
 Scope *Scope::getParent(){
     return parent;
 }
+
+
 

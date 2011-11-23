@@ -12,7 +12,7 @@
 class FunctionDeclaration : public SourceElement, public Scope 
 {
 private:
-    Variable* variable;
+    ClassVariable* variable;
     
     std::vector<SourceElement*> source_elements;
     
@@ -22,7 +22,6 @@ public:
     void generate();
 
     void setParent(Variable* v );
-
 
     void print(std::ostream& out);
 };
