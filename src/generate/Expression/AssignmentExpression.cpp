@@ -19,7 +19,7 @@ AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth) : Exp
     // new FunctionDeclaration
     // Assign to MapExpression
 
-    RandomDiscreteDistribution r(5, 10, 10, 30, 20, 10);
+    RandomDiscreteDistribution r(5, 10, 10, 20, 15, 10);
 
     switch (r.getChosenIndex()) {
 		case 0:
