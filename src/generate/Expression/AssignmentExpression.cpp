@@ -15,10 +15,10 @@ AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth) : Exp
 
     RandomDiscreteDistribution r(5,
             10,     // a = function() { ... }
-            100,     // a = b + c
-            10,     // a = { b: function() { ... }, ... }
+            50,     // a = { b: function() { ... }, ... }
             100,    // a = new A();
-            100     // this.a = 42
+            100,    // this.a = 42
+            150     // a = b + c, default reassign
     );
 
     switch (r.getChosenIndex()) {
@@ -29,19 +29,14 @@ AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth) : Exp
 			right_expression = (Expression*) fexpr;
 			break;
 		}
-		case 1:
-			// Reassign some existing number variable
-            right_expression = Expression::generateExpression(scope);
-			left_variable = scope->getRandomNumberVariable();
-			break;
-        case 2:
+        case 1:
         {
             MapExpression* mexpr = new MapExpression(parent_scope, depth);
             left_variable = parent_scope->generateMapVariable( );
             right_expression = (Expression*) mexpr;
             break;
         }
-		case 3:
+		case 2:
 		{
 			// Create new instance of FunctionDeclaration
 			ClassVariable* classVariable = scope->getRandomClassVariable();
@@ -54,13 +49,18 @@ AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth) : Exp
 				break;
 			}
 		}
-		default:
+		case 3:
 		{
-			// Generate a new number variable, can be property if inside FunctionDeclaration
+			// Generate a new number variable, can be property (this.) if inside FunctionDeclaration
             right_expression = Expression::generateExpression(scope);
 			left_variable = scope->generateNumberVariable( Random::flip_coin() || Random::flip_coin() );
 			break;
 		}
+        default:
+            // Reassign some existing number variable
+            right_expression = Expression::generateExpression(scope);
+            left_variable = scope->getRandomNumberVariable();
+            break;
     }
 }
 

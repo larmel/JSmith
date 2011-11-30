@@ -32,8 +32,6 @@ void FunctionDeclaration::setParent(Variable *v) {
 
 void FunctionDeclaration::print(std::ostream& out)
 {
-    //std::string indent;
-    //for (int t = 0; t < depth; ++t) indent += "   ";
     this->printIndentation(out);
     
     out << "function " << this->variable->identifier;
