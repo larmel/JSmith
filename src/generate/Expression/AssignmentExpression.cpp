@@ -15,7 +15,7 @@ AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth) : Exp
 
     RandomDiscreteDistribution r(5,
             100 - 10*depth,     // a = function() { ... }
-            50,     // a = { b: function() { ... }, ... }
+            (depth == 1) ? 130 : 0,     // a = { b: function() { ... }, ... } Hack: only allow maps in outer scope
             100,    // a = new A();
             100,    // this.a = 42, create variable or property
             150     // a = b + c, default reassign
