@@ -12,17 +12,16 @@ void TestCaseCompiler::testCompiler()
 {
 	timeval x;
 	struct timezone tz = {0, 0};
-	gettimeofday(&x, &tz);
-
-	unsigned long long start = 1000*(unsigned long long)x.tv_sec + x.tv_usec/1000;
-
 	std::string command = "timeout 60s " + compiler_path + " " + tmp_input_file + " > " + tmp_output_file; // " 2>&1";
-    bool retcode = system(command.c_str()) == 0;
+
+
+	system(command.c_str());
 
 	gettimeofday(&x, &tz);
-
+	unsigned long long start = 1000*(unsigned long long)x.tv_sec + x.tv_usec/1000;
+    bool retcode = system(command.c_str()) == 0;
+	gettimeofday(&x, &tz);
 	unsigned long long end = 1000*(unsigned long long)x.tv_sec + x.tv_usec/1000;
-
 	this->ms = end - start;
 
 	//std::cout << start << " X " ;
