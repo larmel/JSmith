@@ -7,6 +7,9 @@ std::string TestCase::compiler_commands[] = {"js-compilers/SpiderMonkey/js", "/u
 int TestCase::num_compilers = 5;
 
 TestCase::TestCase() {
+    this->tmp_output_file = "test/last_run/_output";
+    this->tmp_input_file = "test/last_run/_generated.js";
+
 	for(int i = 0; i < num_compilers; i++)
 	{
 		tccompilers.push_back(new TestCaseCompiler(compilers[i], compiler_commands[i]));
@@ -22,11 +25,12 @@ TestCase::~TestCase() {
 
 
 void TestCase::generateSource() {
-    system("bin/generate > test/current_jsmith/_generated.js");
+    std::string command = "bin/generate > "+this->tmp_input_file;
+    system(command.c_str());
 }
 
 void TestCase::setSource(std::string path) {
-    std::string command = "cp " + path + " test/current_jsmith/_generated.js";
+    std::string command = "cp " + path + " "+this->tmp_input_file;
     system(command.c_str());
 }
 
@@ -40,6 +44,14 @@ void TestCase::testAgainstCompilers()
 	{
 		tccompilers.at(i)->testCompiler();
 	}
+}
+
+void TestCase::removeTempFiles()
+{
+    std::string rmcmd = "rm -f "+this->tmp_output_file;
+    system(rmcmd.c_str());
+    rmcmd = "rm -f "+this->tmp_input_file;
+    system(rmcmd.c_str());
 }
 
 void TestCase::reportToFile(string filename)
@@ -65,15 +77,20 @@ void TestCase::reportToFile(string filename)
 
     report << " *" << endl;
 
+    report << " * [ <return> ] <compiler> {<runtime>}: ( <variable values> )" << endl;
+    report << " * " << endl;
+
 	for(int i = 0; i < tccompilers.size(); i++)
 	{
-		report << " * " <<  tccompilers.at(i)->getName() << ": (" << tccompilers.at(i)->getReturnCode()
-			   << ", " << tccompilers.at(i)->getResult() << ")" << endl;
+		report << " * " <<  (tccompilers.at(i)->getReturnCode()?"[ OK ]":"[ ERROR ]")
+		       << " " << tccompilers.at(i)->getName()
+		       << " {" << tccompilers.at(i)->getMs() << "ms}"
+		       << ": (" << tccompilers.at(i)->getResult() << ")" << endl;
 	}
 
     report << " */" << endl;
     
-    ifstream source("test/current_jsmith/_generated.js");
+    ifstream source(this->tmp_input_file.c_str());
     
     string s;
     while (getline(source, s)) {
@@ -90,7 +107,7 @@ bool TestCase::success()
 	string ret = tccompilers.at(0)->getResult();
 	for(int i = 1; i < tccompilers.size(); i++)
 	{
-		if(ret != tccompilers.at(i)->getResult()){
+		if(ret != tccompilers.at(i)->getResult() || !tccompilers.at(i)->getReturnCode()){
 			return false;
 		}
 	}

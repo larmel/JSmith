@@ -17,8 +17,9 @@ private:
 	std::vector<Expression*> expressions;
 	std::vector<Variable*> properties;
 public:
-	MapExpression(Scope* parent_scope, int depth);
+	MapExpression(Scope* parent_scope, int depth, Variable* mapvar);
     void print(std::ostream& out) const;
     friend std::ostream& operator<<(std::ostream& out, const MapExpression& e);
+    void setParent(Variable*);
 };
  #endif

@@ -31,8 +31,8 @@ AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth) : Exp
 		}
         case 1:
         {
-            MapExpression* mexpr = new MapExpression(parent_scope, depth);
-            left_variable = parent_scope->generateMapVariable( );
+        	left_variable = parent_scope->generateMapVariable();
+            MapExpression* mexpr = new MapExpression(parent_scope, depth, left_variable);
             right_expression = (Expression*) mexpr;
             break;
         }

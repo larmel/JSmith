@@ -3,8 +3,8 @@
 
 TestCaseCompiler::TestCaseCompiler(std::string name, std::string compiler_path) {
 	this->name = name;
-	this->tmp_output_file = "test/current_jsmith/_output";
-	this->tmp_input_file = "test/current_jsmith/_generated.js";
+	this->tmp_output_file = "test/last_run/_output";
+	this->tmp_input_file = "test/last_run/_generated.js";
 	this->compiler_path = compiler_path;
 }
 
@@ -37,6 +37,7 @@ void TestCaseCompiler::testCompiler()
 
     this->retcode = retcode;
     this->result = result;
+
 }
 
 int TestCaseCompiler::getReturnCode()
