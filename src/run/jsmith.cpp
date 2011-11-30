@@ -151,7 +151,7 @@ int main(int argc, char* argv[])
         TestCase tcase;
         vector<TestCaseCompiler*> compilers = tcase.getCompilers();
         for(int i = 0; i < compilers.size(); i++){
-            plotconfig << "  \"test/current_jsmith/plot.dat\" using 1:" << i+2 << " title '"<<compilers[i]->getName()<<"'";
+            plotconfig << "  \"test/current_jsmith/plot.dat\" using 1:" << i+3 << " title '"<<compilers[i]->getName()<<"'";
             if(i != compilers.size() - 1){
                 plotconfig << ",\\"<<endl;
             }
