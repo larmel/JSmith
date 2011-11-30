@@ -14,24 +14,24 @@ using namespace std;
 Statement* Statement::newRandomStatement(Scope* x, int depth){
     
 	RandomDiscreteDistribution d = RandomDiscreteDistribution(6,
-		120,
-		50,
-		depth < 3 ? 30 : 0, // while is bugged
-		x->allowReturn ? 10 : 0, // Only pick return if we are in a function
-		250, // Reducing the expression statements as we go deeper
-		depth < 3 ? 50 : 0); // Do not nest more than 3 for-loops (performance)
+        250, // Expression statement
+		120, // Variable statement
+		50,  // if, else
+        x->allowReturn ? 10 : 0, // Only pick return if we are in a function
+        depth < 3 ? 30 : 0,  // while ...
+		depth < 3 ? 50 : 0); // for ... Do not nest more than 3 loops (termination)
 
-	switch(d.getChosenIndex()){
-		case 0:
-			return new VariableStatement(x, depth);
+	switch(d.getChosenIndex()) {
+        case 0:
+            return new ExpressionStatement(x, depth);
 		case 1:
-			return new IfStatement(x, depth);
+			return new VariableStatement(x, depth);
 		case 2:
-			return new WhileStatement(x, depth);
-		case 3:
-			return new ReturnStatement(x, depth);
-		case 4:
-			return new ExpressionStatement(x, depth);
+			return new IfStatement(x, depth);
+        case 3:
+            return new ReturnStatement(x, depth);
+        case 4:
+            return new WhileStatement(x, depth);
 		case 5:
 			return new ForStatement(x, depth);
 		default:

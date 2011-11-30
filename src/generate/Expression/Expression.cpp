@@ -7,6 +7,7 @@
 #include "Literal.h"
 #include "RandomDiscreteDistribution.h"
 #include "Random.h"
+#include "Scope.h"
 #include <cassert>
 
 Expression::Expression(Scope *scope, int depth)
@@ -18,7 +19,7 @@ Expression::Expression(Scope *scope, int depth)
 }
 
 Expression *Expression::generateExpression(Scope *scope, int depth) {
-    int p_terminal = 16*(3 + depth); //60*((double)depth/20);
+    int p_terminal = 16*(3 + depth);
     Expression* expression = new Expression(scope, depth);
 
 	// TODO: So far this only creates 1 new expression, not utilizing the list
@@ -29,7 +30,7 @@ Expression *Expression::generateExpression(Scope *scope, int depth) {
         RandomDiscreteDistribution r(4,
                 1, // Relational Expression
                 40, // ArithmeticExpression
-                50, // CallExpression
+                30, // CallExpression
                 p_terminal);
 
         switch (r.getChosenIndex()) {
@@ -40,8 +41,12 @@ Expression *Expression::generateExpression(Scope *scope, int depth) {
             expression->expressions.push_back(new AddMulExpression(scope, depth + 1));
             break;
         case 2:
-            expression->expressions.push_back(new CallExpression(scope, depth + 1));
-            break;
+        {
+            if (scope->getRandomFunctionVariable() != NULL) {
+                expression->expressions.push_back(new CallExpression(scope, depth + 1));
+                break;
+            }
+        }
         case 3:
             expression->expressions.push_back(new PrimaryExpression(scope, depth + 1));
             break;
