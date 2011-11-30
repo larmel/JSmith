@@ -77,7 +77,7 @@ void TestCase::reportToFile(string filename)
 
     report << " *" << endl;
 
-    report << " * [ <return> ] <compiler>: ( <variable values> )" << endl;
+    report << " * [ <return> ] <compiler> {<runtime>}: ( <variable values> )" << endl;
     report << " * " << endl;
 
 	for(int i = 0; i < tccompilers.size(); i++)
