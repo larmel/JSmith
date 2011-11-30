@@ -7,6 +7,18 @@
 
 using namespace std;
 
+static string tmp_output_file = "test/last_run/_output";
+static string tmp_input_file = "test/last_run/_generated.js";
+
+static string plot_output_file = "test/last_run/plot.png";
+static string plot_data_file = "test/last_run/plot.dat";
+static string plot_script_file = "test/last_run/plot.pg";
+
+static string running_file = "test/last_run/RUNNING";
+static string success_folder = "test/last_run/successes/";
+static string bugs_folder = "test/last_run/bugs/";
+
+
 int main(int argc, char* argv[]) 
 {
     // First argument: how many tests to run
@@ -42,17 +54,20 @@ int main(int argc, char* argv[])
     int num_errors = 0;
     int testno = 0;
     
-    system("rm -f test/current_jsmith/successes/*");
-    system("rm -f test/current_jsmith/bugs/*");
+    // Cleanup folders
+    string cmd = "rm -f "+success_folder+"*";
+    system(cmd.c_str());
+    cmd = "rm -f "+bugs_folder+"*";
+    system(cmd.c_str());
 
-    ofstream plotfile("test/current_jsmith/plot.dat");
+    ofstream plotfile(plot_data_file.c_str());
 
     if(plot){
 		if(plotfile.fail()){
-			cerr << "Missing file plot.dat";
+			cerr << "Missing file " << plot_data_file;
 			exit(2);
 		}
-		plotfile << "#Avg" << "\t";
+		plotfile << "#\tAvg" << "\t";
 		for(int i = 0; i < TestCase::num_compilers; i++){
 			plotfile << TestCase::compilers[i];
 			if(i != TestCase::num_compilers - 1){
@@ -64,14 +79,16 @@ int main(int argc, char* argv[])
 
     cout << "Running " << tests << " tests." << endl;
 
-    ofstream running("test/current_jsmith/RUNNING");
-    running << "RUNNING";
+    ofstream running(running_file.c_str());
+    running << "RUNNING, remove file to stop.";
     running.close();
+
+    TestCase tcase;
 
     while (testno++ < tests)
     {
         ifstream runningcheck;
-        runningcheck.open("test/current_jsmith/RUNNING");
+        runningcheck.open(running_file.c_str());
         if (runningcheck.fail()) {
             cout << "Stopping." << endl;
             break;
@@ -80,7 +97,6 @@ int main(int argc, char* argv[])
         }
 
 
-        TestCase tcase;
         if (input_file == "") {
             tcase.generateSource();
         } else {
@@ -92,7 +108,7 @@ int main(int argc, char* argv[])
         	num_errors++;
             cout << "Error detected in test " << testno << ", saved as bugs/" << testno << "!" << endl;
             stringstream filename;
-            filename << "test/current_jsmith/bugs/" << testno << ".js";
+            filename << bugs_folder << testno << ".js";
             tcase.reportToFile(filename.str());
         }
         else
@@ -105,7 +121,7 @@ int main(int argc, char* argv[])
         			" "<<  slowest->getMs() << " ms)." << endl;
 
         	stringstream filename;
-			filename << "test/current_jsmith/successes/" << testno << ".js";
+			filename << success_folder << testno << ".js";
 			tcase.reportToFile(filename.str());
 
 			// Record to plot.dat
@@ -128,12 +144,13 @@ int main(int argc, char* argv[])
         }
 
 	}
-    
+
     plotfile.close();
+    tcase.removeTempFiles();
 
     if(plot)
     {
-        ofstream plotconfig("test/current_jsmith/plot.pg");
+        ofstream plotconfig(plot_script_file.c_str());
         plotconfig << "reset" << endl;
         plotconfig << "set terminal png size 1100,600" << endl;
         plotconfig << "set xlabel \"Test Number\"" << endl;
@@ -146,28 +163,33 @@ int main(int argc, char* argv[])
         plotconfig << "set logscale y" << endl;
         plotconfig << "set style line 1 lt 0 lw 2" << endl;
 
-        plotconfig << "plot  \"test/current_jsmith/plot.dat\" using 1:2 w l ls 1 title 'Average', \\" << endl;
+        plotconfig << "plot  \""<<plot_data_file<<"\" using 1:2 w l ls 1 title 'Average', \\" << endl;
 
         TestCase tcase;
         vector<TestCaseCompiler*> compilers = tcase.getCompilers();
         for(int i = 0; i < compilers.size(); i++){
-            plotconfig << "  \"test/current_jsmith/plot.dat\" using 1:" << i+3 << " title '"<<compilers[i]->getName()<<"'";
+            plotconfig << "  \"test/last_run/plot.dat\" using 1:" << i+3 << " title '"<<compilers[i]->getName()<<"'";
             if(i != compilers.size() - 1){
                 plotconfig << ",\\"<<endl;
             }
         }
         plotconfig.close();
 
-        system("gnuplot test/current_jsmith/plot.pg > test/current_jsmith/plot.png");
+        string plotcmd = "gnuplot "+plot_script_file+" > "+plot_output_file;
+        system(plotcmd.c_str());
 
-        cout << "Run times plotted to test/current_jsmith/plot.png" << endl;
+        cout << "Run times plotted to "<< plot_output_file << endl;
 
+    } else {
+        string rmcmd = "rm -f "+plot_output_file+" "+plot_data_file;
+        system(rmcmd.c_str());
     }
 
 
     cout << "Completed! " << testno-1 << " tests ran, " << num_errors << " errors." << endl;
 
-    system("rm -f test/current_jsmith/RUNNING");
+    string rmcmd = "rm -f "+plot_script_file+" "+running_file;
+    system(rmcmd.c_str());
     return 0;
 
 }

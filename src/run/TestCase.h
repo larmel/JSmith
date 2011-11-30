@@ -15,6 +15,8 @@ using namespace std;
 class TestCase
 {
 private:
+    std::string tmp_output_file;
+    std::string tmp_input_file;
     vector<TestCaseCompiler*> tccompilers;
 public:
     TestCase();
@@ -22,6 +24,7 @@ public:
     void generateSource();
     void setSource(string);
     void testAgainstCompilers();
+    void removeTempFiles();
     bool success();
     void reportToFile(string);
     int getAvgMs();
