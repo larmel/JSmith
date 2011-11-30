@@ -8,7 +8,7 @@
 #include "RandomDiscreteDistribution.h"
 
 
-IfStatement::IfStatement(Scope* s, unsigned int depth) : Statement(s, depth) {
+IfStatement::IfStatement(Scope* s, int depth) : Statement(s, depth) {
 
 	expression = Expression::generateExpressionForConditional(this->scope);
     false_statement = NULL;
@@ -29,10 +29,10 @@ IfStatement::IfStatement(Scope* s, unsigned int depth) : Statement(s, depth) {
 	
 	if (rf.getChosenIndex() == 1)
 	{
-	    RandomDiscreteDistribution r (2,3,1);
+	    RandomDiscreteDistribution r(2,3,1);
 
 	    Scope* s_false = new Scope(scope);
-	    if(r.getChosenIndex() == 0) {
+	    if (r.getChosenIndex() == 0) {
 		    false_statement = new BlockStatement(s_false, depth );
 		    false_is_block = true;
 	    } else {
@@ -41,42 +41,17 @@ IfStatement::IfStatement(Scope* s, unsigned int depth) : Statement(s, depth) {
 	}
 }
 
-void IfStatement::print(std::ostream& out){
-	//std::string prefix = "";
-	//for (int t = 0; t < depth; ++t){
-	//	prefix += "   ";
-	//}
-
+void IfStatement::print(std::ostream& out) {
 	this->printIndentation(out);
-
-
-
-
 	out << "if (";
-
 	expression->print(out);
-	
 	out << ")" << std::endl;
-	
-	// Print block on same depth
-	/*if (true_is_block){
-	    depth--;
-	}*/
 	
 	true_statement->print(out);
 	
-	/*if(true_is_block){
-	    depth++;
-	}*/
-	
-	if(false_statement != 0){
-	    //depth++;
+	if(false_statement != 0) {
 		this->printIndentation(out);
 	    out << "else" << std::endl;
-	    /*if(false_is_block){
-	        depth--;
-	    }*/
 	    false_statement->print(out);
 	}
-	
 }

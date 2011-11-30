@@ -8,18 +8,16 @@
 #include "ReturnStatement.h"
 #include "Scope.h"
 #include "RandomDiscreteDistribution.h"
-#include <iostream>
-using namespace std;
 
 Statement* Statement::newRandomStatement(Scope* x, int depth){
     
 	RandomDiscreteDistribution d = RandomDiscreteDistribution(6,
         250, // Expression statement
 		120, // Variable statement
-		50,  // if, else
+		30,  // if, else
         x->allowReturn ? 10 : 0, // Only pick return if we are in a function
-        depth < 3 ? 30 : 0,  // while ...
-		depth < 3 ? 50 : 0); // for ... Do not nest more than 3 loops (termination)
+        depth < 3 ? 20 : 0,  // while ...
+		depth < 3 ? 30 : 0); // for ... Do not nest more than 3 loops (termination)
 
 	switch(d.getChosenIndex()) {
         case 0:

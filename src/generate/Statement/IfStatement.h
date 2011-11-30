@@ -15,7 +15,7 @@ private:
     bool false_is_block;
 
 public:
-	IfStatement(Scope* s, unsigned int depth);
+	IfStatement(Scope* s, int depth);
 	void print(std::ostream& out);
 };
 
