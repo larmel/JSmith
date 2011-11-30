@@ -17,7 +17,7 @@ WhileStatement::WhileStatement(Scope* parent_scope, int parent_depth) : Statemen
 
     RandomDiscreteDistribution rw(2,6,1);
 	if (rw.getChosenIndex() == 0) {
-		statement = new BlockStatement(new_scope, parent_depth);
+		statement = new BlockStatement(new_scope, parent_depth+1);
 	} else {
 		statement = Statement::newRandomStatement(new_scope, parent_depth+1);
 	}
@@ -25,14 +25,18 @@ WhileStatement::WhileStatement(Scope* parent_scope, int parent_depth) : Statemen
 }
 
 void WhileStatement::print(std::ostream& out) 
-{	
+{
 	this->printIndentation(out);
-	out << "var " << loop_guard->identifier << " = 0;" << std::endl;
+	out << "{" << std::endl;
 	this->printIndentation(out);
-	out << "while ( (";
+	out << "    var " << loop_guard->identifier << "_whileprotect = 0;" << std::endl;
+	this->printIndentation(out);
+	out << "    while ( (";
 	expression->print(out);
-	out << ") && " << loop_guard->identifier << "++ < ";
-	out << Random::randint(3,5000);
+	out << ") && " << loop_guard->identifier << "_whileprotect++ < ";
+	out << Random::randint(0,200);
 	out << ")" << std::endl;
 	statement->print(out);
+	this->printIndentation(out);
+	out << "}" << std::endl;
 }
