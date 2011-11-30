@@ -24,16 +24,28 @@ AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth) : Exp
     switch (r.getChosenIndex()) {
 		case 0:
 		{
+            // Need to generate variable first to reserve identifier. Lock variable in expression.
+            FunctionVariable* f_var = scope->generateFunctionVariable( /*fexpr->numberOfArguments()*/ );
+
+            f_var->lock();
 			FunctionExpression* fexpr = new FunctionExpression(scope, depth);
-			left_variable = scope->generateFunctionVariable( fexpr->numberOfArguments() );
+			f_var->unlock();
+
+			f_var->setNumArguments( fexpr->numberOfArguments() );
+
+			left_variable = (Variable*) f_var;
 			right_expression = (Expression*) fexpr;
 			break;
 		}
         case 1:
         {
+            // Need to generate variable first to reserve identifier. Lock variable in expression.
         	left_variable = parent_scope->generateMapVariable();
+        	left_variable->lock();
+
             MapExpression* mexpr = new MapExpression(parent_scope, depth, left_variable);
             right_expression = (Expression*) mexpr;
+            left_variable->unlock();
             break;
         }
 		case 2:
@@ -51,9 +63,13 @@ AssignmentExpression::AssignmentExpression(Scope* parent_scope, int depth) : Exp
 		}
 		case 3:
 		{
+            left_variable = scope->generateNumberVariable( Random::flip_coin() || Random::flip_coin() );
+            left_variable->lock();
+
 			// Generate a new number variable, can be property (this.) if inside FunctionDeclaration
             right_expression = Expression::generateExpression(scope);
-			left_variable = scope->generateNumberVariable( Random::flip_coin() || Random::flip_coin() );
+
+            left_variable->unlock();
 			break;
 		}
         default:

@@ -61,6 +61,7 @@ public:
 	void print(std::ostream& out) const;
 	Type getType();
 	int getNumArguments();
+	void setNumArguments(int n);
 };
 
 class MapVariable : public Variable
