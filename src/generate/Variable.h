@@ -9,13 +9,12 @@
 class Variable;
 
 class Variable {
-private:
+protected:
     bool locked;
-    
+
 public:
     std::string identifier;
     Variable* parent;
-    
     Variable(std::string s);
     
     // Create a copy, changing parent
@@ -26,9 +25,11 @@ public:
     bool is_locked() {
         return locked;
     };
+    std::string getIdentifier();
 
     static std::string generateRandomIdentifier();
     
+
     static int reserved_word_count;
     static std::string reserved_word[];
     

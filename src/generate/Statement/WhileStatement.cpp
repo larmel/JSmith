@@ -30,11 +30,11 @@ void WhileStatement::print(std::ostream& out)
 	this->printIndentation(out);
 	out << "{" << std::endl;
 	this->printIndentation(out);
-	out << "    var " << loop_guard->identifier << " = 0, A = 1;" << std::endl;
+	out << "    var " << loop_guard->identifier << " = 0" << std::endl;
 	this->printIndentation(out);
 	out << "    while ( (";
 	expression->print(out);
-	out << ") && A == 1 && " << loop_guard->identifier << "++ < ";
+	out << ") && " << loop_guard->identifier << "++ < ";
 	out << Random::randint(0,200);
 	out << ")" << std::endl;
 	statement->print(out);

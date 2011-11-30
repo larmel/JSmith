@@ -40,6 +40,11 @@ void Variable::unlock() {
     locked = false;
 }
 
+std::string Variable::getIdentifier()
+{
+	return this->identifier ;
+}
+
 std::string Variable::generateRandomIdentifier() 
 {
     std::string identifier;
@@ -81,10 +86,10 @@ Variable* NumberVariable::copyTo(Variable* handle) {
 }
 
 void NumberVariable::print(std::ostream& out) const {
-	if(this->parent != NULL){
+    if(this->parent != NULL){
 		out << *this->parent << ".";
 	}
-	out << this->identifier;
+	out << this->identifier ;
 }
 
 Type NumberVariable::getType() {
