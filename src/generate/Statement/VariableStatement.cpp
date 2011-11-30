@@ -18,14 +18,10 @@ VariableStatement::VariableStatement(Scope* s, int depth) : Statement(s, depth) 
         this->var = scope->generateNumberVariable(false);
         break;
     }
-	RandomDiscreteDistribution use_semicolon = RandomDiscreteDistribution(2, 2, 1);
-	if(use_semicolon.getChosenIndex() == 0){
-		line_end = ";";
-	}
-	else
-	{
-		line_end = "";
-	}
+
+	line_end = ";";
+
+
 }
 
 void VariableStatement::print(std::ostream& out) {
