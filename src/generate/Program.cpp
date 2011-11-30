@@ -3,6 +3,7 @@
 #include "Variable.h"
 #include "VariableStatement.h"
 #include "FunctionDeclaration.h"
+#include "CallStatement.h"
 #include "Random.h"
 #include <vector>
 #include <string>
@@ -23,6 +24,11 @@ Program::Program() : Scope(NULL) {
     for (int i = 0; i < sourceelements; ++i) {
 	    this->source_elements.push_back( SourceElement::createRandom(this, 0) );
 	}
+
+    while (this->getRandomFunctionVariable() != NULL) {
+        this->source_elements.push_back( new CallStatement(this, 0) );
+    }
+
 }
 
 void Program::print(std::ostream& out) 

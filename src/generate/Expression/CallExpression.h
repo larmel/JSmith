@@ -12,10 +12,10 @@ class Scope;
 class CallExpression : public Expression {
 
 private:
-    FunctionVariable *function;
     std::vector<Expression*> parameters;
 
 public:
+    FunctionVariable *function;
     CallExpression(Scope* parent_scope, int depth);
     
     void print(std::ostream& out) const;
