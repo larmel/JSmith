@@ -1,17 +1,21 @@
 #include "BlockStatement.h"
+#include "Random.h"
 #include <iostream>
+#include <algorithm>
 #include <vector>
 
-BlockStatement::BlockStatement(Scope* s, unsigned int depth) : Statement(s, depth) {
-	int maxBlockStatements = depth > 6 ? 2 : 3;
-	for (int i = 0; i < maxBlockStatements; i++) {
+BlockStatement::BlockStatement(Scope* s, int depth) : Statement(s, depth) {
+
+    // Decreasing number of statements as depth increases
+	int n_stmt = Random::randint(1, std::max(10 - depth, 1));
+
+	for (int i = 0; i < n_stmt; i++) {
 	    statements.push_back( Statement::newRandomStatement(scope, depth+1) );
 	}
 }
 
 void BlockStatement::print(std::ostream& out)
 {
-
 	this->printIndentation(out);
 
 	out << "{" << std::endl;
