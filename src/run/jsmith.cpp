@@ -46,9 +46,6 @@ int main(int argc, char* argv[])
             string s = argv[i];
             if(s == "-file"){
                 input_file = argv[i+1];
-                //if (tests==0) {
-                //    tests = 1;
-                //}
             }
         }
     }

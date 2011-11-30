@@ -31,7 +31,7 @@ int main(int argc, char* argv[]) {
 	Program c;
 	
     std::cout << "/********************************************************/" << std::endl;
-    std::cout << "/*  JSmith (seed " << s << ")" << std::endl;
+    std::cout << "/*  JSmith (seed " << time_seed << ")" << std::endl;
     std::cout << "/********************************************************/" << std::endl;
     
 	// Print generated program
