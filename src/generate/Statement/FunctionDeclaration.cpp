@@ -14,6 +14,7 @@ void FunctionDeclaration::generate() {
     for (int i = 0; i < 4; ++i) {
         this->source_elements.push_back( Statement::newRandomStatement(this, depth ) );
     }
+
 }
 
 /*
