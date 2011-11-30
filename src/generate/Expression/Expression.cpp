@@ -28,9 +28,9 @@ Expression *Expression::generateExpression(Scope *scope, int depth) {
     for (int e = 0; e < expression_count; ++e) {
 
         RandomDiscreteDistribution r(4,
-                1, // Relational Expression
-                40, // ArithmeticExpression
-                30, // CallExpression
+                30, // Relational Expression
+                30, // ArithmeticExpression
+                50, // CallExpression
                 p_terminal);
 
         switch (r.getChosenIndex()) {
