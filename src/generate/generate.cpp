@@ -15,8 +15,8 @@ int main(int argc, char* argv[]) {
     // Get the time seed
     struct timeval tv;
     gettimeofday(&tv, NULL);
-    unsigned long s = time(NULL);
-    unsigned long time_seed = s*1000000+tv.tv_usec;
+    unsigned long long s = time(NULL);
+    unsigned long long time_seed = s*1000000+tv.tv_usec;
     
     // Can give a seed as parameter to reconstruct some program
     // TODO: Error checking etc
