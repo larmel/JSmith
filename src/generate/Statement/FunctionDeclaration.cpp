@@ -14,12 +14,6 @@ void FunctionDeclaration::generate() {
     for (int i = 0; i < 4; ++i) {
         this->source_elements.push_back( Statement::newRandomStatement(this, depth ) );
     }
-    
-    RandomDiscreteDistribution return_or_not (2, 4, 1);
-    
-    if(return_or_not.getChosenIndex() == 0){
-        this->source_elements.push_back(new ReturnStatement(this, depth));
-    }
 }
 
 /*
