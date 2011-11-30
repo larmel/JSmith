@@ -27,8 +27,6 @@ bool allowReturn () {
     return allowReturn;
 }
 
-
-
 FunctionVariable* Scope::getRandomFunctionVariable() {
     return (FunctionVariable*)getRandomVariable(FUNCTION_T);
 }
@@ -41,8 +39,6 @@ ClassVariable* Scope::getRandomClassVariable() {
 	return (ClassVariable*)getRandomVariable(CLASS_T);
 }
 
-
-
 FunctionVariable* Scope::generateFunctionVariable(int numargs) {
     std::string identifier = this->getNewRandomIdentifier();
 
@@ -54,7 +50,6 @@ FunctionVariable* Scope::generateFunctionVariable(int numargs) {
 	this->setParent(f);
 	return f;
 }
-
 
 MapVariable* Scope::generateMapVariable() {
     std::string identifier = this->getNewRandomIdentifier();
@@ -111,7 +106,6 @@ void Scope::createInstance(ClassVariable* classVariable, Variable* handle) {
     }
 }
 
-
 Variable* Scope::getRandomVariable(Type t) {
     // Get all the variables of a type
     std::vector<Variable*> vars_of_type;
@@ -133,32 +127,11 @@ Variable* Scope::getRandomVariable(Type t) {
 
 std::string Scope::getNewRandomIdentifier() {
     std::string name;
-
     do {
         name = Variable::generateRandomIdentifier();
     } while (!isUnique(name));
-
-	//lockIfNotUnique(name);
-
 	return name;
 }
-
-
-// This one is not used anymore
-void Scope::lockIfNotUnique(std::string identifier) {
-    std::vector<Variable*>::iterator it;
-    for (it = variables->begin(); it != variables->end(); ++it) {
-        if ((*it)->identifier == identifier) {
-            (*it)->lock();
-            break;
-        }
-    }
-    if (this->parent != NULL) {
-        parent->lockIfNotUnique( identifier );
-    }
-
-}
-
 
 bool Scope::isUnique(std::string identifier) {
     std::vector<Variable*>::iterator it;
