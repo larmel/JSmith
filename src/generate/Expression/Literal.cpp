@@ -26,7 +26,7 @@ Literal::Literal() {
 
 std::string Literal::randomNumericLiteral() {
     std::stringstream sst;
-    RandomDiscreteDistribution numeric_type (5, 4, 3, 1, 1, 4);
+    RandomDiscreteDistribution numeric_type (8, 1, 1, 2, 1, 1, 1, 1, 1);
 
     switch (numeric_type.getChosenIndex()) {
     case 0:
@@ -46,8 +46,17 @@ std::string Literal::randomNumericLiteral() {
         sst << rand() % 10 << "." << rand() % INT_MAX << rand() % INT_MAX << "E" << rand() % 309;
         break;
     case 4:
-        sst << "-" << rand() % 1000 << "." << rand() % 100000 << "e" << rand() % 100;
+        sst << "-" << rand() % 1000 << "." << rand() % 100;
         break;
+    case 5:
+    	sst << 0;
+    	break;
+    case 6:
+    	sst << INT_MAX;
+    	break;
+    case 7:
+    	sst << INT_MAX << rand() % INT_MAX;
+    	break;
     }
     return sst.str();
 }
