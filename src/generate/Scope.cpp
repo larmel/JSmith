@@ -6,8 +6,9 @@
 #include <iostream>
 
 Scope::Scope(Scope* p) : parent(p) {
-
+    this->is_function_expression = false;
     this->allowReturn = (p != NULL ? p->allowReturn : false);
+
     // Copy all variables from parent scope to this scope
     if (parent != NULL) {
         this->variables = new std::vector<Variable*>( *(parent->variables) );
@@ -113,6 +114,13 @@ Variable* Scope::getRandomVariable(Type t) {
     for (int i = 0; i < this->variables->size(); i++) {
         Variable* var = this->variables->at(i);
         if (var->getType() == t && !var->is_locked()) {
+
+            // Bugfix: When requesting a variable inside a function expression,
+            // do not want properties from parent function expression
+            if (is_function_expression && var->parent != NULL) {
+                continue;
+            }
+
             vars_of_type.push_back(this->variables->at(i));
         }
     }
