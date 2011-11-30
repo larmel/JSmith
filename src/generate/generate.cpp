@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cstdlib>
 #include <time.h>
-
 #include "Program.h"
 #include "Random.h"
 #include <sys/time.h>
@@ -21,7 +20,7 @@ int main(int argc, char* argv[]) {
     // Can give a seed as parameter to reconstruct some program
     // TODO: Error checking etc
     if (argc > 1) {
-        time_seed = atol(argv[1]);
+        time_seed = atoll(argv[1]);
     }
     
     // This decides the whole generated source
