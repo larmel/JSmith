@@ -6,13 +6,16 @@
 #include "FunctionExpression.h"
 #include "../Random.h"
 #include "Variable.h"
+#include <vector>
 
 MapExpression::MapExpression(Scope* parent_scope, int depth) : Expression(parent_scope, depth) {
     this->depth = depth;
     scope = new Scope(parent_scope);
 
     // Generate a random number of properties
-    int num_properties = Random::randint(0,0);
+
+    int num_properties = Random::randint(2,5);
+    std::vector<Variable*> variables_in_map;
 
     for(int i = 0; i < num_properties; i++)
     {
@@ -25,8 +28,7 @@ MapExpression::MapExpression(Scope* parent_scope, int depth) : Expression(parent
 			Variable* left_variable = scope->generateFunctionVariable( e->numberOfArguments() );
 			this->expressions.push_back((Expression*)e);
 			this->properties.push_back(left_variable);
-			//scope->add(left_variable);
-			parent_scope->add(left_variable);
+			variables_in_map.push_back(left_variable);
     	}
     	else
     	{
@@ -35,11 +37,15 @@ MapExpression::MapExpression(Scope* parent_scope, int depth) : Expression(parent
 			Variable* left_variable = scope->generateNumberVariable();
 			this->expressions.push_back(e);
 			this->properties.push_back(left_variable);
-			//scope->add(left_variable);
-			parent_scope->add(left_variable);
+			variables_in_map.push_back(left_variable);
     	}
-
     }
+
+    for(int i = 0; i < variables_in_map.size(); i++)
+    {
+    	parent_scope->add(variables_in_map.at(i));
+    }
+
 }
 
 
@@ -47,9 +53,6 @@ void MapExpression::print(std::ostream& out) const {
 
     out << "{" << std::endl;
     // Fake indentation
-    /*for (int i = 0; i < depth; ++i) {
-        out << "    ";
-    }*/
 
     for(int i=0; i < this->expressions.size(); i++ )
     {
@@ -77,3 +80,4 @@ std::ostream& operator<<(std::ostream& out, const MapExpression& e) {
     e.print(out);
     return out;
 }
+
