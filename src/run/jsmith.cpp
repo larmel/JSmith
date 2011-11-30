@@ -22,15 +22,15 @@ static string bugs_folder = "test/last_run/bugs/";
 int main(int argc, char* argv[]) 
 {
     // First argument: how many tests to run
-    unsigned int tests = 1;
+    unsigned int tests = 0;
     if (argc > 1) {
-        tests = atoi(argv[1]);
+        tests = atoi(argv[argc-1]);
     }
     bool plot = false;
     
     // Plot?
-    if(argc > 2){
-    	for(int i = 2; i < argc; i++){
+    if(argc > 1){
+    	for(int i = 1; i < argc; i++){
 			string s = argv[i];
 			if(s == "-plot"){
 				plot = true;
@@ -41,14 +41,21 @@ int main(int argc, char* argv[])
 
     // Test a specific file?
     string input_file = "";
-    if (argc > 2) {
-        for(int i = 2; i < argc-1; i++){
+    if (argc > 1) {
+        for(int i = 1; i < argc-1; i++){
             string s = argv[i];
             if(s == "-file"){
                 input_file = argv[i+1];
-                break;
+                //if (tests==0) {
+                //    tests = 1;
+                //}
             }
         }
+    }
+
+    if (tests==0) {
+        cerr << "Usage: bin/jsmith [-file <file>] [-plot] <number of tests>" << endl;
+        exit(1);
     }
 
     int num_errors = 0;
