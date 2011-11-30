@@ -12,7 +12,7 @@ void TestCaseCompiler::testCompiler()
 {
 	timeval x;
 	struct timezone tz = {0, 0};
-	std::string command = "timeout 60s " + compiler_path + " " + tmp_input_file + " > " + tmp_output_file; // " 2>&1";
+	std::string command = "timeout 30s " + compiler_path + " " + tmp_input_file + " > " + tmp_output_file; // " 2>&1";
 
 
 	system(command.c_str());
