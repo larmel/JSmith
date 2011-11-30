@@ -123,6 +123,10 @@ int FunctionVariable::getNumArguments(){
 	return this->num_arguments;
 }
 
+void FunctionVariable::setNumArguments(int n) {
+    this->num_arguments = n;
+}
+
 
 // MapVariable
 MapVariable::MapVariable(std::string identifier) : Variable(identifier) { }

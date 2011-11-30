@@ -13,12 +13,11 @@ MapExpression::MapExpression(Scope* parent_scope, int depth, Variable* map_var) 
     scope = new Scope(parent_scope);
 
     // Generate a random number of properties
-
     int num_properties = Random::randint(2,5);
     std::vector<Variable*> variables_in_map;
     map_var->lock();
 
-    for(int i = 0; i < num_properties; i++)
+    for (int i = 0; i < num_properties; i++)
     {
     	RandomDiscreteDistribution r(2,3,4);
     	Variable* property;
@@ -26,9 +25,13 @@ MapExpression::MapExpression(Scope* parent_scope, int depth, Variable* map_var) 
     	if(r.getChosenIndex() == 0)
     	{
 			// Function
+            FunctionVariable* f_var = scope->generateFunctionVariable( /*e->numberOfArguments()*/ );
+            f_var->lock();
+
 			FunctionExpression* e = new FunctionExpression(scope, depth+1);
-			property = scope->generateFunctionVariable( e->numberOfArguments() );
-			property->lock();
+			f_var->setNumArguments(e->numberOfArguments());
+
+			property = (Variable*) f_var;
 			this->expressions.push_back((Expression*)e);
 			this->properties.push_back(property);
     	}
@@ -44,6 +47,7 @@ MapExpression::MapExpression(Scope* parent_scope, int depth, Variable* map_var) 
 
     	variables_in_map.push_back(property);
     }
+
     // Add the variables to parent scope, set all parents to the map var
     for(int i = 0; i < variables_in_map.size(); i++)
     {
@@ -53,14 +57,11 @@ MapExpression::MapExpression(Scope* parent_scope, int depth, Variable* map_var) 
     }
 
     map_var->unlock();
-
 }
-
 
 void MapExpression::print(std::ostream& out) const {
 
     out << "{" << std::endl;
-    // Fake indentation
 
     for(int i=0; i < this->expressions.size(); i++ )
     {
@@ -76,17 +77,13 @@ void MapExpression::print(std::ostream& out) const {
 		out <<  std::endl;
     }
 
-
-    // Fake indentation
     for (int i = 0; i < depth-1; ++i) {
         out << "    ";
     }
     out << "}";
 }
 
-
 std::ostream& operator<<(std::ostream& out, const MapExpression& e) {
     e.print(out);
     return out;
 }
-

@@ -24,7 +24,7 @@ public:
     NumberVariable* getRandomNumberVariable();
     ClassVariable* getRandomClassVariable();
 
-	FunctionVariable* generateFunctionVariable(int num_args);
+	FunctionVariable* generateFunctionVariable();
 	NumberVariable* generateNumberVariable(bool set_parent = true);
 	ClassVariable* generateClassVariable(int num_args);
 	MapVariable* generateMapVariable();

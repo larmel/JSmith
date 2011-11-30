@@ -40,10 +40,10 @@ ClassVariable* Scope::getRandomClassVariable() {
 	return (ClassVariable*)getRandomVariable(CLASS_T);
 }
 
-FunctionVariable* Scope::generateFunctionVariable(int numargs) {
+FunctionVariable* Scope::generateFunctionVariable() {
     std::string identifier = this->getNewRandomIdentifier();
 
-    FunctionVariable* f = new FunctionVariable(identifier, numargs);
+    FunctionVariable* f = new FunctionVariable(identifier, 0);
 
     // Functions have their own scope, but are visible in parent scope
     this->variables->push_back( f );
