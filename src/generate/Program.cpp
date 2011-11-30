@@ -3,13 +3,15 @@
 #include "Variable.h"
 #include "VariableStatement.h"
 #include "FunctionDeclaration.h"
+#include "Random.h"
 #include <vector>
 #include <string>
 
 Program::Program() : Scope(NULL) {
 
     // Global variables where side effects can be observed
-    for (int i = 0; i < 10; i++) {
+	int globvars = Random::randint(1,10) + Random::randint(0,10);
+    for (int i = 0; i < globvars; i++) {
         this->source_elements.push_back( new VariableStatement(this, 0));
     }
 
@@ -17,7 +19,8 @@ Program::Program() : Scope(NULL) {
     this->source_elements.push_back( new FunctionDeclaration(this, 0) );
 
     // Generate some number of SourceElements
-    for (int i = 0; i < 4; ++i) {
+    int sourceelements = Random::randint(1,5);
+    for (int i = 0; i < sourceelements; ++i) {
 	    this->source_elements.push_back( SourceElement::createRandom(this, 0) );
 	}
 }
