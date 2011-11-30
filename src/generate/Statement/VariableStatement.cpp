@@ -1,5 +1,4 @@
 #include <iostream>
-
 #include "VariableStatement.h"
 #include "Variable.h"
 #include "RandomDiscreteDistribution.h"
@@ -7,7 +6,6 @@
 #include "Literal.h"
 #include "Scope.h"
 #include "Expression.h"
-
 
 VariableStatement::VariableStatement(Scope* s, int depth) : Statement(s, depth) {
     
@@ -24,7 +22,6 @@ VariableStatement::VariableStatement(Scope* s, int depth) : Statement(s, depth) 
 }
 
 void VariableStatement::print(std::ostream& out) {
-	//for (int t = 0; t < depth; ++t) out << "   ";
 	this->printIndentation(out);
 	out << "var " << *var << " = ";
 	expression->print(out);
