@@ -2,8 +2,8 @@
 #include "TestCaseCompiler.h"
 #include <cassert>
 
-std::string TestCase::compilers[] = {"SpiderMonkey (no JIT)", "SpiderMonkey (method/trace JIT)", "Rhino (no-opt)","Rhino (opt 8)", "V8", "KJS", "Narcissus" };
-std::string TestCase::compiler_commands[] = {"js-compilers/SpiderMonkey/js","js-compilers/SpiderMonkey/js --methodjit --tracejit", "/usr/bin/rhino -opt -1 -f", "/usr/bin/rhino -opt 8 -f", "js-compilers/V8/v8", "/usr/bin/kjs", "js-compilers/Narcissus/njs -f" };
+std::string TestCase::compilers[] = {"SpiderMonkey (no JIT)", "SpiderMonkey (method/trace JIT)", "Rhino (no opt)","Rhino (opt 9)", "V8", "KJS", "Narcissus" };
+std::string TestCase::compiler_commands[] = {"js-compilers/SpiderMonkey/js","js-compilers/SpiderMonkey/js --methodjit --tracejit", "/usr/bin/rhino -opt -1 -f", "/usr/bin/rhino -opt 9 -f", "js-compilers/V8/v8", "/usr/bin/kjs", "js-compilers/Narcissus/njs -f" };
 int TestCase::num_compilers = 7;
 
 TestCase::TestCase() {
