@@ -29,7 +29,7 @@ Variable::Variable(std::string s) {
 }
 
 Variable* Variable::copyTo(Variable* handle) {
-    return NULL; // ??
+    return NULL;
 }
 
 void Variable::lock() {

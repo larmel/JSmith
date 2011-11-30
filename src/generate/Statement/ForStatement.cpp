@@ -32,7 +32,7 @@ void ForStatement::print(std::ostream& out)
 {
 	this->printIndentation(out);
 	out << "for (var " << loop_guard->identifier << " = 0; (" << *expr_b << ") && "<< loop_guard->identifier << "++ < ";
-	out << Random::randint(0,100);
+	out << Random::randint(0,30);
 	out << "; " << *expr_c << ")" << std::endl;
 	statement->print(out);
 }

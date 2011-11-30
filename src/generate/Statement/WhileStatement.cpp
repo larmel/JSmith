@@ -35,7 +35,7 @@ void WhileStatement::print(std::ostream& out)
 	out << "    while ( (";
 	expression->print(out);
 	out << ") && " << loop_guard->identifier << "++ < ";
-	out << Random::randint(0,200);
+	out << Random::randint(0,30);
 	out << ")" << std::endl;
 	statement->print(out);
 	this->printIndentation(out);
