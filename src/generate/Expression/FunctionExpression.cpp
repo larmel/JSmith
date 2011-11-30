@@ -9,6 +9,7 @@ FunctionExpression::FunctionExpression(Scope* parent_scope, int depth) : Express
     this->depth = depth;
     Scope *scope = new Scope(parent_scope);
     scope->allowReturn = true;
+    scope->is_function_expression = true;
 
     // Add formal parameters to scope
     int num_args = rand() % 4;

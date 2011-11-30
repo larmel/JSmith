@@ -36,6 +36,9 @@ public:
 
     bool allowReturn;
 
+    // Special logic to avoid "this" reference bug when a function expression is inside a function declaration
+    bool is_function_expression;
+
     Variable* getRandomVariable(Type t);
 
     void lockIfNotUnique(std::string identifier);
