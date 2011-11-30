@@ -19,11 +19,10 @@ Expression::Expression(Scope *scope, int depth)
 }
 
 Expression *Expression::generateExpression(Scope *scope, int depth) {
-    int p_terminal = 16*(3 + depth);
+    int p_terminal = 50*(3 + depth);
     Expression* expression = new Expression(scope, depth);
 
-	// TODO: So far this only creates 1 new expression, not utilizing the list
-	// Using several should work though.
+	// So far this only creates 1 new expression, not utilizing the list
     int expression_count = 1;
     for (int e = 0; e < expression_count; ++e) {
 
