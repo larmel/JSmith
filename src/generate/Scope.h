@@ -6,6 +6,9 @@
 
 #include "Variable.h"
 
+// Last minute fix for unique variable names
+static std::vector<std::string> used_identifiers;
+
 class Scope 
 {
 private:

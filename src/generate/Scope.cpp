@@ -138,6 +138,7 @@ std::string Scope::getNewRandomIdentifier() {
     do {
         name = Variable::generateRandomIdentifier();
     } while (!isUnique(name));
+    used_identifiers.push_back(name);
 	return name;
 }
 
@@ -151,6 +152,13 @@ bool Scope::isUnique(std::string identifier) {
     if (this->parent != NULL) {
         return parent->isUnique( identifier );
     }
+    // New: check global list. No point in reusing identifiers
+    std::vector<std::string>::iterator its;
+    for (its = used_identifiers.begin(); its != used_identifiers.end(); ++its) {
+		if ((*its) == identifier) {
+			return false;
+		}
+	}
     return true;
 }
 

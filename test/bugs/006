@@ -1,0 +1,51 @@
+/*
+ * ### Test Summary December 05, 2011 at 20:41:23
+ * ### Time Taken: Average 192 ms.  Best KJS 6 ms. Worst Rhino (opt 9) 377 ms).
+ *
+ * [ <return> ] <compiler> {<runtime>}: ( <variable values> )
+ * 
+ * [ OK ] SpiderMonkey (no JIT) {12ms}:          (1370956358 (1) 0 (2) 0 (3) false (4) 0 (5) 1370956358 (6) false (7) )
+ * [ OK ] SpiderMonkey (method/trace JIT) {9ms}: (1370956358 (1) 0 (2) 0 (3) false (4) 0 (5) 1370956358 (6) false (7) )
+ * [ OK ] Rhino (no opt) {369ms}:                (1370956358 (1) 0 (2) 0 (3) false (4) 0 (5) 1370956358 (6) false (7) )
+ * [ OK ] Rhino (opt 9) {377ms}:                 (1370956358 (1) 0 (2) 0 (3) false (4) 0 (5) 1370956358 (6) 0 (7) )
+ * [ OK ] V8 {298ms}:                            (1370956358 (1) 0 (2) 0 (3) false (4) 0 (5) 1370956358 (6) false (7) )
+ * [ OK ] KJS {6ms}:                             (1370956358 (1) 0 (2) 0 (3) false (4) 0 (5) 1370956358 (6) false (7) )
+ * [ OK ] Narcissus {93ms}:                      (1370956358 (1) 0 (2) 0 (3) false (4) 0 (5) 1370956358 (6) false (7) )
+ */
+/********************************************************/
+/*  JSmith (seed 1323146481474138)
+/********************************************************/
+var _kJARSC = 1370956358;
+var _CdMNCk = _kJARSC - _kJARSC;
+var _Sgr = _CdMNCk;
+function _Jn()
+{
+    {
+        var _GtP = 0
+        while ( (_kJARSC <= _Sgr) && _GtP++ < 3)
+        {
+            if (_Sgr <= _kJARSC)
+                _iQn = _CdMNCk <= _Sgr;
+            _R = _kJARSC;
+            _kJARSC = -784.32;
+            _CdMNCk = _Sgr;
+        }
+    }
+    var _G = 0x33033469 <= 0;
+    this._p = _kJARSC;
+    this._F$ = _G;
+}
+var _NP_f = _Sgr < _Sgr;
+_CdMNCk;
+var _Pi = _Sgr;
+_MbPnRFbr = new _Jn();
+
+(function () {
+   print(_kJARSC); print(" (1) ");
+   print(_CdMNCk); print(" (2) ");
+   print(_Sgr); print(" (3) ");
+   print(_NP_f); print(" (4) ");
+   print(_Pi); print(" (5) ");
+   print(_MbPnRFbr._p); print(" (6) ");
+   print(_MbPnRFbr._F$); print(" (7) ");
+})();
